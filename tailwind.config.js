@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       gridTemplateColumns:{
         'main':'250px 1fr',
+        'mx1fr':'max-content 1fr',
       },
       gridTemplateRows:{
         'header':'max-content 1fr',
