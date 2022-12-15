@@ -14,6 +14,9 @@ function Home({setAppBarComponent} : any) {
         size={SearchSize.lg}
       />
     );
+    return ()=>{
+      setAppBarComponent(<div></div>);
+    }
   },[searchQuery])
 
   return (
