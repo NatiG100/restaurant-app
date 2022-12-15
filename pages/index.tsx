@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import Search, { SearchSize } from "../components/Search"
 
 function Home({setAppBarComponent} : any) {
-  const [searchQuery, setSearchQuery] = useState<String>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
     setSearchQuery(event.target.value);
   }
@@ -11,10 +11,10 @@ function Home({setAppBarComponent} : any) {
       <Search 
         onChange={handleChange} 
         value={searchQuery} 
-        size={SearchSize.sm}
+        size={SearchSize.lg}
       />
     );
-  },[])
+  },[searchQuery])
 
   return (
     <div><p className="text-2xl">Dashboard</p></div>
