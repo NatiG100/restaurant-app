@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Search, { SearchSize } from "../components/Search"
 
 function Home({setAppBarComponent} : any) {
@@ -11,7 +11,7 @@ function Home({setAppBarComponent} : any) {
       <Search 
         onChange={handleChange} 
         value={searchQuery} 
-        size={SearchSize.lg}
+        size={SearchSize.sm}
       />
     );
   },[])

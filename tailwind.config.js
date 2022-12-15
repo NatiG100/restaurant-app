@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns:{
-        'main':'250px 1fr',
+        'main':'280px 1fr',
         'mx1fr':'max-content 1fr',
       },
       gridTemplateRows:{
