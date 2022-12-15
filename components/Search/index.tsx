@@ -35,8 +35,8 @@ export default function Search({size=SearchSize.lg ,onChange} : SearchParam){
                 size={37} className={`pointer-events-none p-2 absolute t-0 r-0 z-10 ${isFocus?"text-indigo-600":"text-indigo-400"} stroke-2`}
             />
             <input 
-                className={`bg-transparent absolute t-0 r-0 outline-0 h-full w-full text-lg pl-9
-                    w-${size===SearchSize.full?"full":size} 
+                className={`bg-transparent absolute t-0 r-0 outline-0 h-full text-lg pl-9
+                     w-${size===SearchSize.full?"full":size} focus:outline-0 focus:ring-0
                     bg-slate-50 border-indigo-400 border focus:border-indigo-600 focus:bg-slate-100
                     rounded text-slate-500 focus:text-slate-800 font-normal`} 
                 placeholder="Search"

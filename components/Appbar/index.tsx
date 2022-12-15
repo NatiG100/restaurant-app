@@ -11,12 +11,12 @@ interface AppbarInterface {
 
 export default function Appbar({component} : AppbarInterface){
     return(
-        <div className="h-16 py-2 bg-white w-full border-b border-slate-300 flex justify-between items-center px-8">
+        <div className="h-18 py-3 bg-white w-full border-b border-slate-300 flex justify-between items-center px-8">
             {component}
             <div className="flex items-center justify-between gap-6">
                 <MessageIcon className="text-2xl text-indigo-500"/>
                 <NotificationIcon className="text-2xl text-indigo-500"/>
-                <Image alt="avater" src={avatar} className="w-12 h-12 rounded-full object-cover"/>
+                <Image alt="avater" src={avatar} className="w-14 h-14 rounded-full object-cover"/>
             </div>
         </div>
     );
