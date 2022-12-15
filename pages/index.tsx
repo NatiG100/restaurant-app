@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import Body from "../components/Body";
 import Search, { SearchSize } from "../components/Search"
 
 function Home({setAppBarComponent} : any) {
@@ -20,7 +21,9 @@ function Home({setAppBarComponent} : any) {
   },[searchQuery])
 
   return (
-    <div><p className="text-2xl">Dashboard</p></div>
+    <Body title="Dashboard">
+      <p className="text-2xl">Dashboard</p>
+    </Body>
   )
 }
 

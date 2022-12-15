@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps){
       <div className=" bg-white border-slate-300 border-r">
         <Navigation/>
       </div>
-      <div className="grid grid-rows-header">
+      <div className="grid grid-rows-header h-screen">
         <Appbar component={component}/>
         <Component {...pageProps} setAppBarComponent={setComponent}/>
       </div>

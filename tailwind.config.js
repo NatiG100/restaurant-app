@@ -12,6 +12,7 @@ module.exports = {
       },
       gridTemplateRows:{
         'header':'max-content 1fr',
+        'maxmax':'repeat(2,max-content)',
       }
     },
   },
