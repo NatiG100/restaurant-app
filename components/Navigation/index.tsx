@@ -20,19 +20,19 @@ export default function Navigation() {
 
       <div className="h-full w-full flex flex-col gap-6 pt-10 pb-4">
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/dashboard" selected={true}>
+          <NavigationMenu route="/">
             <DashboardIcon size={"22"}/>
             Dashboard
           </NavigationMenu>
-          <NavigationMenu route="/orders" selected={false}>
+          <NavigationMenu route="/orders">
             <OrderIcon size={"22"}/>
             Orders
           </NavigationMenu>
-          <NavigationMenu route="/foods" selected={false}>
+          <NavigationMenu route="/foods">
             <FoodIcon size={"22"}/>
             Foods
           </NavigationMenu>
-          <NavigationMenu route="/drinks" selected={false}>
+          <NavigationMenu route="/drinks">
             <DrinkIcon size="22"/>
             Drinks
           </NavigationMenu>
@@ -41,11 +41,11 @@ export default function Navigation() {
         <hr className="border-indigo-100"/>
 
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/users" selected={false}>
+          <NavigationMenu route="/users">
             <UsersIcon size={"22"}/>
             Users
           </NavigationMenu>
-          <NavigationMenu route="/tables" selected={false}>
+          <NavigationMenu route="/tables">
             <TableIcon size={"22"}/>
             Tables
           </NavigationMenu>
@@ -54,11 +54,11 @@ export default function Navigation() {
         <hr className="border-indigo-100"/>
 
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/stats" selected={false}>
+          <NavigationMenu route="/stats">
             <StatIcon size="22"/>
             Stats
           </NavigationMenu>
-          <NavigationMenu route="/setting" selected={false}>
+          <NavigationMenu route="/setting">
             <SettingIcon size="22"/>
             Setting
           </NavigationMenu>
