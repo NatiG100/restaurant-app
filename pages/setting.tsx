@@ -1,5 +1,9 @@
+import Body from "../components/Body";
+
 export default function Setting(){
     return (
-        <h1>Setting</h1>
+        <Body title="Setting">
+      <p className="text-2xl">Setting</p>
+    </Body>
     );
 }

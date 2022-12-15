@@ -1,5 +1,9 @@
+import Body from "../components/Body";
+
 export default function Stats(){
     return (
-        <h1>Stats</h1>
+    <Body title="Stats">
+      <p className="text-2xl">Stats</p>
+    </Body>
     );
 }

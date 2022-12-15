@@ -1,5 +1,9 @@
+import Body from "../../components/Body";
+
 export default function Drinks(){
     return (
-        <h1>Drinks</h1>
+        <Body title="Drinks">
+            <p className="text-2xl">Drinks</p>
+        </Body>
     );
 }

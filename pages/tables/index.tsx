@@ -1,5 +1,9 @@
+import Body from "../../components/Body";
+
 export default function Tables(){
     return (
-        <h1>Tables</h1>
+        <Body title="Tables">
+            <p className="text-2xl">Tables</p>
+        </Body>
     );
 }

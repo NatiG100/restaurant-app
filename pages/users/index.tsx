@@ -1,5 +1,9 @@
+import Body from "../../components/Body";
+
 export default function Users(){
     return (
-        <h1>Users</h1>
+        <Body title="Users">
+            <p className="text-2xl">Users</p>
+        </Body>
     );
 }
