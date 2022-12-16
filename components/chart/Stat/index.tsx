@@ -19,7 +19,7 @@ interface statInterface {
 
 export default function Stat (props:statInterface) {
     return(
-        <div className="bg-white relative flex gap-4 p-6 rounded-full w-80 shadow-custom-lg border border-indigo-100">
+        <div className="bg-white relative flex gap-4 p-5 pr-20 rounded-full w-max shadow-custom-lg border border-indigo-100">
             <div className="bg-indigo-500 p-3 rounded-full h-max w-max">
                 {props.icon}
             </div>
@@ -31,7 +31,7 @@ export default function Stat (props:statInterface) {
                      {" " + ( props.postfix?props.postfix:"")}
                 </p>
             </div>
-            <div className='flex items-center justify-center h-max w-max absolute top-4 right-6'>
+            <div className='flex items-center justify-center h-max w-max absolute top-2 right-6'>
                 {props.delta>0?
                         <AiOutlineArrowUp className='text-green-600'/>
                     :props.delta<0?
