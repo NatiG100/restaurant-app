@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Body from "../components/Body";
-import Search, { SearchSize } from "../components/Search"
+import Stat, { notation } from "../components/chart/Stat";
+import Search, { SearchSize } from "../components/Search";
+import {FiDollarSign as DollarIcon} from 'react-icons/fi'
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -23,16 +25,18 @@ function Home({setAppBarComponent} : any) {
   return (
     <Body title="Dashboard">
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-autoRow pt-6">
-        <p className="col-span-2">Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
-        <p>Item</p>
+        <div className="col-span-2">
+          <Stat 
+            delta={40} 
+            notation={notation.K} 
+            precision={1} 
+            title="Weekly Sales" 
+            value={98500} 
+            postfix="ETB"
+            icon={<DollarIcon/>}
+          />
+        </div>
+        
       </div>
     </Body>
   )
