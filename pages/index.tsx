@@ -22,7 +22,18 @@ function Home({setAppBarComponent} : any) {
 
   return (
     <Body title="Dashboard">
-      <p className="text-2xl">Dashboard</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-autoRow pt-6">
+        <p className="col-span-2">Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+        <p>Item</p>
+      </div>
     </Body>
   )
 }
