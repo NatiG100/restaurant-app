@@ -16,7 +16,7 @@ module.exports = {
         'autoRow':'auto',
       },
       boxShadow:{
-        'custom-lg':'0 0 20px rgba(0,0,0,0.1)'
+        'custom-lg':'0 0px 20px rgba(40,40,40,0.15)'
       }
     },
   },

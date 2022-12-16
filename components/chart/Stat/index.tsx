@@ -19,8 +19,8 @@ interface statInterface {
 
 export default function Stat (props:statInterface) {
     return(
-        <div className="bg-white relative flex gap-4 p-6 rounded-full w-80 shadow-custom-lg">
-            <div className="bg-indigo-700 p-2 rounded-full h-max w-max">
+        <div className="bg-white relative flex gap-4 p-6 rounded-full w-80 shadow-custom-lg border border-indigo-100">
+            <div className="bg-indigo-500 p-3 rounded-full h-max w-max">
                 {props.icon}
             </div>
             <div className="flex flex-col justify-center">

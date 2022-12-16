@@ -3,6 +3,8 @@ import Body from "../components/Body";
 import Stat, { notation } from "../components/chart/Stat";
 import Search, { SearchSize } from "../components/Search";
 import {FiDollarSign as DollarIcon} from 'react-icons/fi'
+import {MdOutlineLunchDining as FoodIcon} from 'react-icons/md'
+import {BiDrink as DrinkIcon} from 'react-icons/bi'
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -33,7 +35,7 @@ function Home({setAppBarComponent} : any) {
             title="Weekly Sales" 
             value={98500} 
             postfix="ETB"
-            icon={<DollarIcon size={40} className="text-white stroke-2"/>}
+            icon={<DollarIcon size={36} className="text-white stroke-2"/>}
           />
           <Stat 
             delta={-5} 
@@ -41,7 +43,7 @@ function Home({setAppBarComponent} : any) {
             precision={0} 
             title="Total Drinks" 
             value={300} 
-            icon={<DollarIcon size={40} className="text-white stroke-2"/>}
+            icon={<DrinkIcon size={36} className="text-white"/>}
           />
           <Stat 
             delta={40} 
@@ -49,7 +51,7 @@ function Home({setAppBarComponent} : any) {
             precision={0} 
             title="Total foods" 
             value={150} 
-            icon={<DollarIcon size={40} className="text-white stroke-2"/>}
+            icon={<FoodIcon size={36} className="text-white"/>}
           />
         </div>
         
