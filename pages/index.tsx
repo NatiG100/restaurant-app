@@ -33,7 +33,7 @@ function Home({setAppBarComponent} : any) {
             title="Weekly Sales" 
             value={98500} 
             postfix="ETB"
-            icon={<DollarIcon/>}
+            icon={<DollarIcon size={40} className="text-white stroke-2"/>}
           />
         </div>
         

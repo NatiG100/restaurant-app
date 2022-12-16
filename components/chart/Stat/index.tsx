@@ -16,20 +16,21 @@ interface statInterface {
 
 export default function Stat (props:statInterface) {
     return(
-        <div className="bg-white relative flex p-12 rounded-full w-64 shadow-md shadow-black">
-            <div className="bg-indigo-700 p-6 rounded-full h-max w-max">
+        <div className="bg-white relative flex gap-4 p-6 rounded-full w-80 shadow-custom-lg">
+            <div className="bg-indigo-700 p-2 rounded-full h-max w-max">
                 {props.icon}
             </div>
-            <div className="grid grid-rows-2">
-                <p className="text-lg text-indigo-400">{props.title}</p>
-                <p className="text-2xl text-orange-600">
-                    {(props.value/props.notation).toPrecision(props.precision)}
+            <div className="flex flex-col items-center">
+                <p className="text-lg text-gray-700 font-semibold">{props.title}</p>
+                <p className="text-2xl text-yellow-600 font-bold">
+                    {(props.value/props.notation).toFixed(props.precision)}
                     {props.notation===notation.K?"K":props.notation===notation.M?"M":props.notation===notation.B?"M":""}
-                     {props.postfix}
+                     {" " + props.postfix}
                 </p>
             </div>
-            <p className={`text-base absolute t-8 r-8 ${props.delta<0?"text-red-600":"text-green-600"}`}>
-                {props.delta<0?-1*props.delta:props.delta}
+            <p className={`text-base absolute top-4 right-6 ${props.delta<0?"text-red-600":"text-green-600"}`}>
+
+                {props.delta<0?-1*props.delta:props.delta}%
             </p>
         </div>
     );

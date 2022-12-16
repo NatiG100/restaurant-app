@@ -14,6 +14,9 @@ module.exports = {
         'header':'max-content 1fr',
         'maxmax':'repeat(2,max-content)',
         'autoRow':'auto',
+      },
+      boxShadow:{
+        'custom-lg':'0 0 20px rgba(0,0,0,0.1)'
       }
     },
   },
