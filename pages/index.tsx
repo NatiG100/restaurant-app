@@ -24,8 +24,8 @@ function Home({setAppBarComponent} : any) {
 
   return (
     <Body title="Dashboard">
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-autoRow pt-6">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-autoRow pt-12">
+        <div className=" flex flex-wrap gap-8 col-span-2">
           <Stat 
             delta={40} 
             notation={notation.K} 
@@ -33,6 +33,22 @@ function Home({setAppBarComponent} : any) {
             title="Weekly Sales" 
             value={98500} 
             postfix="ETB"
+            icon={<DollarIcon size={40} className="text-white stroke-2"/>}
+          />
+          <Stat 
+            delta={-5} 
+            notation={notation.none} 
+            precision={0} 
+            title="Total Drinks" 
+            value={300} 
+            icon={<DollarIcon size={40} className="text-white stroke-2"/>}
+          />
+          <Stat 
+            delta={40} 
+            notation={notation.none} 
+            precision={0} 
+            title="Total foods" 
+            value={150} 
             icon={<DollarIcon size={40} className="text-white stroke-2"/>}
           />
         </div>
