@@ -5,6 +5,7 @@ import Search, { SearchSize } from "../components/Search";
 import {FiDollarSign as DollarIcon} from 'react-icons/fi'
 import {MdOutlineLunchDining as FoodIcon} from 'react-icons/md'
 import {BiDrink as DrinkIcon} from 'react-icons/bi'
+import ChartContainer from "../components/chart/ChartContainer";
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -26,7 +27,7 @@ function Home({setAppBarComponent} : any) {
 
   return (
     <Body title="Dashboard">
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-autoRow pt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-autoRow pt-12 gap-y-8">
         <div className=" flex flex-wrap gap-6 col-span-2">
           <Stat 
             delta={40} 
@@ -54,7 +55,18 @@ function Home({setAppBarComponent} : any) {
             icon={<FoodIcon size={36} className="text-white"/>}
           />
         </div>
-        
+
+        <ChartContainer
+          hasFilter={true}
+          filterItems={[
+            {key:1,text:"Last 7 days"},
+            {key:2,text:"Last Month"},
+            {key:3,text:"This Year"},
+          ]}
+          title="Sales"
+        >
+          <p>Chart Placeholder</p>
+        </ChartContainer>        
       </div>
     </Body>
   )
