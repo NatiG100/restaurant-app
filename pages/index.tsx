@@ -6,6 +6,7 @@ import {FiDollarSign as DollarIcon} from 'react-icons/fi'
 import {MdOutlineLunchDining as FoodIcon} from 'react-icons/md'
 import {BiDrink as DrinkIcon} from 'react-icons/bi'
 import ChartContainer from "../components/chart/ChartContainer";
+import SalesChart from "../components/chart/charts/Sales";
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -24,12 +25,6 @@ function Home({setAppBarComponent} : any) {
       setAppBarComponent(<div></div>);
     }
   },[searchQuery]);
-
-  // state logic for the chart
-  const [selectedOption, setSelectedOption] = useState<number>(1);
-  const onSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) =>{
-    setSelectedOption(Number.parseInt(event.target.value));
-  }
 
   return (
     <Body title="Dashboard">
@@ -61,21 +56,7 @@ function Home({setAppBarComponent} : any) {
             icon={<FoodIcon size={36} className="text-white"/>}
           />
         </div>
-
-        <ChartContainer
-          hasFilter={true}
-          filterItems={[
-            {key:1,text:"Last 7 days"},
-            {key:2,text:"Last Month"},
-            {key:3,text:"This Year"},
-          ]}
-          title="Sales"
-          selected={selectedOption}
-          onChange={onSelectChange}
-          loading={false}
-        >
-          <p>Chart Placeholder</p>
-        </ChartContainer>        
+        <SalesChart span={1}/>
       </div>
     </Body>
   )

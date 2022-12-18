@@ -10,11 +10,16 @@ interface ChartContainerInterface {
     selected: number
     onChange(event:ChangeEvent<HTMLSelectElement>):void,
     loading: boolean,
+    span: number,
 }
 
 export default function ChartContainer(props:ChartContainerInterface){
     return(
-        <div className="p-5 rounded-lg bg-white grid grid-rows-header w-full shadow-custom-lg gap-y-4 relative overflow-hidden">
+        <div className={`
+            p-5 rounded-lg bg-white grid grid-rows-header w-full 
+            shadow-custom-lg gap-y-4 relative overflow-hidden
+            col-span-${props.span}
+        `}>
             {props.loading&&<div className="
                 absolute top-0 left-0 right-0 bottom-0
                 w-full h-full bg-indigo-500/50
