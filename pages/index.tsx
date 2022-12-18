@@ -23,7 +23,13 @@ function Home({setAppBarComponent} : any) {
     return ()=>{
       setAppBarComponent(<div></div>);
     }
-  },[searchQuery])
+  },[searchQuery]);
+
+  // state logic for the chart
+  const [selectedOption, setSelectedOption] = useState<number>(1);
+  const onSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) =>{
+    setSelectedOption(Number.parseInt(event.target.value));
+  }
 
   return (
     <Body title="Dashboard">
@@ -64,6 +70,8 @@ function Home({setAppBarComponent} : any) {
             {key:3,text:"This Year"},
           ]}
           title="Sales"
+          selected={selectedOption}
+          onChange={onSelectChange}
         >
           <p>Chart Placeholder</p>
         </ChartContainer>        
