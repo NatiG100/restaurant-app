@@ -72,6 +72,7 @@ function Home({setAppBarComponent} : any) {
           title="Sales"
           selected={selectedOption}
           onChange={onSelectChange}
+          loading={false}
         >
           <p>Chart Placeholder</p>
         </ChartContainer>        

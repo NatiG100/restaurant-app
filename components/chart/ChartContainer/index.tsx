@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { ChangeEvent } from "react";
+import loading from './../../../assets/svg/Loading.svg';
 
 interface ChartContainerInterface {
     title: string,
@@ -6,12 +8,25 @@ interface ChartContainerInterface {
     filterItems: {key:number, text:string}[],
     children: React.ReactNode,
     selected: number
-    onChange(event:ChangeEvent<HTMLSelectElement>):void
+    onChange(event:ChangeEvent<HTMLSelectElement>):void,
+    loading: boolean,
 }
 
 export default function ChartContainer(props:ChartContainerInterface){
     return(
-        <div className="p-5 rounded-lg bg-white grid grid-rows-header w-full shadow-custom-lg gap-y-4">
+        <div className="p-5 rounded-lg bg-white grid grid-rows-header w-full shadow-custom-lg gap-y-4 relative overflow-hidden">
+            {props.loading&&<div className="
+                absolute top-0 left-0 right-0 bottom-0
+                w-full h-full bg-indigo-500/50
+                flex items-center justify-center
+                backdrop-blur-sm
+            ">
+                <Image 
+                    src={loading} 
+                    alt="loading" 
+                    className="fill-transparent h-10 w-10"
+                />
+            </div>}
             <div className="w-full flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-indigo-200"></div>
