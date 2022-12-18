@@ -17,8 +17,8 @@ export default function ChartContainer(props:ChartContainerInterface){
     return(
         <div className={`
             p-5 rounded-lg bg-white grid grid-rows-header w-full 
-            shadow-custom-lg gap-y-4 relative overflow-hidden
-            col-span-${props.span}
+            shadow-sm gap-y-4 relative overflow-hidden
+            col-span-${props.span} border border-indigo-100
         `}>
             {props.loading&&<div className="
                 absolute top-0 left-0 right-0 bottom-0
@@ -35,17 +35,20 @@ export default function ChartContainer(props:ChartContainerInterface){
             <div className="w-full flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-indigo-200"></div>
-                    <p className="text-gray-800 font-bold text-lg">Sales</p>
+                    <p className="text-indigo-800 font-bold text-lg">{props.title}</p>
                 </div>
                 <select 
-                    className="focus:outline-none border border-gray-400 p-1 rounded-md text-gray-400" 
+                    className="
+                        focus:outline-none border border-gray-400 p-1 
+                        rounded-md text-gray-400 focus:ring-1 ring-indigo-500
+                    " 
                     value={props.selected}
                     onChange={props.onChange}
                 >
                     {props.filterItems.map((item)=>(
                             <option 
                                 key={item.key} 
-                                className="text-lg" 
+                                className="text-lg text-indigo-700 active:bg-indigo-700" 
                                 value={item.key} 
                                 selected={item.key === props.selected}
                             >
