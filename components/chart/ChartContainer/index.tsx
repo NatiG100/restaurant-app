@@ -11,6 +11,7 @@ interface ChartContainerInterface {
     onChange(event:ChangeEvent<HTMLSelectElement>):void,
     loading: boolean,
     span: number,
+    maxSpan: number,
 }
 
 export default function ChartContainer(props:ChartContainerInterface){
@@ -18,7 +19,7 @@ export default function ChartContainer(props:ChartContainerInterface){
         <div className={`
             p-5 rounded-lg bg-white grid grid-rows-header w-full h-full max-h-full
             shadow-sm gap-y-4 relative overflow-hidden
-            col-span-${props.span} border border-indigo-100
+            col-span-${props.maxSpan} md:col-span-${props.span} border border-indigo-100
         `}>
             {props.loading&&<div className="
                 absolute top-0 left-0 right-0 bottom-0

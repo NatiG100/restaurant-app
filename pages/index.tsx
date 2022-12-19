@@ -29,8 +29,8 @@ function Home({setAppBarComponent} : any) {
 
   return (
     <Body title="Dashboard">
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-8 gap-y-12 gap-x-12 items-stretch">
-        <div className=" flex flex-wrap gap-6 col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 grid-rows-dashboard pt-8 gap-y-12 gap-x-12 items-stretch">
+        <div className=" flex flex-wrap gap-6 col-span-3">
           <Stat 
             delta={40} 
             notation={notation.K} 
@@ -57,8 +57,8 @@ function Home({setAppBarComponent} : any) {
             icon={<FoodIcon size={36} className="text-white"/>}
           />
         </div>
-        <TopItemsChart span={1}/>
-        <SalesChart span={1}/>
+        <TopItemsChart span={1} maxSpan={1}/>
+        <SalesChart span={1} maxSpan={2}/>
       </div>
     </Body>
   )

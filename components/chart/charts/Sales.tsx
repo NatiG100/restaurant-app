@@ -7,6 +7,7 @@ import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
 
 interface SalesChartInterface {
     span: number,
+    maxSpan: number,
 }
 
 export default function SalesChart(props:SalesChartInterface){
@@ -37,6 +38,7 @@ export default function SalesChart(props:SalesChartInterface){
           onChange={onSelectChange}
           loading={false}
           span={props.span}
+          maxSpan={props.maxSpan}
         >
             <ResponsiveVictoryChart
                 padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
@@ -61,10 +63,10 @@ export default function SalesChart(props:SalesChartInterface){
                     axisLabelComponent={<VictoryLabel dy={-28}/>}
                 />
                 <VictoryBar
-                    barRatio={0.8}
+                    barRatio={0.7}
                     style={{
                         data:{
-                            fill:"rgb(34 197 94)"
+                            fill:"rgb(74 222 128)"
                         }
                     }}
                     data={data}

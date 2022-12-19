@@ -47,10 +47,15 @@ const drinks: SalesItemInterface[] = [
 
 export interface TopItemsChartInterface{
     span:number,
+    maxSpan:number,
 }
 export default function TopItemsChart(props:TopItemsChartInterface){
     return(
-        <div className='w-full h-full self-stretch grid grid-rows-1fr1fr gap-8 ml-auto mr-auto'>
+        <div className={`
+            w-full h-full self-stretch grid 
+            grid-rows-1fr1fr gap-8 ml-auto mr-auto
+            col-span-${props.maxSpan} md:col-span-${props.span}
+        `}>
             <TopSalesView items={foods} title="Top 3 Foods"/>
             <TopSalesView items={drinks} title="Top 3 Drinks"/>
         </div>
