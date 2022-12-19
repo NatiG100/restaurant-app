@@ -6,6 +6,8 @@ import {FiDollarSign as DollarIcon} from 'react-icons/fi'
 import {MdOutlineLunchDining as FoodIcon} from 'react-icons/md'
 import {BiDrink as DrinkIcon} from 'react-icons/bi'
 import SalesChart from "../components/chart/charts/Sales";
+import TopSalesView from "../components/TopSalesView";
+import TopItemsChart from "../components/chart/TopItemsChart";
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -27,7 +29,7 @@ function Home({setAppBarComponent} : any) {
 
   return (
     <Body title="Dashboard">
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-8 gap-y-12 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-8 gap-y-12 gap-x-12 items-stretch">
         <div className=" flex flex-wrap gap-6 col-span-2">
           <Stat 
             delta={40} 
@@ -55,6 +57,7 @@ function Home({setAppBarComponent} : any) {
             icon={<FoodIcon size={36} className="text-white"/>}
           />
         </div>
+        <TopItemsChart span={1}/>
         <SalesChart span={1}/>
       </div>
     </Body>
