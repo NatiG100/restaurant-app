@@ -16,7 +16,7 @@ interface ChartContainerInterface {
 export default function ChartContainer(props:ChartContainerInterface){
     return(
         <div className={`
-            p-5 rounded-lg bg-white grid grid-rows-header w-full 
+            p-5 rounded-lg bg-white grid grid-rows-header w-full h-full max-h-full
             shadow-sm gap-y-4 relative overflow-hidden
             col-span-${props.span} border border-indigo-100
         `}>
@@ -49,8 +49,7 @@ export default function ChartContainer(props:ChartContainerInterface){
                             <option 
                                 key={item.key} 
                                 className="text-lg text-indigo-700 active:bg-indigo-700" 
-                                value={item.key} 
-                                selected={item.key === props.selected}
+                                value={item.key}
                             >
                                 {item.text}
                             </option>
@@ -58,7 +57,9 @@ export default function ChartContainer(props:ChartContainerInterface){
                     }
                 </select>
             </div>
-            {props.children}
+            <div className="h-full w-full">
+                {props.children}
+            </div>
         </div>
     );
 }

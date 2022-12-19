@@ -18,7 +18,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "victory": "^36.6.8",
+    "victory-chart": "^36.6.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
