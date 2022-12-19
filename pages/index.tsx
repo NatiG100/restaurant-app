@@ -27,7 +27,7 @@ function Home({setAppBarComponent} : any) {
 
   return (
     <Body title="Dashboard">
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-12 gap-y-8 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-8 gap-y-12 items-stretch">
         <div className=" flex flex-wrap gap-6 col-span-2">
           <Stat 
             delta={40} 

@@ -40,14 +40,16 @@ export default function SalesChart(props:SalesChartInterface){
         >
             <ResponsiveVictoryChart
                 padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
+                domainPadding={30}
             >
                 <VictoryAxis 
                     style={{
                         tickLabels:{fill:"rgb(20 83 45)"},
                         axis:{stroke:"rgb(20 83 45)"},
                     }}
-                />
+                    />
                 <VictoryAxis 
+                    
                     dependentAxis
                     label={"Sells(ETB)"}
                     style={{
@@ -68,7 +70,7 @@ export default function SalesChart(props:SalesChartInterface){
                     data={data}
                     x="day"
                     y="value"
-                    alignment="start"
+                    
                     animate={{
                         duration:2000,
                         onLoad:{duration:1000}

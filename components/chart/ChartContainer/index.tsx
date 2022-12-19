@@ -39,8 +39,8 @@ export default function ChartContainer(props:ChartContainerInterface){
                 </div>
                 <select 
                     className="
-                        focus:outline-none border border-gray-400 p-1 
-                        rounded-md text-gray-400 focus:ring-1 ring-indigo-500
+                        focus:outline-none border border-indigo-400 p-2 bg-indigo-50
+                        rounded-md text-indigo-600 focus:ring-1 ring-indigo-500
                     " 
                     value={props.selected}
                     onChange={props.onChange}
