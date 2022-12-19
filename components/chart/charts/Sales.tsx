@@ -1,7 +1,7 @@
 import ChartContainer from "../ChartContainer";
 import {useState} from 'react';
 import { VictoryChart } from "victory-chart";
-import {VictoryBar} from 'victory'
+import {VictoryBar,VictoryAxis,VictoryLabel} from 'victory'
 import { VictoryTheme } from "victory-core";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
 
@@ -16,13 +16,13 @@ export default function SalesChart(props:SalesChartInterface){
     }
 
     const data = [
-        {day:1, value:1200},
-        {day:2, value:1430},
-        {day:3, value:980},
-        {day:4, value:11000},
-        {day:5, value:12000},
-        {day:6, value:13000},
-        {day:7, value:12500},
+        {day:"Mon", value:1200},
+        {day:"Tue", value:1430},
+        {day:"Wed", value:980},
+        {day:"Thr", value:11000},
+        {day:"Fri", value:12000},
+        {day:"Sat", value:13000},
+        {day:"Sun", value:12500},
     ]
     return(
         <ChartContainer
@@ -39,12 +39,30 @@ export default function SalesChart(props:SalesChartInterface){
           span={props.span}
         >
             <ResponsiveVictoryChart
-                padding={{ top: 10, bottom: 20, right: 50, left: 50 }}
+                padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
             >
+                <VictoryAxis 
+                    style={{
+                        tickLabels:{fill:"rgb(20 83 45)"},
+                        axis:{stroke:"rgb(20 83 45)"},
+                    }}
+                />
+                <VictoryAxis 
+                    dependentAxis
+                    label={"Sells(ETB)"}
+                    style={{
+                        tickLabels:{fill:"rgb(20 83 45)"},
+                        axis:{stroke:"rgb(20 83 45)"},
+                        axisLabel:{fill:"rgb(20 83 45)",fontWeight:"600"},
+                    }}
+                    fixLabelOverlap={true}
+                    axisLabelComponent={<VictoryLabel dy={-28}/>}
+                />
                 <VictoryBar
+                    barRatio={0.8}
                     style={{
                         data:{
-                            backgroundColor:"red"
+                            fill:"rgb(34 197 94)"
                         }
                     }}
                     data={data}
