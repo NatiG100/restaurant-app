@@ -51,7 +51,7 @@ export default function SalesChart(props:SalesChartInterface){
                 <VictoryAxis 
                     
                     dependentAxis
-                    label={"Sells(ETB)"}
+                    label={"Sales(ETB)"}
                     style={{
                         tickLabels:{fill:"rgb(20 83 45)"},
                         axis:{stroke:"rgb(20 83 45)"},

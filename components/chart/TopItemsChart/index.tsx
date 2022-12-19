@@ -50,9 +50,9 @@ export interface TopItemsChartInterface{
 }
 export default function TopItemsChart(props:TopItemsChartInterface){
     return(
-        <div className='w-full h-full self-stretch grid grid-rows-1fr1fr gap-8'>
-            <TopSalesView items={foods}/>
-            <TopSalesView items={drinks}/>
+        <div className='w-full h-full self-stretch grid grid-rows-1fr1fr gap-8 ml-auto mr-auto'>
+            <TopSalesView items={foods} title="Top 3 Foods"/>
+            <TopSalesView items={drinks} title="Top 3 Drinks"/>
         </div>
     );
 }

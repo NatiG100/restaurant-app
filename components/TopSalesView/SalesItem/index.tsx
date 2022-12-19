@@ -17,7 +17,7 @@ export default function SalesItem(props:SalesItemInterface){
     }
     return(
         <div 
-            className="w-36 h-36 rounded-xl p-4 relative overflow-hidden cursor-pointer shrink-0"
+            className="w-32 h-32 rounded-xl p-4 relative overflow-hidden cursor-pointer shrink-0"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
