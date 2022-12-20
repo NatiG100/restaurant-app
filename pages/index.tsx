@@ -8,6 +8,7 @@ import {BiDrink as DrinkIcon} from 'react-icons/bi'
 import SalesChart from "../components/chart/charts/Sales";
 import TopSalesView from "../components/TopSalesView";
 import TopItemsChart from "../components/chart/TopItemsChart";
+import Orders from "../components/chart/charts/Orders";
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -59,6 +60,7 @@ function Home({setAppBarComponent} : any) {
         </div>
         <TopItemsChart/>
         <SalesChart/>
+        <Orders/>
       </div>
     </Body>
   )

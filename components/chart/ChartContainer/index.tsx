@@ -10,6 +10,7 @@ interface ChartContainerInterface {
     selected: number
     onChange(event:ChangeEvent<HTMLSelectElement>):void,
     loading: boolean,
+    span: number,
 }
 
 export default function ChartContainer(props:ChartContainerInterface){
@@ -17,7 +18,7 @@ export default function ChartContainer(props:ChartContainerInterface){
         <div className={`
             p-5 rounded-lg bg-white grid grid-rows-header w-full h-full max-h-full
             shadow-sm gap-y-4 relative overflow-hidden
-            col-span-2 md:col-span-1 border border-indigo-100
+            col-span-2 md:col-span-${props.span} border border-indigo-100
         `}>
             <div className="w-full flex items-center justify-between">
                 <div className="flex items-center gap-4">

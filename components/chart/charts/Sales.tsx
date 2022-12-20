@@ -32,6 +32,7 @@ export default function SalesChart(){
           selected={selectedOption}
           onChange={onSelectChange}
           loading={false}
+          span={1}
         >
             <ResponsiveVictoryChart
                 padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
