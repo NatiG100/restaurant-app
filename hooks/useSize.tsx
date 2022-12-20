@@ -16,7 +16,6 @@ export default function useSize(element:HTMLElement|null){
         setSize(getSize(element))
         const onResize = ()=>{
             setSize(getSize(element))
-            console.log(getSize(element));
         };
         window.addEventListener('resize',onResize);
         return () => {window.removeEventListener('resize', onResize)}

@@ -32,8 +32,8 @@ export default function SalesItem(props:SalesItemInterface){
                     flex items-center flex-col justify-center
                     bg-indigo-800/75 animate-appear
                 ">
-                    <p className="text-lg text-white text-center font-semibold">{props.name}</p>
-                    <p className="text-3xl font-bold text-white">{props.amount}</p>
+                    <p className="text-md text-white text-center ">{props.name}</p>
+                    <p className="text-2xl font-bold text-white">{props.amount}</p>
                 </div>
             }
             

@@ -16,7 +16,8 @@ export default function TopSalesView(props:{items:SalesItemInterface[],title:str
             <div className="
                 w-full h-full flex justify-start 
                 items-center 
-                gap-6 overflow-x-auto overflow-y-hidden
+                gap-3 overflow-x-auto overflow-y-hidden
+                scrollbar-hide
             ">
                 {
                     props.items.map((item)=>(

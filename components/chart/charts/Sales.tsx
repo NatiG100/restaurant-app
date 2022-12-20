@@ -5,12 +5,7 @@ import {VictoryBar,VictoryAxis,VictoryLabel} from 'victory'
 import { VictoryTheme } from "victory-core";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
 
-interface SalesChartInterface {
-    span: number,
-    maxSpan: number,
-}
-
-export default function SalesChart(props:SalesChartInterface){
+export default function SalesChart(){
     const [selectedOption, setSelectedOption] = useState<number>(1);
     const onSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) =>{
         setSelectedOption(Number.parseInt(event.target.value));
@@ -37,8 +32,6 @@ export default function SalesChart(props:SalesChartInterface){
           selected={selectedOption}
           onChange={onSelectChange}
           loading={false}
-          span={props.span}
-          maxSpan={props.maxSpan}
         >
             <ResponsiveVictoryChart
                 padding={{ top: 10, bottom: 20, right: 50, left: 70 }}

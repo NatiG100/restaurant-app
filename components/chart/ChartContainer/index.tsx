@@ -10,8 +10,6 @@ interface ChartContainerInterface {
     selected: number
     onChange(event:ChangeEvent<HTMLSelectElement>):void,
     loading: boolean,
-    span: number,
-    maxSpan: number,
 }
 
 export default function ChartContainer(props:ChartContainerInterface){
@@ -19,20 +17,8 @@ export default function ChartContainer(props:ChartContainerInterface){
         <div className={`
             p-5 rounded-lg bg-white grid grid-rows-header w-full h-full max-h-full
             shadow-sm gap-y-4 relative overflow-hidden
-            col-span-${props.maxSpan} md:col-span-${props.span} border border-indigo-100
+            col-span-2 md:col-span-1 border border-indigo-100
         `}>
-            {props.loading&&<div className="
-                absolute top-0 left-0 right-0 bottom-0
-                w-full h-full bg-indigo-500/50
-                flex items-center justify-center
-                backdrop-blur-sm
-            ">
-                <Image 
-                    src={loading} 
-                    alt="loading" 
-                    className="fill-transparent h-10 w-10"
-                />
-            </div>}
             <div className="w-full flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-indigo-200"></div>
@@ -61,6 +47,18 @@ export default function ChartContainer(props:ChartContainerInterface){
             <div className="h-full w-full">
                 {props.children}
             </div>
+            {props.loading&&<div className="
+                absolute top-0 left-0 right-0 bottom-0
+                w-full h-full bg-indigo-500/50
+                flex items-center justify-center
+                backdrop-blur-sm
+            ">
+                <Image 
+                    src={loading} 
+                    alt="loading" 
+                    className="fill-transparent h-10 w-10"
+                />
+            </div>}
         </div>
     );
 }

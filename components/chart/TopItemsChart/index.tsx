@@ -13,17 +13,17 @@ const foods: SalesItemInterface[] = [
     {
         amount:42,
         img:food1,
-        name:"Tibs firfir"
+        name:"በርገር"
     },
     {
         amount:23,
         img:food2,
-        name:"Enkulal Tibs"
+        name:"ፒዛ"
     },
     {
         amount:31,
         img:food1,
-        name:"Atkilt"
+        name:"ሠላጣ"
     }
 ]
 
@@ -45,16 +45,12 @@ const drinks: SalesItemInterface[] = [
     }
 ]
 
-export interface TopItemsChartInterface{
-    span:number,
-    maxSpan:number,
-}
-export default function TopItemsChart(props:TopItemsChartInterface){
+export default function TopItemsChart(){
     return(
         <div className={`
             w-full h-full self-stretch grid 
             grid-rows-1fr1fr gap-8 ml-auto mr-auto
-            col-span-${props.maxSpan} md:col-span-${props.span}
+            col-span-2 md:col-span-1
         `}>
             <TopSalesView items={foods} title="Top 3 Foods"/>
             <TopSalesView items={drinks} title="Top 3 Drinks"/>
