@@ -66,11 +66,6 @@ export default function SalesChart(){
                     data={data}
                     x="day"
                     y="value"
-                    
-                    animate={{
-                        duration:2000,
-                        onLoad:{duration:1000}
-                    }}
                 />
             </ResponsiveVictoryChart>
         </ChartContainer>   

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { VictoryAxis, VictoryLabel, VictoryLine } from "victory";
+import { VictoryAxis, VictoryLabel, VictoryLine, VictoryTooltip } from "victory";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
 import ChartContainer from "../ChartContainer";
 
@@ -9,22 +9,22 @@ export default function Orders(){
         setSelectedOption(Number.parseInt(event.target.value));
     }
     const foods = [
-        {day:"Mon", value:1200},
-        {day:"Tue", value:1430},
-        {day:"Wed", value:980},
-        {day:"Thr", value:11000},
-        {day:"Fri", value:12000},
-        {day:"Sat", value:13000},
-        {day:"Sun", value:12500},
+        {day:"Mon", value:12},
+        {day:"Tue", value:30},
+        {day:"Wed", value:10},
+        {day:"Thr", value:11},
+        {day:"Fri", value:12},
+        {day:"Sat", value:16},
+        {day:"Sun", value:25},
     ];
     const drinks = [
-        {day:"Mon", value:2200},
-        {day:"Tue", value:12030},
-        {day:"Wed", value:8880},
-        {day:"Thr", value:7000},
-        {day:"Fri", value:8000},
-        {day:"Sat", value:11000},
-        {day:"Sun", value:9500},
+        {day:"Mon", value:22},
+        {day:"Tue", value:12},
+        {day:"Wed", value:14},
+        {day:"Thr", value:7},
+        {day:"Fri", value:9},
+        {day:"Sat", value:11},
+        {day:"Sun", value:16},
     ];
     return(
         <ChartContainer
@@ -60,7 +60,9 @@ export default function Orders(){
                         axisLabel:{fill:"rgb(20 83 45)",fontWeight:"600"},
                     }}
                     fixLabelOverlap={true}
-                    axisLabelComponent={<VictoryLabel dy={-28}/>}
+                    axisLabelComponent={
+                        <VictoryLabel dy={-28} />
+                    }
                 />
 
                 {/* ////////  Line chart for food orders and shadows  ///////// */}
@@ -70,11 +72,18 @@ export default function Orders(){
                     y="value"
                     style={{
                         data:{
-                            stroke:"#C026D344",
+                            stroke:"#C026D333",
                             strokeLinecap:"round",
                             strokeWidth:"8px"
+                        },
+                        labels:{
+                            fill:"rgb(192 38 211)",
+                            fontSize:"15px",
+                            fontWeight:"600"
                         }
                     }}
+                    labels={({ datum }) => datum.value}
+                    labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
                 />
                 <VictoryLine
                     data={foods}
@@ -94,11 +103,18 @@ export default function Orders(){
                     y="value"
                     style={{
                         data:{
-                            stroke:"#0284C744",
+                            stroke:"#0284C733",
                             strokeLinecap:"round",
-                            strokeWidth:"8px"
+                            strokeWidth:"8px",
+                        },
+                        labels:{
+                            fill:"rgb(2 132 199)",
+                            fontSize:"15px",
+                            fontWeight:"600"
                         }
                     }}
+                    labels={({ datum }) => datum.value}
+                    labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
                 />
                 <VictoryLine
                     data={drinks}
@@ -107,7 +123,7 @@ export default function Orders(){
                     style={{
                         data:{
                             stroke:"rgb(2 132 199)",
-                        }
+                        },
                     }}
                 />
 
