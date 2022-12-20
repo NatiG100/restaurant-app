@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { VictoryAxis, VictoryLabel, VictoryLine, VictoryTooltip } from "victory";
+import { VictoryAxis, VictoryContainer, VictoryLabel, VictoryLegend, VictoryLine, VictoryTooltip } from "victory";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
 import ChartContainer from "../ChartContainer";
 
@@ -41,9 +41,22 @@ export default function Orders(){
             span={2}
         >
             <ResponsiveVictoryChart
-                padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
+                padding={{ top: 40, bottom: 20, right: 50, left: 70 }}
                 domainPadding={30}
+                
             >
+                <VictoryLegend x={85} y={-25}
+                    title="Legend"
+                    centerTitle
+                    orientation={"horizontal"}
+                    gutter={20}
+                    style={{border:{stroke:"rgb(129 140 248)"},title:{fontSize:20,fill:"rgb(129 140 248)"}}}
+                    data={[
+                        {name:"Foods",symbol:{fill:"rgb(192 38 211)"}},
+                        {name:"Drinks",symbol:{fill:"rgb(2 132 199)"}},
+                    ]}
+                    containerComponent={<VictoryContainer responsive={true}/>}
+                />
                 <VictoryAxis 
                     style={{
                         tickLabels:{fill:"rgb(20 83 45)"},

@@ -66,6 +66,8 @@ export default function SalesChart(){
                     data={data}
                     x="day"
                     y="value"
+                    labels={({ datum }) => datum.value}
+                    labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
                 />
             </ResponsiveVictoryChart>
         </ChartContainer>   

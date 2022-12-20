@@ -15,7 +15,7 @@ module.exports = {
         'maxmax':'repeat(2,max-content)',
         '1fr1fr':'repeat(2,1fr)',
         'autoRow':'auto',
-        'dashboard':'max-content 450px 450px 450px'
+        'dashboard':'max-content repeat(3,480px)'
       },
       boxShadow:{
         'custom-lg':'0 0px 20px rgba(40,40,40,0.15)'
