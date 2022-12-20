@@ -9,6 +9,7 @@ module.exports = {
       gridTemplateColumns:{
         'main':'280px 1fr',
         'mx1fr':'max-content 1fr',
+        'autoCol':'auto',
       },
       gridTemplateRows:{
         'header':'max-content 1fr',
