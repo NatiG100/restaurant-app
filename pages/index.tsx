@@ -61,6 +61,7 @@ function Home({setAppBarComponent} : any) {
         <TopItemsChart/>
         <SalesChart/>
         <Orders/>
+        <Orders/>
       </div>
     </Body>
   )
