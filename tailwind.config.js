@@ -10,13 +10,14 @@ module.exports = {
         'main':'280px 1fr',
         'mx1fr':'max-content 1fr',
         'autoCol':'auto',
+        'orders':"repeat(5, minmax(150px, 1fr))"
       },
       gridTemplateRows:{
         'header':'max-content 1fr',
         'maxmax':'repeat(2,max-content)',
         '1fr1fr':'repeat(2,1fr)',
         'autoRow':'auto',
-        'dashboard':'max-content repeat(3,480px)'
+        'dashboard':'max-content repeat(3,480px)',
       },
       boxShadow:{
         'custom-lg':'0 0px 20px rgba(40,40,40,0.15)'

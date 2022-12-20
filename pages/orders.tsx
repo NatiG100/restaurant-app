@@ -1,5 +1,5 @@
 import Body from "../components/Body";
-import ReactDataGrid, { Column,headerRenderer, Row, RowRendererProps } from "react-data-grid";
+import ReactDataGrid, { Column,headerRenderer, HeaderRendererProps, Row, RowRendererProps } from "react-data-grid";
 import { Key, useCallback } from "react";
 
 export enum status {
@@ -67,27 +67,33 @@ const columns: readonly Column<OrderInterface,unknown>[] = [
     {
         key:"_id",
         name:"ID",
-        width:200,
+        width:20,
+        cellClass:(row)=>`inline`,
+        headerRenderer: headerRenderer
     },
     {
         key:"date",
         name:"Date",
-        width:100,
+        width:10,
+        cellClass:"inline",
     },
     {
         key:"totalCost",
         name:"Total Cost",
-        width:100,
+        width:10,
+        cellClass:"inline"
     },
     {
         key:"timeElapsed",
         name:"Time Elapsed",
-        width:100,
+        width:10,
+        cellClass:"inline"
     },
     {
         key:"status",
         name:"Status",
-        width:100,
+        width:10,
+        cellClass:"inline"
         // :({value}:{value:status})=>{
         //     return(
         //         <p
@@ -108,9 +114,9 @@ const RowRenderer = (key:Key, props:RowRendererProps<OrderInterface, unknown>)=>
         <Row
             {...props}
             className={`
-                w-full grid px-2 py-3 
+                w-full px-2 py-3 grid grid-cols-orders
                 hover:bg-slate-50 bg-white cursor-default
-                text-indigo-500 text-lg rounded-lg text-ellipsis
+                text-gray-600 text-lg rounded-lg text-ellipsis
             `}
         />
     );
@@ -126,8 +132,9 @@ export default function Orders(){
                     columns={columns}
                     rows={rows}
                     renderers={{
-                        rowRenderer:RowRenderer,
+                        rowRenderer:RowRenderer,  
                     }}
+                    defaultColumnOptions={{sortable:true}}
                     
                 />
             </div>
