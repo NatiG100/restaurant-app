@@ -127,7 +127,6 @@ export default function Orders(){
     ]);
     
     return (
-        <Body title="Orders" className="h-full">
             <div className="ag-theme-alpine h-full w-full">
                 <AgGridReact
                     rowData={rowData}
@@ -138,9 +137,11 @@ export default function Orders(){
                         '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
                     }
                     rowDragManaged={true}
+                    containerStyle={{
+                        border:"0px solid #fff0"
+                    }}
                 >
                 </AgGridReact>
             </div>
-        </Body>
     );
 }
