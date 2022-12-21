@@ -70,12 +70,14 @@ export default function Orders(){
             field: '_id',
             headerName:"ID",
             headerClass:headerClass,
-            cellClass:cellClass 
+            cellClass:cellClass,
+            filter: 'agTextColumnFilter',
         },
         { 
             field: 'date',
             headerName:"Date", 
             type: ['dateColumn', 'nonEditableColumn'],
+            filter: 'agDateColumnFilter',
             headerClass:headerClass,
             cellClass:cellClass,
             width:150  
@@ -99,13 +101,15 @@ export default function Orders(){
             headerName:"Table Number",
             headerClass:headerClass,
             cellClass:cellClass,
-            width:150 
+            width:150,
+            filter: 'agTextColumnFilter',
         },
         { 
             field: 'status',
             headerName:"Status",
             cellClass:statusColumnClass,
-            width:130 
+            width:130,
+            filter: 'agTextColumnFilter',
         },
         { 
             field: 'status',
