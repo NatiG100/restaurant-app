@@ -15,6 +15,7 @@ module.exports = {
       gridTemplateRows:{
         'header':'max-content 1fr',
         'maxmax':'repeat(2,max-content)',
+        'mx1fr':'max-content 1fr',
         '1fr1fr':'repeat(2,1fr)',
         'autoRow':'auto',
         'dashboard':'max-content repeat(3,480px)',
