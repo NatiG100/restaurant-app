@@ -1,5 +1,5 @@
 import Body from "../components/Body";
-import { Key, useState } from "react";
+import { Key, useEffect, useRef, useState } from "react";
 import This from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
@@ -57,6 +57,7 @@ const statusColumnClass = (param:any)=>(
 const headerClass = "text-gray-700 text-base";
 const cellClass = "text-gray-600 text-base";
 export default function Orders(){
+    const gridRef = useRef(null);
     const [rowData] = useState([
         {_id:"nakdjfjeial",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"pending"},
         {_id:"nsdknvfkkcd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"pending"},
@@ -117,7 +118,8 @@ export default function Orders(){
             cellRenderer:OrderTableActionRow,
             width:350 
         },
-    ])
+    ]);
+    
     return (
         <Body title="Orders" className="h-full">
             <div className="ag-theme-alpine h-full w-full">
@@ -126,6 +128,9 @@ export default function Orders(){
                     columnDefs={columnDefs}
                     rowHeight={55}
                     rowStyle={{width:"100%"}}
+                    overlayLoadingTemplate={
+                        '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
+                    }
                 >
                 </AgGridReact>
             </div>
