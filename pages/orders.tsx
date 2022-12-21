@@ -73,7 +73,6 @@ export default function Orders(){
             headerClass:headerClass,
             cellClass:cellClass,
             filter: 'agTextColumnFilter',
-            rowDrag:true
         },
         { 
             field: 'date',
@@ -82,29 +81,33 @@ export default function Orders(){
             filter: 'agDateColumnFilter',
             headerClass:headerClass,
             cellClass:cellClass,
-            width:150  
+            width:150,
+            sortable:true,
         },
         { 
             field: 'totalCost',
             headerName:"Total Cost",
             headerClass:headerClass,
             cellClass:cellClass,
-            width:150  
+            width:150,
+            sortable:true,  
         },
         { 
             field: 'timeElapsed',
             headerName:"Time Elapsed",
             headerClass:headerClass,
             cellClass:cellClass,
-            width:150  
+            width:150,
+            sortable:true  
         },
         { 
             field: 'tableNumber',
             headerName:"Table Number",
             headerClass:headerClass,
             cellClass:cellClass,
-            width:150,
+            width:160,
             filter: 'agTextColumnFilter',
+            sortable:true,
         },
         { 
             field: 'status',
@@ -112,6 +115,8 @@ export default function Orders(){
             cellClass:statusColumnClass,
             width:130,
             filter: 'agTextColumnFilter',
+            sortable:true,
+            rowDrag:true
         },
         { 
             field: 'status',
