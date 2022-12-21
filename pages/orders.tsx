@@ -21,14 +21,41 @@ export interface OrderInterface{
 }
 
 
-
+const OrderTableActionRow = (params:any)=>{
+    return(
+        <div className="flex gap-4 font-semibold w-max">
+            <button className="
+                border border-indigo-700 rounded-lg 
+                w-24 m-1 text-indigo-700 bg-indigo-100
+                hover:bg-indigo-700 hover:text-indigo-50
+                transition-all
+            ">View</button>
+            {
+                params?.value==="pending"?<button className="
+                border border-orange-700 rounded-lg 
+                w-24 m-1 text-orange-700 bg-orange-100
+                hover:bg-orange-700 hover:text-orange-50
+                transition-all
+            ">Start</button>:
+                params?.value==="started"?<button className="
+                border border-green-700 rounded-lg 
+                w-24 m-1 text-green-700 bg-green-100
+                hover:bg-green-700 hover:text-green-50
+                transition-all
+            ">Ready</button>:<></>
+            }
+        </div>
+    );
+}
 const statusColumnClass = (param:any)=>(
-    param?.value==="pending"?"text-yellow-600 bg-yellow-50":
-    param?.value==="started"?"text-indigo-600 bg-indigo-50":
-    param?.value==="served"?"text-green-600 bg-green-50":
-    param?.value==="canceled"?"text-red-600 bg-red-50":
+    param?.value==="pending"?"text-yellow-600 text-lg":
+    param?.value==="started"?"text-indigo-600 text-lg":
+    param?.value==="served"?"text-green-600 text-lg":
+    param?.value==="canceled"?"text-red-600 text-lg":
     "text-gray-600"
 );
+const headerClass = "text-gray-700 text-base";
+const cellClass = "text-gray-600 text-base";
 export default function Orders(){
     const [rowData] = useState([
         {_id:"nakdjfjeial",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"pending"},
@@ -39,13 +66,53 @@ export default function Orders(){
         {_id:"abegkielmdf",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"served"},
     ]);
     const [columnDefs] = useState([
-        { field: '_id',headerName:"ID" },
-        { field: 'date',headerName:"Date", type: ['dateColumn', 'nonEditableColumn'] },
-        { field: 'totalCost',headerName:"Total Cost" },
-        { field: 'timeElapsed',headerName:"Time Elapsed" },
-        { field: 'tableNumber',headerName:"Table Number" },
-        { field: 'status',headerName:"Status",cellClass:statusColumnClass },
-        { field: 'status',headerName:"Actions",cellClass:statusColumnClass },
+        { 
+            field: '_id',
+            headerName:"ID",
+            headerClass:headerClass,
+            cellClass:cellClass 
+        },
+        { 
+            field: 'date',
+            headerName:"Date", 
+            type: ['dateColumn', 'nonEditableColumn'],
+            headerClass:headerClass,
+            cellClass:cellClass,
+            width:150  
+        },
+        { 
+            field: 'totalCost',
+            headerName:"Total Cost",
+            headerClass:headerClass,
+            cellClass:cellClass,
+            width:150  
+        },
+        { 
+            field: 'timeElapsed',
+            headerName:"Time Elapsed",
+            headerClass:headerClass,
+            cellClass:cellClass,
+            width:150  
+        },
+        { 
+            field: 'tableNumber',
+            headerName:"Table Number",
+            headerClass:headerClass,
+            cellClass:cellClass,
+            width:150 
+        },
+        { 
+            field: 'status',
+            headerName:"Status",
+            cellClass:statusColumnClass,
+            width:130 
+        },
+        { 
+            field: 'status',
+            headerName:"Actions",
+            cellRenderer:OrderTableActionRow,
+            width:350 
+        },
     ])
     return (
         <Body title="Orders" className="h-full">
@@ -53,6 +120,8 @@ export default function Orders(){
                 <AgGridReact
                     rowData={rowData}
                     columnDefs={columnDefs}
+                    rowHeight={55}
+                    rowStyle={{width:"100%"}}
                 >
                 </AgGridReact>
             </div>
