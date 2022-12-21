@@ -1,6 +1,6 @@
 import Body from "../components/Body";
 import ReactDataGrid, { Column,headerRenderer, HeaderRendererProps, Row, RowRendererProps } from "react-data-grid";
-import { Key, useCallback } from "react";
+import { Key, useCallback, useMemo } from "react";
 
 export enum status {
     pending,
@@ -69,7 +69,6 @@ const columns: readonly Column<OrderInterface,unknown>[] = [
         name:"ID",
         width:20,
         cellClass:(row)=>`inline`,
-        headerRenderer: headerRenderer
     },
     {
         key:"date",
@@ -81,19 +80,19 @@ const columns: readonly Column<OrderInterface,unknown>[] = [
         key:"totalCost",
         name:"Total Cost",
         width:10,
-        cellClass:"inline"
+        cellClass:"inline",
     },
     {
         key:"timeElapsed",
         name:"Time Elapsed",
         width:10,
-        cellClass:"inline"
+        cellClass:"inline",
     },
     {
         key:"status",
         name:"Status",
         width:10,
-        cellClass:"inline"
+        cellClass:"inline",
         // :({value}:{value:status})=>{
         //     return(
         //         <p
@@ -113,28 +112,47 @@ const RowRenderer = (key:Key, props:RowRendererProps<OrderInterface, unknown>)=>
     return (
         <Row
             {...props}
+            key={key}
             className={`
-                w-full px-2 py-3 grid grid-cols-orders
+                w-full px-6 py-3 grid grid-cols-orders
                 hover:bg-slate-50 bg-white cursor-default
-                text-gray-600 text-lg rounded-lg text-ellipsis
+                text-gray-500 text-lg rounded-lg text-ellipsis
             `}
         />
     );
 }
+
+
 export default function Orders(){
+    const HeaderRenderer = (props:HeaderRendererProps<OrderInterface, unknown>)=>{
+        return (
+            <p className="text-red-600 w-max">{props.column.name}</p>
+        );
+    }
+    const rowKeyGetter = (row: OrderInterface)=>{
+        return row._id;
+    }
+    const columnRenderer = useMemo(() => {
+        
+        return columns.map((c) => {
+            return { ...c, headerRenderer: HeaderRenderer };
+        });
+    },[columns]);
     return (
         <Body title="Orders">
             <div className="
-                p-6 bg-white shadow-sm border border-indigo-100
+                bg-white shadow-sm border border-indigo-100
                 w-full h-max mt-12
             ">
                 <ReactDataGrid
-                    columns={columns}
+                    columns={columnRenderer}
                     rows={rows}
                     renderers={{
-                        rowRenderer:RowRenderer,  
+                        rowRenderer:RowRenderer,
                     }}
-                    defaultColumnOptions={{sortable:true}}
+                    rowKeyGetter={rowKeyGetter}
+                    rowHeight={100}
+                    
                     
                 />
             </div>
