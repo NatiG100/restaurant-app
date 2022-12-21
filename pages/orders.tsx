@@ -73,6 +73,7 @@ export default function Orders(){
             headerClass:headerClass,
             cellClass:cellClass,
             filter: 'agTextColumnFilter',
+            rowDrag:true
         },
         { 
             field: 'date',
@@ -131,6 +132,7 @@ export default function Orders(){
                     overlayLoadingTemplate={
                         '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
                     }
+                    rowDragManaged={true}
                 >
                 </AgGridReact>
             </div>
