@@ -1,5 +1,6 @@
+import { TooltipComponent } from "ag-grid-community/dist/lib/components/framework/componentTypes";
 import React, { useState } from "react";
-import { VictoryAxis, VictoryContainer, VictoryLabel, VictoryLegend, VictoryLine, VictoryTooltip } from "victory";
+import { VictoryAxis, VictoryContainer, VictoryLabel, VictoryLegend, VictoryLine, VictoryScatter, VictoryTooltip } from "victory";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
 import ChartContainer from "../ChartContainer";
 
@@ -21,8 +22,8 @@ export default function Orders(){
         {day:"Mon", value:22},
         {day:"Tue", value:12},
         {day:"Wed", value:14},
-        {day:"Thr", value:7},
-        {day:"Fri", value:9},
+        {day:"Thr", value:11},
+        {day:"Fri", value:17},
         {day:"Sat", value:11},
         {day:"Sun", value:16},
     ];
@@ -41,36 +42,29 @@ export default function Orders(){
             span={2}
         >
             <ResponsiveVictoryChart
-                padding={{ top: 40, bottom: 20, right: 50, left: 70 }}
+                padding={{ top: 0, bottom: 20, right: 50, left: 70 }}
                 domainPadding={30}
                 
             >
-                <VictoryLegend x={85} y={25}
-                    title="Legend"
-                    centerTitle
-                    orientation={"horizontal"}
-                    gutter={20}
-                    style={{border:{stroke:"rgb(129 140 248)"},title:{fontSize:20,fill:"rgb(129 140 248)"}}}
-                    data={[
-                        {name:"Foods",symbol:{fill:"rgb(192 38 211)"}},
-                        {name:"Drinks",symbol:{fill:"rgb(2 132 199)"}},
-                    ]}
-                    containerComponent={<VictoryContainer responsive={true}/>}
-                />
-                <VictoryAxis 
+                <VictoryAxis
                     style={{
-                        tickLabels:{fill:"rgb(20 83 45)"},
-                        axis:{stroke:"rgb(20 83 45)"},
+                        tickLabels:{fill:"rgb(99 102 241)"},
+                        axis:{stroke:"rgb(99 102 241)"},
                     }}
-                    />
+                />
 
                 <VictoryAxis     
                     dependentAxis
                     label={"Orders"}
                     style={{
-                        tickLabels:{fill:"rgb(20 83 45)"},
-                        axis:{stroke:"rgb(20 83 45)"},
-                        axisLabel:{fill:"rgb(20 83 45)",fontWeight:"600"},
+                        tickLabels:{fill:"rgb(99 102 241)"},
+                        axis:{stroke:"rgb(99 102 241)"},
+                        axisLabel:{fill:"rgb(99 102 241)",fontWeight:"600"},
+                        grid:{
+                            stroke:"rgb(99 102 241)",
+                            opacity:"0.07",
+                            strokeWidth:"2"
+                        }
                     }}
                     fixLabelOverlap={true}
                     axisLabelComponent={
@@ -85,7 +79,7 @@ export default function Orders(){
                     y="value"
                     style={{
                         data:{
-                            stroke:"#C026D333",
+                            stroke:"#C026D322",
                             strokeLinecap:"round",
                             strokeWidth:"8px"
                         },
@@ -95,8 +89,6 @@ export default function Orders(){
                             fontWeight:"600"
                         }
                     }}
-                    labels={({ datum }) => datum.value}
-                    labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
                 />
                 <VictoryLine
                     data={foods}
@@ -105,7 +97,7 @@ export default function Orders(){
                     style={{
                         data:{
                             stroke:"rgb(192 38 211)",
-                        }
+                        },
                     }}
                 />
 
@@ -116,7 +108,7 @@ export default function Orders(){
                     y="value"
                     style={{
                         data:{
-                            stroke:"#0284C733",
+                            stroke:"#0284C722",
                             strokeLinecap:"round",
                             strokeWidth:"8px",
                         },
@@ -126,8 +118,6 @@ export default function Orders(){
                             fontWeight:"600"
                         }
                     }}
-                    labels={({ datum }) => datum.value}
-                    labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
                 />
                 <VictoryLine
                     data={drinks}
@@ -138,6 +128,71 @@ export default function Orders(){
                             stroke:"rgb(2 132 199)",
                         },
                     }}
+                />
+                <VictoryScatter
+                    labels={({datum})=>datum.value}
+                    labelComponent={
+                        <VictoryTooltip
+                            
+                          flyoutWidth={95}
+                          flyoutHeight={35}
+                          cornerRadius={5}
+                          pointerLength={40}
+                          flyoutStyle={{
+                            stroke: "rgb(192 38 211)",
+                            strokeWidth: 2,
+                            fill: "#FFFFFF"
+                          }}
+                          style={{
+                            fill: "rgb(192 38 211)",
+                            fontSize: 14,
+                            fontWeight: 500,
+                            textAnchor: "middle"
+                          }}
+                        />
+                    }
+                    data={foods}
+                    x="day"
+                    y="value"
+                    size={5}
+                    style={{
+                        data:{
+                            fill:"#C026D3",
+                        }
+                    }}
+                    
+                />
+                <VictoryScatter
+                    labels={({datum})=>datum.value}
+                    labelComponent={
+                        <VictoryTooltip
+                          flyoutWidth={95}
+                          flyoutHeight={35}
+                          cornerRadius={5}
+                          pointerLength={40}
+                          flyoutStyle={{
+                            stroke: "rgb(2 132 199)",
+                            strokeWidth: 2,
+                            fill: "#FFFFFF"
+                          }}
+                          style={{
+                            fill: "rgb(2 132 199)",
+                            fontSize: 14,
+                            fontWeight: 500,
+                            textAnchor: "middle"
+                          }}
+                        />
+                    }
+                    data={drinks}
+                    x="day"
+                    y="value"
+                    size={5}
+                    style={{
+                        data:{
+                            fill:"#0284C7",
+                        }
+                    }}
+                    
                 />
 
             </ResponsiveVictoryChart>
