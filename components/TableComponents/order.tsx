@@ -1,20 +1,20 @@
-import Button, { buttonType } from "../UIElements/Button";
+import Button from "../UIElements/Button";
 
 export const OrderTableActionRow = (params:any)=>{
     return(
         <div className="flex gap-4 font-semibold w-max">
-            <Button type={buttonType.outline}  className="w-24">
+            <Button type="outline" className="w-24">
                 View
             </Button>
             {
                 params?.value==="pending"?
-                    <Button type={buttonType.outline} className="w-24" color="orange">
-                        View
+                    <Button type="outline" className="w-24" color="warning">
+                        Start
                     </Button>
                 :
                 params?.value==="started"?
-                    <Button type={buttonType.outline} className="w-24" color="green">
-                        View
+                    <Button type="outline" className="w-24" color="success">
+                        Ready
                     </Button>
                 :<></>
             }

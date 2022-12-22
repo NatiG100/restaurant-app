@@ -45,7 +45,7 @@ export default function Orders(){
                 domainPadding={30}
                 
             >
-                <VictoryLegend x={85} y={-25}
+                <VictoryLegend x={85} y={25}
                     title="Legend"
                     centerTitle
                     orientation={"horizontal"}
