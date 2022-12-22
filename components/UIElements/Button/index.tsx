@@ -33,17 +33,17 @@ export default function Button({
         <button 
             className={`
                 rounded-lg transition-all ${className}
-                border border-${color}-700
-                ${size===buttonSize.sm?"text-sm p-1":size===buttonSize.lg&&"text-lg p-2"}
+                 m-1
+                ${size===buttonSize.sm?"text-xs p-1":size===buttonSize.lg&&"text-lg p-2"}
                 ${
                     type===buttonType.outline?`
                         border border-${color}-700 bg-${color}-50 
                         text-${color}-700 hover:bg-${color}-700 hover:text-${color}-50
                     `:type===buttonType.fill?`
-                        text-${color}-500 hover:bg-${color}-500 hover:text-${color}-100
+                        text-${color}-50 bg-${color}-500
                         hover:text-${color}-700 hover:bg-${color}-700 hover:text-${color}-50
                     `:`
-                        bg-transparent text-${color}-700 hover:bg-${color}-50
+                        bg-transparent text-${color}-700 hover:bg-${color}-700/20
                     `
                 }
             `}
