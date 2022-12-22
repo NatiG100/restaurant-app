@@ -53,8 +53,7 @@ export const columnDefs:ColDef<TypeOrder>[] = [
     },
     { 
         field: 'date',
-        headerName:"Date", 
-        type: ['dateColumn', 'nonEditableColumn'],
+        headerName:"Date",
         filter: 'agDateColumnFilter',
         headerClass:headerClass,
         cellClass:cellClass,
@@ -90,7 +89,7 @@ export const columnDefs:ColDef<TypeOrder>[] = [
         field: 'status',
         headerName:"Status",
         cellClass:statusColumnClass,
-        width:130,
+        width:150,
         filter: 'agTextColumnFilter',
         sortable:true,
         rowDrag:true
@@ -99,6 +98,6 @@ export const columnDefs:ColDef<TypeOrder>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:OrderTableActionRow,
-        width:350 
+        width:300 
     },
 ];

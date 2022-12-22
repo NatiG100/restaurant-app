@@ -1,6 +1,3 @@
-import { Md10K } from "react-icons/md";
-
-
 export interface TypeButton{
     children: string,
     size?:"sm"|"md"|"lg",
