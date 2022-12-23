@@ -55,7 +55,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [rowData] = useState<TypeDrinkCategory[]>([
         {
             id:"1200padkjfthisthat",
-            img:"",
+            img:"/dinner.jpg",
             name:"Dinner",
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
@@ -65,7 +65,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
         {
             id:"thereisanarmyrising",
-            img:"",
+            img:"/bf.jpg",
             name:"Lunch",
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
@@ -75,7 +75,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
         {
             id:"rockofagescleftfor",
-            img:"",
+            img:"/dessert.jpg",
             name:"Dessert",
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",

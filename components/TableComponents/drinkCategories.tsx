@@ -27,13 +27,13 @@ const DrinkCategoriesActionCell = (params:ICellRendererParams<TypeDrinkCategory>
 }
 const DrinkCategoriesAvatarCell = (params:ICellRendererParams<TypeDrinkCategory>)=>{
     return(
-        <div className="h-full w-full flex justify-center items-center">
+        <div className="flex justify-center items-center py-2 my-auto">
             <Image
                 height={200}
                 width={200}
                 src={params.data?.img||""}
                 alt={params.data?.name||""}
-                className="rounded-md object-cover"
+                className="rounded-full object-cover h-20 w-20 ring ring-indigo-700/20"
             />
         </div>
     );
@@ -62,17 +62,18 @@ export const defaultColDef:ColDef={
 }
 
 export const columnDefs:ColDef<TypeDrinkCategory>[] = [
+    {
+        field:'img',
+        headerName:"Avatar",
+        width:122,
+        resizable:false,
+        cellRenderer:DrinkCategoriesAvatarCell
+    },
     { 
         field: 'id',
         headerName:"ID",
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
-    },
-    {
-        field:'img',
-        headerName:"Avatar",
-        width:100,
-        cellRenderer:DrinkCategoriesAvatarCell
     },
     { 
         field: 'name',
