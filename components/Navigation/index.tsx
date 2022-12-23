@@ -32,7 +32,7 @@ export default function Navigation() {
             <FoodIcon size={"22"}/>
             Foods
           </NavigationMenu>
-          <NavigationMenu route="/drinks">
+          <NavigationMenu route="/drinks/categories">
             <DrinkIcon size="22"/>
             Drinks
           </NavigationMenu>
