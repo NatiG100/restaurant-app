@@ -16,10 +16,11 @@ export interface TypeDrinkCategory{
 const DrinkCategoriesActionCell = (params:ICellRendererParams<TypeDrinkCategory>)=>{
     return(
         <div className="flex gap-4 font-semibold w-max">
+                    <Button type="outline" className="w-24">View</Button>
             {
                 params.data?.status==="Active"?
-                    <Button type="outline" color="error">Deactivate</Button>:
-                    <Button type="outline" color="success">Activate</Button>
+                    <Button type="outline" color="error" className="w-24">Deactivate</Button>:
+                    <Button type="outline" color="success" className="w-24">Activate</Button>
             }
         </div>
     );
@@ -37,36 +38,45 @@ const DrinkCategoriesAvatarCell = (params:ICellRendererParams<TypeDrinkCategory>
         </div>
     );
 }
+const DrinkCategoriesDescriptionCell = (params:ICellRendererParams<TypeDrinkCategory>)=>{
+    return(
+        <div className="w-full max-h-24 overflow-y-auto">
+            <p className="text-sm p-2 text-gray-600  leading-4">{params.data?.description}</p>
+        </div>
+    );
+}
 
 const statusColumnClass = (params:CellClassParams<TypeDrinkCategory>)=>(
-    "text-lg "+params.data?.status==="Active"?"text-green-600":
-    params.data?.status==="Suspended"?"text-red-600":
-    "text-gray-600" 
+    params.data?.status==="Active"?"text-green-600 text-base":
+    params.data?.status==="Suspended"?"text-red-600  text-base":
+    "text-gray-600  text-base" 
 )
 
 const headerClass:string = "text-gray-700 text-base";
-const cellClass:string = "text-gray-600 text-base";
+const cellClass:string = "text-gray-600 text-base self-center";
+
+export const defaultColDef:ColDef={
+    resizable:true,
+    autoHeight:true,
+    headerClass
+}
 
 export const columnDefs:ColDef<TypeDrinkCategory>[] = [
     { 
         field: 'id',
         headerName:"ID",
-        headerClass:headerClass,
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
     },
     {
         field:'img',
         headerName:"Avatar",
-        headerClass:headerClass,
-        cellClass:cellClass,
-        width:120,
+        width:100,
         cellRenderer:DrinkCategoriesAvatarCell
     },
     { 
         field: 'name',
         headerName:"Name",
-        headerClass:headerClass,
         cellClass:cellClass,
         width:150,
         sortable:true,  
@@ -74,14 +84,13 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
     { 
         field: 'description',
         headerName:"Description",
-        headerClass:headerClass,
-        cellClass:cellClass,
+        cellRenderer:DrinkCategoriesDescriptionCell,
         width:200,
+        wrapText:true,
     },
     { 
         field: 'drinkCount',
         headerName:"Drink Count",
-        headerClass:headerClass,
         cellClass:cellClass,
         width:120,
         filter: 'agTextColumnFilter',
@@ -91,7 +100,6 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         field: 'created',
         headerName:"Created",
         filter: 'agDateColumnFilter',
-        headerClass:headerClass,
         cellClass:cellClass,
         width:150,
         sortable:true,
@@ -100,7 +108,6 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         field: 'updated',
         headerName:"Updated",
         filter: 'agDateColumnFilter',
-        headerClass:headerClass,
         cellClass:cellClass,
         width:150,
         sortable:true,

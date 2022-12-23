@@ -4,7 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
-import { columnDefs, TypeDrinkCategory } from "../../components/TableComponents/drinkCategories";
+import { columnDefs, defaultColDef, TypeDrinkCategory } from "../../components/TableComponents/drinkCategories";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -81,7 +81,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             created:"10/3/2023",
             updated:"12/7/2023",
             drinkCount:23,
-            status:"Active"
+            status:"Suspended"
         },
     ]);
 
@@ -91,7 +91,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={columnDefs}
-                    rowHeight={100}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={
                         '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
@@ -100,6 +99,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     containerStyle={{
                         border:"0px solid #fff0"
                     }}
+                    defaultColDef={defaultColDef}
                 >
                 </AgGridReact>
             </div>
