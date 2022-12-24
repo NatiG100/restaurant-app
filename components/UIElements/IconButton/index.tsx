@@ -31,9 +31,9 @@ export default function IconButton({
                 ${
                     type==="outline"?`border 
                         ${
-                            color==="primary"?"border-indigo-700 bg-indigo-700/10 text-indigo-700 hover:bg-indigo-700 hover:text-indigo-50":
-                            color==="warning"?"border-yellow-700 bg-yellow-700/10 text-yellow-700 hover:bg-yellow-700 hover:text-yellow-50":
-                            "border-green-700 bg-green-700/10 text-green-700 hover:bg-green-700 hover:text-green-50"
+                            color==="primary"?"border-indigo-700 bg-indigo-700/10 text-indigo-700 hover:bg-indigo-700/20 hover:text-indigo-800":
+                            color==="warning"?"border-yellow-700 bg-yellow-700/10 text-yellow-700 hover:bg-yellow-700/20 hover:text-yellow-800":
+                            "border-green-700 bg-green-700/10 text-green-700 hover:bg-green-700/20 hover:text-green-800"
                         }
                     `:type==="fill"?`
                         ${
