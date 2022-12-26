@@ -89,7 +89,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const router = useRouter();
     const handleClick = (event:RowClickedEvent<TypeFoodCategory>)=>{
         const id = event.data?.id;
-        router.push('/drinks/'+id);
+        router.push('/foods/'+id);
     }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
