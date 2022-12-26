@@ -53,7 +53,7 @@ const statusColumnClass = (params:CellClassParams<TypeDrinkCategory>)=>(
 )
 
 const headerClass:string = "text-gray-700 text-base";
-const cellClass:string = "text-gray-600 text-base self-center";
+const cellClass:string = "text-gray-600 text-base self-center cursor-pointer";
 
 export const defaultColDef:ColDef={
     resizable:true,

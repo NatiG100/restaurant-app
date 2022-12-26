@@ -5,6 +5,8 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeDrinkCategory } from "../../components/TableComponents/drinkCategories";
+import { RowClickedEvent } from "ag-grid-community";
+import { useRouter } from "next/router";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -84,10 +86,15 @@ export default function DrinkCategories({setAppBarComponent}:any){
             status:"Suspended"
         },
     ]);
-
+    const router = useRouter();
+    const handleClick = (event:RowClickedEvent<TypeDrinkCategory>)=>{
+        const id = event.data?.id;
+        router.push('/drinks/'+id);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 <AgGridReact
+                    onRowClicked={handleClick}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={columnDefs}
