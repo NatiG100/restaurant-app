@@ -4,10 +4,8 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
-import { columnDefs, defaultColDef, TypeDrinkCategory } from "../../components/TableComponents/drinkCategories";
-import { RowClickedEvent } from "ag-grid-community";
-import { TypeDrink } from "../../components/TableComponents/drinks";
-import { useRouter } from "next/router";
+import { columnDefs, defaultColDef, TypeDrink } from "../../components/TableComponents/drinks";
+import { NextRouter, useRouter } from "next/router";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -55,49 +53,106 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [rowData] = useState<TypeDrinkCategory[]>([
+    const [filteredRows,setFilteredRows] = useState<TypeDrink[]>([]);
+    const [rowData] = useState<TypeDrink[]>([
         {
-            id:"1200padkjfthisthat",
+            id:"ahxjbnaiosdufneuil",
+            categoryId:"1200padkjfthisthat",
             img:"/dinner.jpg",
-            name:"Dinner",
+            name:"Firfir",
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
             updated:"12/7/2023",
-            drinkCount:23,
-            status:"Active"
+            status:"Active",
+            cost:120,
+            createdBy:"adkfjalksdjfk",
+            imgs:[],
+            totalSale:200,
         },
         {
-            id:"thereisanarmyrising",
-            img:"/bf.jpg",
-            name:"Lunch",
+            id:"adfasdfsdgsfgsdfgs",
+            categoryId:"1200padkjfthisthat",
+            img:"/dinner.jpg",
+            name:"Shiro",
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
             updated:"12/7/2023",
-            drinkCount:23,
-            status:"Active"
+            status:"Active",
+            cost:120,
+            createdBy:"adkfjalksdjfk",
+            imgs:[],
+            totalSale:200,
         },
         {
-            id:"rockofagescleftfor",
-            img:"/dessert.jpg",
-            name:"Dessert",
+            id:"adlskfjasdkfjkjm",
+            categoryId:"thereisanarmyrising",
+            img:"/dinner.jpg",
+            name:"Beyaynet",
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
             updated:"12/7/2023",
-            drinkCount:23,
-            status:"Suspended"
+            status:"Active",
+            cost:120,
+            createdBy:"adkfjalksdjfk",
+            imgs:[],
+            totalSale:200,
+        },
+        {
+            id:"alkjsdfkjadkfjfd",
+            categoryId:"thereisanarmyrising",
+            img:"/dinner.jpg",
+            name:"Key Wot",
+            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            created:"10/3/2023",
+            updated:"12/7/2023",
+            status:"Active",
+            cost:120,
+            createdBy:"adkfjalksdjfk",
+            imgs:[],
+            totalSale:200,
+        },
+        {
+            id:"namtoieuuuuwlkfds",
+            categoryId:"rockofagescleftfor",
+            img:"/dinner.jpg",
+            name:"Fetira",
+            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            created:"10/3/2023",
+            updated:"12/7/2023",
+            status:"Active",
+            cost:120,
+            createdBy:"adkfjalksdjfk",
+            imgs:[],
+            totalSale:200,
+        },
+        {
+            id:"betsklkdkkfddfss",
+            categoryId:"rockofagescleftfor",
+            img:"/dinner.jpg",
+            name:"Chechebsa",
+            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            created:"10/3/2023",
+            updated:"12/7/2023",
+            status:"Active",
+            cost:120,
+            createdBy:"adkfjalksdjfk",
+            imgs:[],
+            totalSale:200,
         },
     ]);
-    const router = useRouter();
-    const handleClick = (event:RowClickedEvent<TypeDrinkCategory>)=>{
-        const id = event.data?.id;
-        router.push('/drinks/'+id);
-    }
+    const router:NextRouter = useRouter();
+    const {id} = router.query;
+    useEffect(()=>{
+        if(id){
+            setFilteredRows(rowData.filter((row)=>(row.categoryId===id)));
+        }
+    },[id]);
+
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 <AgGridReact
-                    onRowClicked={handleClick}
                     ref={gridRef}
-                    rowData={rowData}
+                    rowData={filteredRows}
                     columnDefs={columnDefs}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={

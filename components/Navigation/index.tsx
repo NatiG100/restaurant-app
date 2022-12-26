@@ -28,7 +28,7 @@ export default function Navigation() {
             <OrderIcon size={"22"}/>
             Orders
           </NavigationMenu>
-          <NavigationMenu route="/foods">
+          <NavigationMenu route="/foods" defaultRoute="/categories">
             <FoodIcon size={"22"}/>
             Foods
           </NavigationMenu>

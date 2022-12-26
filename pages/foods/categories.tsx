@@ -4,9 +4,8 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
-import { columnDefs, defaultColDef, TypeDrinkCategory } from "../../components/TableComponents/drinkCategories";
+import { columnDefs, defaultColDef, TypeFoodCategory } from "../../components/TableComponents/foodCategories";
 import { RowClickedEvent } from "ag-grid-community";
-import { TypeDrink } from "../../components/TableComponents/drinks";
 import { useRouter } from "next/router";
 
 
@@ -55,7 +54,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [rowData] = useState<TypeDrinkCategory[]>([
+    const [rowData] = useState<TypeFoodCategory[]>([
         {
             id:"1200padkjfthisthat",
             img:"/dinner.jpg",
@@ -63,7 +62,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
             updated:"12/7/2023",
-            drinkCount:23,
+            foodCount:23,
             status:"Active"
         },
         {
@@ -73,7 +72,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
             updated:"12/7/2023",
-            drinkCount:23,
+            foodCount:23,
             status:"Active"
         },
         {
@@ -83,12 +82,12 @@ export default function DrinkCategories({setAppBarComponent}:any){
             description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             created:"10/3/2023",
             updated:"12/7/2023",
-            drinkCount:23,
+            foodCount:23,
             status:"Suspended"
         },
     ]);
     const router = useRouter();
-    const handleClick = (event:RowClickedEvent<TypeDrinkCategory>)=>{
+    const handleClick = (event:RowClickedEvent<TypeFoodCategory>)=>{
         const id = event.data?.id;
         router.push('/drinks/'+id);
     }
