@@ -4,14 +4,19 @@ import { useRouter } from "next/router";
 interface NavigationMenuInterface {
     children: React.ReactNode,
     route: string,
+    only?:boolean,
+    defaultRoute?:string,
 }
 
-export default function NavigationMenu ({children,route}:NavigationMenuInterface){
+export default function NavigationMenu ({children,route,only=false,defaultRoute=""}:NavigationMenuInterface){
     const router = useRouter();
-    const selected = router.pathname === route;
+    let selected = router.pathname === route;
+    if(!only){
+        selected = router.pathname.includes(route);
+    }
     return(
         <Link 
-            href={route}
+            href={route+defaultRoute}
             className={`
                 w-full ${selected?"bg-indigo-300 text-indigo-800":"bg-indigo-100 text-indigo-500"} 
                 hover:bg-indigo-200 px-3 py-2 rounded-md transition-all font-semibold

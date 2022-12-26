@@ -20,7 +20,7 @@ export default function Navigation() {
 
       <div className="h-full w-full flex flex-col gap-6 pt-10 pb-4">
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/">
+          <NavigationMenu route="/" only>
             <DashboardIcon size={"22"}/>
             Dashboard
           </NavigationMenu>
@@ -32,7 +32,7 @@ export default function Navigation() {
             <FoodIcon size={"22"}/>
             Foods
           </NavigationMenu>
-          <NavigationMenu route="/drinks/categories">
+          <NavigationMenu route="/drinks" defaultRoute="/categories">
             <DrinkIcon size="22"/>
             Drinks
           </NavigationMenu>
