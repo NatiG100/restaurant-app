@@ -5,6 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeDrink } from "../../components/TableComponents/drinks";
+import { NextRouter, useRouter } from "next/router";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -52,6 +53,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
+    const [filteredRows,setFilteredRows] = useState<TypeDrink[]>([]);
     const [rowData] = useState<TypeDrink[]>([
         {
             id:"ahxjbnaiosdufneuil",
@@ -138,12 +140,19 @@ export default function DrinkCategories({setAppBarComponent}:any){
             totalSale:200,
         },
     ]);
+    const router:NextRouter = useRouter();
+    const {id} = router.query;
+    useEffect(()=>{
+        if(id){
+            setFilteredRows(rowData.filter((row)=>(row.categoryId===id)));
+        }
+    },[id]);
 
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 <AgGridReact
                     ref={gridRef}
-                    rowData={rowData}
+                    rowData={filteredRows}
                     columnDefs={columnDefs}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={
