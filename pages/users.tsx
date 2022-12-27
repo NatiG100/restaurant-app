@@ -56,7 +56,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [rowData] = useState<TypeUser[]>([
         {
             id:"1200padkjfthisthat",
-            img:"/dinner.jpg",
+            img:"/avatar.jpg",
             fullName:"Abebe Kebede",
             status:"Active",
             email:"abebe@gmail.com",
@@ -64,7 +64,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
         {
             id:"ab00padkjfdhisthak",
-            img:"/dinner.jpg",
+            img:"/avatar.jpg",
             fullName:"Temesgen Beyene",
             status:"Active",
             email:"temesgen@gmail.com",
@@ -72,7 +72,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
         {
             id:"1200padkjaklsjsthat",
-            img:"/dinner.jpg",
+            img:"/avatar.jpg",
             fullName:"Mulgeta Demberu",
             status:"Active",
             email:"mulgeta@gmail.com",
@@ -80,7 +80,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
         {
             id:"fjaksdjfkjanduieopl",
-            img:"/dinner.jpg",
+            img:"/avatar.jpg",
             fullName:"Ayele Habte",
             status:"Suspended",
             email:"ayele@gmail.com",
@@ -88,7 +88,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
         {
             id:"nncmmkajdhfaldfkdjk",
-            img:"/dinner.jpg",
+            img:"/avatar.jpg",
             fullName:"Belete Belayneh",
             status:"Active",
             email:"belete@gmail.com",
