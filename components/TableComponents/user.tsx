@@ -38,6 +38,21 @@ const UserAvatarCell = (params:ICellRendererParams<TypeUser>)=>{
     );
 }
 
+const UserPrivilageCell = (params:ICellRendererParams<TypeUser>)=>{
+    return(
+        <div className="flex flex-wrap gap-2 py-2 overflow-y-auto max-h-28">
+            {params.data?.previlages.map((previlage)=>(
+                <div key={previlage} className="
+                    border-2 border-indigo-700 bg-indigo-300/20 text-indigo-700
+                    rounded-full px-3 flex justify-center items-center font-semibold
+                ">
+                    {previlage}
+                </div>
+            ))}
+        </div>
+    );
+}
+
 const statusColumnClass = (params:CellClassParams<TypeUser>)=>(
     params.data?.status==="Active"?"text-green-600 text-base":
     params.data?.status==="Suspended"?"text-red-600  text-base":
@@ -76,7 +91,8 @@ export const columnDefs:ColDef<TypeUser>[] = [
     { 
         field: 'previlages',
         headerName:"Previlages",
-        width:200,
+        cellRenderer:UserPrivilageCell,
+        width:250,
         wrapText:true,
     },
     { 

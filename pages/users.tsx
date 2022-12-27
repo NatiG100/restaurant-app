@@ -60,7 +60,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             fullName:"Abebe Kebede",
             status:"Active",
             email:"abebe@gmail.com",
-            previlages:[]
+            previlages:["View Info","Manage Items","View Items","View Users","Manage Users","Setting","Manage Orders","View Orders"]
         },
         {
             id:"ab00padkjfdhisthak",
@@ -68,7 +68,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             fullName:"Temesgen Beyene",
             status:"Active",
             email:"temesgen@gmail.com",
-            previlages:[]
+            previlages:["View Items","View Users","Manage Users"]
         },
         {
             id:"1200padkjaklsjsthat",
@@ -76,7 +76,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             fullName:"Mulgeta Demberu",
             status:"Active",
             email:"mulgeta@gmail.com",
-            previlages:[]
+            previlages:["Manage Orders","View Orders"]
         },
         {
             id:"fjaksdjfkjanduieopl",
@@ -84,7 +84,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             fullName:"Ayele Habte",
             status:"Suspended",
             email:"ayele@gmail.com",
-            previlages:[]
+            previlages:["Manage Orders","View Orders"]
         },
         {
             id:"nncmmkajdhfaldfkdjk",
@@ -92,7 +92,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             fullName:"Belete Belayneh",
             status:"Active",
             email:"belete@gmail.com",
-            previlages:[]
+            previlages:["View Info","Manage Items"]
         },
     ]);
     const router = useRouter();
