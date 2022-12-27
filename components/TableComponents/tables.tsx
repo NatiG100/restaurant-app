@@ -1,5 +1,7 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
+import QRCode from "react-qr-code";
 import Button from "../UIElements/Button";
+import domain from '../../constants/domain';
 
 export interface TypeTable{
     id:string,
@@ -20,6 +22,17 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
     );
 }
 
+const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
+    return(
+        <div className="bg-white h-24 w-24">
+            <QRCode 
+                value={domain+params.data?.id||""}
+                className="w-full h-auto"
+            />
+        </div>
+    );
+}
+
 const statusColumnClass = (params:CellClassParams<TypeTable>)=>(
     params.data?.status==="Active"?"text-green-600 text-base":
     params.data?.status==="Suspended"?"text-red-600  text-base":
@@ -36,8 +49,8 @@ export const defaultColDef:ColDef={
 }
 export const columnDefs:ColDef<TypeTable>[] = [
     {
-        field: 'id',
         headerName: "QR",
+        cellRenderer:TableQRCell,
         width:200,
     },
     { 
