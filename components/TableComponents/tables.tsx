@@ -24,7 +24,7 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
 
 const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
     return(
-        <div className="bg-white h-24 w-24">
+        <div className="bg-white h-20 w-20 my-2">
             <QRCode 
                 value={domain+params.data?.id||""}
                 className="w-full h-auto"
