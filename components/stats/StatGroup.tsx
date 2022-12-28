@@ -7,9 +7,11 @@ export interface TypeStatItemGroup{
 }
 export default function StatGroup (props:TypeStatItemGroup){
     return(
-        <div className="flex flex-col gap-1 w-full">
-            <p>{props.title}</p>
-            <Divider/>
+        <div className="flex flex-col gap-1 w-full max-w-xs">
+            <p className="text-indigo-700 font-bold text-2xl my-2">
+                {props.title}
+            </p>
+            <Divider className="mb-4"/>
             {
                 props.stats.map((stat)=>(
                     <StatItem {...stat}/>
