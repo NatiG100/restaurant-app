@@ -14,7 +14,7 @@ export default function StatGroup (props:TypeStatItemGroup){
             <Divider className="mb-4"/>
             {
                 props.stats.map((stat)=>(
-                    <StatItem {...stat}/>
+                    <StatItem {...stat} key={stat.title}/>
                 ))
             }
         </div>

@@ -6,7 +6,7 @@ export default function Input(props:React.DetailedHTMLProps<React.InputHTMLAttri
                 focus:border-indigo-400 focus:text-indigo-700
                 font-semibold h-max p-2 rounded
             " 
-            {...props} 
+            {...props}
         />
     );
 }
