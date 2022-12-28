@@ -8,7 +8,7 @@ export default function Divider({orientation="h",theme='light',className=""}:Typ
         <div className={`
             border
             ${orientation==='h'?"w-full":"h-full"} 
-            ${theme==='dark'?"border-white/10":"border-black/10"}
+            ${theme==='dark'?"border-white/5":"border-black/5"}
             ${className}
         `}>
 

@@ -1,6 +1,7 @@
 import Body from "../components/Body";
 import StatGroup from "../components/stats/StatGroup";
 import StatItem from "../components/stats/StatItem";
+import Input from "../components/UIElements/Input";
 
 export default function Stats(){
   const stats = [
@@ -47,9 +48,8 @@ export default function Stats(){
           title="Order"
           stats={stats}
         />
-        <StatGroup
-          title="Order"
-          stats={stats}
+        <Input
+          type="date"
         />
       </div>
     </Body>
