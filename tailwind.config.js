@@ -37,7 +37,7 @@ module.exports = {
             opacity:"1",
           }
         }
-      }
+      },
     },
   },
   plugins: [],

@@ -12,6 +12,7 @@ export default function Setting(){
                 fullWidth
                 label={"Tax Rate"}
                 inputProps={{
+                  placeholder:"Enter Tax Rate (%)",
                   name:"taxRate",
                   type:"number",
                 }}
@@ -20,6 +21,7 @@ export default function Setting(){
                 fullWidth
                 label={"Website Domain"}
                 inputProps={{
+                  placeholder:"Enter your Website url",
                   name:"webDomain",
                   type:"url",
                 }}
