@@ -9,13 +9,21 @@ import {FiUsers as UsersIcon} from 'react-icons/fi';
 import {TbBrandAirtable as TableIcon} from 'react-icons/tb';
 import {AiOutlineSetting as SettingIcon} from 'react-icons/ai';
 import {IoMdStats as StatIcon} from 'react-icons/io'
+import logo from '../../assets/svg/Logo.svg'
+import Image from "next/image";
 
 export default function Navigation() {
   return (
     <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-5 ">
 
       <div className="h-20 w-full flex items-center justify-start sticky top-0 left-0 bg-white shadow-md shadow-white">
-        <p>Logog</p>
+      <Image 
+          src={logo} 
+          alt="Logo" 
+          height={45}
+          width={45}
+          className="fill-transparent ml-4"
+      />
       </div>
 
       <div className="h-full w-full flex flex-col gap-6 pt-10 pb-4">
