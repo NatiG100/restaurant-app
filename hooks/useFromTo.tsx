@@ -14,7 +14,7 @@ export default function useFromTo(){
         else if(formatDate(new Date(Date.now()))<newFromDate){
             setError("From can't be after today.")
         }
-        else{
+        else if(newFromDate!==""){
             setFrom(newFromDate);
             setError(null);
         }
@@ -27,7 +27,7 @@ export default function useFromTo(){
         else if(formatDate(new Date(Date.now()))<newToDate){
             setError("To can't be after today.")
         }
-        else{
+        else if(newToDate!==""){
             setTo(newToDate);
             setError(null);
         }
