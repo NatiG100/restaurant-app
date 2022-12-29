@@ -7,20 +7,21 @@ export interface TypeLabledInput{
 
 export default function LabledInput({inputProps,label,error,fullWidth=false}:TypeLabledInput){
     return(
-        <div className={`${fullWidth&&"w-full"} flex flex-col gap-1`}>
-            <label htmlFor={inputProps.name}>{label}</label>
+        <div className={`${fullWidth&&"w-full"} flex flex-col gap-1 ${inputProps.disabled&&"opacity-70"}`}>
+            <label htmlFor={inputProps.name} className="text-lg font-semibold text-indigo-800">{label}</label>
             <input
                 className={`
-                    border border-gray-400 bg-gray-100 
+                    border bg-gray-100 
                     ${
-                        error?"text-red-500 focus:border-red-400 focus:text-red-700":
-                        "text-indigo-500 focus:border-indigo-400 focus:text-indigo-700"
-                    } 
+                        error?"text-red-500 border-red-400 focus:border-red-400 focus:text-red-700 focus:ring-red-500":
+                        "text-gray-600 border-gray-400 focus:border-indigo-400 focus:text-gray-800"
+                    }
+                    ${inputProps.disabled&&"opacity-70"}
                     font-semibold h-max p-2 rounded ${fullWidth&&"w-full"}
                  `}
                 {...inputProps}
             />
-            {error&&<p>{error}</p>}
+            {error&&<p className={`text-red-600 ${inputProps.disabled&&"opacity-70"}`}>{error}</p>}
 
         </div>
     );

@@ -4,6 +4,7 @@ import StatGroup from "../components/stats/StatGroup";
 import StatItem from "../components/stats/StatItem";
 import Button from "../components/UIElements/Button";
 import Input from "../components/UIElements/Input";
+import LabledInput from "../components/UIElements/LabledInput";
 import useFromTo from "../hooks/useFromTo";
 import { formatDate } from "../utils/date";
 
