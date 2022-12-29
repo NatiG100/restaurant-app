@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconType } from 'react-icons/lib';
-export interface TypeButton{
+export interface TypeIconButton{
     children: string,
     size?:"sm"|"md"|"lg",
     type?: "outline"|"fill"|"text",
@@ -22,7 +22,7 @@ export default function IconButton({
     iconEnd,
     disabled=false,
     onClick=()=>{}
-}: TypeButton){
+}: TypeIconButton){
     return (
         <button 
             className={`

@@ -6,6 +6,7 @@ import { columnDefs, TypeOrder } from "../components/TableComponents/order";
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import Backdrop from "../components/Backdrop";
+import BaseModal from "../components/modals/BaseModal";
 
 
 export default function Orders({setAppBarComponent}:any){
@@ -64,7 +65,6 @@ export default function Orders({setAppBarComponent}:any){
 
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-                <Backdrop onClick={()=>{}}>This</Backdrop>
                 <AgGridReact
                     ref={gridRef}
                     rowData={rowData}
