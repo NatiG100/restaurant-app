@@ -9,23 +9,30 @@ export interface TypeOrderModal{
 }
 
 const classes = {
-    headerText:{
-        className:""
-    },
-    text:{
-        className:""
-    },
-    container:{
-        className:""
+    headerText:"text-lg font-bold text-gray-700",
+    text:"text-lg text-gray-500",
+    container:"grid grid-rows-maxmax w-full my-2",
+    twoCols:"grid grid-cols-1fr1fr",
+}
+
+const statusClass = (order:TypeOrder)=>{
+    if(order.status==="Cancelled"){
+        return "text-lg text-red-600"
+    }
+    else if(order.status==="Pending"){
+        return "text-lg text-yellow-600"
+    }
+    else if(order.status==="Served"){
+        return "text-lg text-green-600"
+    }
+    else if(order.status==="Started"){
+        return "text-lg text-indigo-600"
     }
 }
+
 export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
     const className="w-24";
-    const actions:TypeButton[] = [
-        {
-            children:"View", className
-        }
-    ];
+    const actions:TypeButton[] = [];
     if(order.status==="Pending"){
         actions.push({children:"Start", color:"warning", className});
     }else if(order.status==="Started"){
@@ -43,10 +50,32 @@ export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
             actions={actions}
         >
             <div>
-                <p>Order Items</p>
-                {order.items.map((orderItem)=>(
-                    <OrderItem {...orderItem} key={orderItem.name}/>
-                ))}
+                <div className={classes.twoCols + " mb-3"}>
+                    <div className={classes.container}>
+                        <p className={classes.headerText}>Status</p>
+                        <p className={statusClass(order)}>{order.status}</p>
+                    </div>
+                    <div className={classes.container}>
+                        <p className={classes.headerText}>Time Elapsed</p>
+                        <p className={classes.text}>{order.timeElapsed}</p>
+                    </div>
+                </div>
+                <div className={classes.twoCols + " mb-3"}>
+                    <div className={classes.container}>
+                        <p className={classes.headerText}>Total Cost</p>
+                        <p className={classes.text}>{order.totalCost}</p>
+                    </div>
+                    <div className={classes.container}>
+                        <p className={classes.headerText}>Table Number</p>
+                        <p className={classes.text}>{order.tableNumber}</p>
+                    </div>
+                </div>
+                <div className={classes.container + " max-w-md"}>
+                    <p className={classes.headerText}>Order Items</p>
+                    {order.items.map((orderItem)=>(
+                        <OrderItem {...orderItem} key={orderItem.name}/>
+                    ))}
+                </div>
             </div>
         </BaseModal>
     );    
@@ -56,7 +85,7 @@ function OrderItem(props:TypeItem){
     return(
         <div className="
             flex justify-between items-center w-full px-4 pr-12
-            bg-gray-100 rounded-lg m-2 py-4 cursor-default
+            bg-gray-100 rounded-lg m-2 py-2 cursor-default
             hover:bg-gray-200 transition-all
         ">
             <div className="flex justify-start items-center gap-6">
