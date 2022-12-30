@@ -11,7 +11,7 @@ export default function BaseModal ({children,headerSection,onClose=()=>{},action
     return(
         <div className={`
             bg-white border border-gray-100 shadow-lg rounded-lg
-            w-full max-w-2xl h-full max-h-96
+            w-full max-w-xl h-full max-h-192
             relative grid grid-rows-mx1frmx gap-6
             overflow-y-auto
         `}>

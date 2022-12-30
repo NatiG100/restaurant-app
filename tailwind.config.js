@@ -39,6 +39,9 @@ module.exports = {
           }
         }
       },
+      maxHeight:{
+        "192":"42rem"
+      }
     },
   },
   plugins: [],
