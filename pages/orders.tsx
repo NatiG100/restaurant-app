@@ -92,16 +92,20 @@ export default function Orders({setAppBarComponent}:any){
 
         ]},
     ]);
-
+    const [selectedOrder, setSelectedOrder] = useState<TypeOrder | null>(null);
+    const handleOrderModalClose = ()=>{
+        setSelectedOrder(null);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-                <Backdrop>
+                {selectedOrder&&<Backdrop onClick={handleOrderModalClose}>
                     <OrderModal
-                        order={rowData[0]}
-                        onClose={()=>{}}
+                        order={selectedOrder}
+                        onClose={handleOrderModalClose}
                     />
-                </Backdrop>
+                </Backdrop>}
                 <AgGridReact
+                    context={{setSelectedOrder}}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={columnDefs}

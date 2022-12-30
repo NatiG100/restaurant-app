@@ -20,7 +20,7 @@ export interface TypeOrder{
 export const OrderTableActionRow = (params: ICellRendererParams<TypeOrder>)=>{
     return(
         <div className="flex gap-4 font-semibold w-max">
-            <Button type="outline" className="w-24">
+            <Button type="outline" className="w-24" onClick={()=>{params.context?.setSelectedOrder(params.data)}}>
                 View
             </Button>
             {

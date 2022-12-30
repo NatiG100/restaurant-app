@@ -11,6 +11,7 @@ export default function Backdrop({onClick=()=>{},children}:TypeBackdrop){
         setBackdrop(document.getElementById("portal"));
     },[])
     if(!backdrop) return null;
+    
     return ReactDOM.createPortal(
         <div 
             className={`

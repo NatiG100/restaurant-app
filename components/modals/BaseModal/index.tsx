@@ -14,7 +14,7 @@ export default function BaseModal ({children,headerSection,onClose=()=>{},action
             w-full max-w-xl h-full max-h-192
             relative grid grid-rows-mx1frmx gap-6
             overflow-y-auto
-        `}>
+        `} onClick={(event)=>{event.stopPropagation()}}>
             <div className={`
                 flex items-center justify-between sticky top-0
                 bg-white shadow-md shadow-white/70 px-8 py-3
