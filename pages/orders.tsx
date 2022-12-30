@@ -7,6 +7,7 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import Backdrop from "../components/Backdrop";
 import BaseModal from "../components/modals/BaseModal";
+import OrderModal from "../components/modals/OrderModal";
 
 
 export default function Orders({setAppBarComponent}:any){
@@ -55,16 +56,51 @@ export default function Orders({setAppBarComponent}:any){
 
     // get rows
     const [rowData] = useState<TypeOrder[]>([
-        {_id:"nakdjfjeial",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Pending"},
-        {_id:"nsdknvfkkcd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Pending"},
-        {_id:"alksdfj,dfd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Started"},
-        {_id:"ueiopaisdfx",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Cancelled"},
-        {_id:"nalskjsdoto",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Served"},
-        {_id:"abegkielmdf",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Served"},
+        {_id:"nakdjfjeial",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Pending",items:[
+            {
+                amount:20,
+                cost: 220,
+                img: "/avatar.jpg",
+                name: "Chechebsa"
+            },
+            {
+                amount:18,
+                cost: 250,
+                img: "/bf.jpg",
+                name: "Pasta"
+            },
+            {
+                amount:4,
+                cost: 125,
+                img: "/bf.jpg",
+                name: "Tea"
+            }
+        ]},
+        {_id:"nsdknvfkkcd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Pending",items:[
+
+        ]},
+        {_id:"alksdfj,dfd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Started",items:[
+
+        ]},
+        {_id:"ueiopaisdfx",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Cancelled",items:[
+
+        ]},
+        {_id:"nalskjsdoto",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Served",items:[
+
+        ]},
+        {_id:"abegkielmdf",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Served",items:[
+
+        ]},
     ]);
 
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                <Backdrop>
+                    <OrderModal
+                        order={rowData[0]}
+                        onClose={()=>{}}
+                    />
+                </Backdrop>
                 <AgGridReact
                     ref={gridRef}
                     rowData={rowData}

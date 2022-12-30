@@ -1,12 +1,19 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
 import Button from "../UIElements/Button";
 
+export interface TypeItem{
+    img: string,
+    name: string,
+    cost: number,
+    amount: number,
+}
 export interface TypeOrder{
     _id:string,
     date:string,
     totalCost:number,
     timeElapsed:string,
     tableNumber:string,
+    items: TypeItem[],
     status:"Served"|"Pending"|"Cancelled"|"Started"
 }
 
