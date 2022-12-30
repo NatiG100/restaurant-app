@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { TypeItem, TypeOrder } from "../TableComponents/order";
+import { TypeButton } from "../UIElements/Button";
 import BaseModal from "./BaseModal";
 
 export interface TypeOrderModal{
@@ -19,6 +20,17 @@ const classes = {
     }
 }
 export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
+    const className="w-24";
+    const actions:TypeButton[] = [
+        {
+            children:"View", className
+        }
+    ];
+    if(order.status==="Pending"){
+        actions.push({children:"Start", color:"warning", className});
+    }else if(order.status==="Started"){
+        actions.push({children:"Ready",color:"success", className});
+    }
     return(
         <BaseModal
             onClose={onClose}
@@ -28,7 +40,7 @@ export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
                     <p className="text-gray-600">{order._id}</p>
                 </div>
             }
-            actions={[]}
+            actions={actions}
         >
             <div>
                 <p>Order Items</p>

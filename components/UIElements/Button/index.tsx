@@ -19,7 +19,7 @@ export default function Button({
         <button 
             className={`
                 rounded-lg transition-all ${className}
-                 m-1
+                m-1
                 ${size==="sm"?"text-xs p-1":size==="lg"&&"text-lg p-2"}
                 ${
                     type==="outline"?`border 
@@ -32,7 +32,7 @@ export default function Button({
                     `:type==="fill"?`
                         ${
                             color==="primary"?"bg-indigo-500 text-indigo-50 hover:bg-indigo-700 hover:text-indigo-50":
-                            color==="warning"?"bg-yellow-500 text-yellow-50 hover:bg-yellow-700 hover:text-yellow-50":
+                            color==="warning"?"bg-yellow-600 text-yellow-50 hover:bg-yellow-500 hover:text-yellow-50":
                             color==="error"?"bg-red-500 text-red-50 hover:bg-red-700 hover:text-red-50":
                             "bg-green-500 text-green-50 hover:bg-green-700 hover:text-green-50"
                         }
