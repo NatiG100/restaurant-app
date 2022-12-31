@@ -17,7 +17,7 @@ export default function BaseModal ({children,headerSection,onClose=()=>{},action
         `} onClick={(event)=>{event.stopPropagation()}}>
             <div className={`
                 flex items-center justify-between sticky top-0
-                bg-white shadow-md shadow-white/70 px-8 py-3
+                bg-white shadow-md shadow-white/70 px-8 py-3 z-20
             `}>
                 {headerSection}
                 <IconButton 

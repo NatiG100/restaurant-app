@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import {BiSave as SaveIcon} from 'react-icons/bi'
+import SingleImageUpload from '../SingleImageUpload';
 import { TypeFoodCategory } from "../TableComponents/foodCategories";
+import Divider from '../UIElements/Divider';
 import { TypeIconButton } from '../UIElements/IconButton';
 import LabledInput from '../UIElements/LabledInput';
 import LabledTextarea from '../UIElements/LabledTextArea';
@@ -51,6 +54,7 @@ export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagorie
             className:"w-24",
         });
     }
+    const [foodCategoryImg,setFoodCategoryImg] = useState<string>(category.img);
     return(
         <BaseModal
             headerSection={
@@ -84,7 +88,12 @@ export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagorie
                         <p className={statusClass(category)}>{category.status}</p>
                     </div>
                 </div>
+                <Divider className='w-full my-4'/>
                 <div className='w-full flex flex-col gap-3 pt-3'>
+                    <SingleImageUpload
+                        img={foodCategoryImg}
+                        setImg={setFoodCategoryImg}
+                    />
                     <LabledInput
                         inputProps={{name:"name", placeholder:"Name",value:category.name}}
                         label="Name"
