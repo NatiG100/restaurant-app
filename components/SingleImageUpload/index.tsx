@@ -18,7 +18,8 @@ export default function SingleImageUpload(props:TypeSingleImageUpload){
     const {
         getRootProps,
         getInputProps,
-        isDragActive
+        isDragActive,
+        isDragAccept
     } = useDropzone({
             onDrop,
             accept:{
@@ -46,8 +47,14 @@ export default function SingleImageUpload(props:TypeSingleImageUpload){
                         <div className="h-full w-full flex items-center justify-center opacity-0 hover:opacity-100 transition-all">
                             <p className="text-xl text-indigo-50 bg-indigo-700/50 px-4 py-2 rounded-full">Drag 'n' drop an image here, or click</p>
                         </div>:
+                    isDragAccept?
                         <div className="h-full w-full flex items-center justify-center  bg-indigo-700/50 border-2 border-dashed">
                             <p className="text-xl text-indigo-50">drop the image here</p>
+                        </div>:
+                        <div className="h-full w-full flex flex-col items-center justify-center  bg-red-700/50 border-2 border-red-600 border-dashed">
+                            <p className="text-xl text-red-100">The file is not acceptable!</p>
+                            <p className="text-xl text-red-100">check the file type</p>
+                            <p className="text-xl text-red-100">(multiple files are not also acceptable)</p>
                         </div>
                 }
             </div>
