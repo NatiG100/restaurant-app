@@ -4,7 +4,7 @@ export interface TypeButton{
     type?: "outline"|"fill"|"text",
     color?: "primary"|"success"|"warning"|"error",
     className?:string,
-    onClick?:()=>void,
+    onClick?(event: void | React.MouseEvent<HTMLButtonElement>):void
 }
 
 export default function Button({

@@ -1,5 +1,6 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
 import Image from "next/image";
+import React from "react";
 import Button from "../UIElements/Button";
 
 export interface TypeFoodCategory{
@@ -14,9 +15,17 @@ export interface TypeFoodCategory{
 }
 
 const FoodCategoriesActionCell = (params:ICellRendererParams<TypeFoodCategory>)=>{
+    const handleViewClicked = (event:React.MouseEvent<HTMLButtonElement>)=>{
+        event.stopPropagation();
+        params.context?.setSelectedFoodCategory(params.data);
+    }
     return(
         <div className="flex gap-4 font-semibold w-max">
-                    <Button type="outline" className="w-24">View</Button>
+                    <Button 
+                        type="outline" 
+                        className="w-24" 
+                        onClick={handleViewClicked}
+                    >View</Button>
             {
                 params.data?.status==="Active"?
                     <Button type="outline" color="error" className="w-24">Deactivate</Button>:

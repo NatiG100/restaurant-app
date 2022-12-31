@@ -7,6 +7,8 @@ import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeFoodCategory } from "../../components/TableComponents/foodCategories";
 import { RowClickedEvent } from "ag-grid-community";
 import { useRouter } from "next/router";
+import Backdrop from "../../components/Backdrop";
+import FoodCategoriesModal from "../../components/modals/FoodCatagoriesModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -91,10 +93,26 @@ export default function DrinkCategories({setAppBarComponent}:any){
         const id = event.data?.id;
         router.push('/foods/'+id);
     }
+    const [selectedFoodCategory,setSelectedFoodCategory] = useState<TypeFoodCategory|null>(null);
+    const handleModalClose = ()=>{
+        setSelectedFoodCategory(null);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                {
+                    selectedFoodCategory&&
+                    <Backdrop onClick={handleModalClose}>
+                        <FoodCategoriesModal
+                            onClose={handleModalClose}
+                            category={selectedFoodCategory}
+                        />
+                    </Backdrop>
+                }
                 <AgGridReact
-                    onRowClicked={handleClick}
+                    context={{
+                        setSelectedFoodCategory
+                    }}
+                    onRowDoubleClicked={handleClick}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={columnDefs}

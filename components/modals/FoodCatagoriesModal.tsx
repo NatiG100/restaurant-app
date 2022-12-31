@@ -2,11 +2,12 @@ import {BiSave as SaveIcon} from 'react-icons/bi'
 import { TypeFoodCategory } from "../TableComponents/foodCategories";
 import { TypeIconButton } from '../UIElements/IconButton';
 import LabledInput from '../UIElements/LabledInput';
+import LabledTextarea from '../UIElements/LabledTextArea';
 import BaseModal from "./BaseModal";
 
 export interface TypeFoodCatagoriesModal{
     category:TypeFoodCategory,
-    onClose:()=>void
+    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void
 }
 
 const classes = {
@@ -28,9 +29,10 @@ const statusClass = (category:TypeFoodCategory)=>{
 export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagoriesModal){
     const actionButtons:TypeIconButton[] = [
         {
+            type:"outline",
             children:"Save Changes",
             iconEnd:<SaveIcon/>,
-            className:"w-28",
+            className:"w-36",
             color:"warning",
         }
     ];
@@ -82,16 +84,18 @@ export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagorie
                         <p className={statusClass(category)}>{category.status}</p>
                     </div>
                 </div>
-                <LabledInput
-                    inputProps={{name:"name", placeholder:"Name",value:category.name}}
-                    label="Name"
-                    fullWidth
-                />
-                <LabledInput
-                    inputProps={{name:"Description",multiple:true,min:3,max:3, value:category.description}}
-                    label="Name"
-                    fullWidth
-                />
+                <div className='w-full flex flex-col gap-3 pt-3'>
+                    <LabledInput
+                        inputProps={{name:"name", placeholder:"Name",value:category.name}}
+                        label="Name"
+                        fullWidth
+                    />
+                    <LabledTextarea
+                        inputProps={{name:"description", value:category.description,rows:4,style:{resize:"none"}}}
+                        label="Description"
+                        fullWidth
+                    />
+                </div>
             </div>
         </BaseModal>
     );
