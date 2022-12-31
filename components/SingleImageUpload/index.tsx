@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
 export interface TypeSingleImageUpload{
-    img:string,
+    img:string | null,
     setImg:(value:string)=>void
 }
 
@@ -32,7 +32,7 @@ export default function SingleImageUpload(props:TypeSingleImageUpload){
     return(
         <div {...getRootProps()} className="w-full h-64 relative">
             <Image
-                src={props.img}
+                src={props.img?props.img:""}
                 alt="avatar"
                 width={400}
                 height={400}
@@ -43,6 +43,15 @@ export default function SingleImageUpload(props:TypeSingleImageUpload){
                 absolute top-0 right-0 w-full h-full flex items-center justify-center
             ">
                 {
+                    !props.img&&
+                    <div className="
+                        absolute top-0 right-0 h-full w-full flex items-center justify-center
+                        border-2 border-gray-300 border-dashed
+                    ">
+                    </div>
+                }
+                {
+                    
                     !isDragActive?
                         <div className="h-full w-full flex items-center justify-center opacity-0 hover:opacity-100 transition-all">
                             <p className="text-xl text-indigo-50 bg-indigo-700/50 px-4 py-2 rounded-full">Drag 'n' drop an image here, or click</p>
