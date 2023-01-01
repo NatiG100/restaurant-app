@@ -30,7 +30,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
-            
+            <p className="text-2xl text-indigo-600 font-semibold">Categories</p>
             <IconButton 
                 className="w-46 py-2" 
                 size="lg" 

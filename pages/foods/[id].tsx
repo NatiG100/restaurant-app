@@ -6,6 +6,7 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeDrink } from "../../components/TableComponents/drinks";
 import { NextRouter, useRouter } from "next/router";
+import Button from "../../components/UIElements/Button";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -25,17 +26,19 @@ export default function DrinkCategories({setAppBarComponent}:any){
             }, 2000)
         }
     },[tableRef])
-
+    const router:NextRouter = useRouter();
+    const {id} = router.query;
     //Add custom header components
+    const handleCategoriesClicked = ()=>{
+        router.back();
+    }
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
-            <IconButton 
-                className="w-28 py-2" 
-                size="lg" 
-                iconStart={<AiOutlinePrinter className="text-xl"/>}
-                onClick={handlePrint}
-            >Print</IconButton>
+            <div className="flex items-center ">
+                <Button type="text" className="w-28" size="lg" onClick={handleCategoriesClicked}>Categories</Button>
+                <p className="text-2xl text-indigo-600 font-semibold">/ Dinner</p>
+            </div>
             <IconButton 
                 className="w-28 py-2" 
                 size="lg" 
@@ -140,8 +143,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
             totalSale:200,
         },
     ]);
-    const router:NextRouter = useRouter();
-    const {id} = router.query;
+    
     useEffect(()=>{
         if(id){
             setFilteredRows(rowData.filter((row)=>(row.categoryId===id)));
