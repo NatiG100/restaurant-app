@@ -7,6 +7,7 @@ import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeDrink } from "../../components/TableComponents/drinks";
 import { NextRouter, useRouter } from "next/router";
 import Button from "../../components/UIElements/Button";
+import Divider from "../../components/UIElements/Divider";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -38,6 +39,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
             <div className="flex items-center ">
                 <Button type="text" className="w-28" size="lg" onClick={handleCategoriesClicked}>Categories</Button>
                 <p className="text-2xl text-indigo-600 font-semibold">/ Dinner</p>
+            </div>
+            <div className="h-7">
+                <Divider orientation="v"/>
             </div>
             <IconButton 
                 className="w-28 py-2" 

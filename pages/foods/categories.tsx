@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Backdrop from "../../components/Backdrop";
 import FoodCategoriesModal from "../../components/modals/FoodCategoriesModal";
 import CreateFoodCategoryModal from "../../components/modals/CreateFoodCategoryModal";
+import Divider from "../../components/UIElements/Divider";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -31,6 +32,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
             <p className="text-2xl text-indigo-600 font-semibold">Categories</p>
+            <div className="h-7">
+                <Divider orientation="v"/>
+            </div>
             <IconButton 
                 className="w-46 py-2" 
                 size="lg" 
