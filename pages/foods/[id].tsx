@@ -10,6 +10,9 @@ import Button from "../../components/UIElements/Button";
 import Divider from "../../components/UIElements/Divider";
 import Backdrop from "../../components/Backdrop";
 import FoodTableViewModal from "../../components/modals/foodTableModals/FoodTableViewModal";
+import {GoPlus as PlusIcon} from 'react-icons/go';
+import CreateFoodModal from "../../components/modals/foodTableModals/CreateFoodModal";
+
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -32,6 +35,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const router:NextRouter = useRouter();
     const {id} = router.query;
     //Add custom header components
+    const [openCreateModal,setOpenCreateModal] = useState<boolean>(false);
+    const handleCloseCreateModal = ()=>{
+        setOpenCreateModal(false);
+    }
+    const handleOpenCreateModal = ()=>{
+        setOpenCreateModal(true);
+    }
+    const handleCreateNewFoodClicked = ()=>{
+
+    }
     const handleCategoriesClicked = ()=>{
         router.back();
     }
@@ -46,13 +59,13 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 <Divider orientation="v"/>
             </div>
             <IconButton 
-                className="w-28 py-2" 
+                className="w-46 py-2" 
                 size="lg" 
                 type="outline"
                 color="success"
-                iconStart={<AiOutlineExport className="text-xl"/>}
-                onClick={handleExportClicked}
-            >Export</IconButton>
+                iconEnd={<PlusIcon className="text-xl"/>}
+                onClick={handleOpenCreateModal}
+            >Create New Food</IconButton>
           </div>
           
         );
@@ -164,6 +177,14 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 {   selectedFood&&
                     <Backdrop onClick={handleFoodViewModalClose}>
                         <FoodTableViewModal food={selectedFood} onClose={handleFoodViewModalClose}/>
+                    </Backdrop>
+                }
+                {
+                    openCreateModal&&
+                    <Backdrop onClick={handleCloseCreateModal}>
+                        <CreateFoodModal
+                            onClose={handleCloseCreateModal}
+                        />
                     </Backdrop>
                 }
                 <AgGridReact
