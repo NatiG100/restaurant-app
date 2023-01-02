@@ -2,12 +2,14 @@ import {useRef, useEffect,useState, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
+import {AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
-import { columnDefs, defaultColDef, TypeDrink } from "../../components/TableComponents/drinks";
+import { columnDefs, defaultColDef, TypeFood } from "../../components/TableComponents/foods";
 import { NextRouter, useRouter } from "next/router";
 import Button from "../../components/UIElements/Button";
 import Divider from "../../components/UIElements/Divider";
+import Backdrop from "../../components/Backdrop";
+import FoodTableViewModal from "../../components/modals/foodTableModals/FoodTableViewModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -60,8 +62,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [filteredRows,setFilteredRows] = useState<TypeDrink[]>([]);
-    const [rowData] = useState<TypeDrink[]>([
+    const [filteredRows,setFilteredRows] = useState<TypeFood[]>([]);
+    const [rowData] = useState<TypeFood[]>([
         {
             id:"ahxjbnaiosdufneuil",
             categoryId:"1200padkjfthisthat",
@@ -153,13 +155,24 @@ export default function DrinkCategories({setAppBarComponent}:any){
             setFilteredRows(rowData.filter((row)=>(row.categoryId===id)));
         }
     },[id]);
-
+    const [selectedFood, setSelectedFood] = useState<TypeFood | null>(null);
+    const handleFoodViewModalClose = ()=>{
+        setSelectedFood(null);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                {   selectedFood&&
+                    <Backdrop onClick={handleFoodViewModalClose}>
+                        <FoodTableViewModal food={selectedFood} onClose={handleFoodViewModalClose}/>
+                    </Backdrop>
+                }
                 <AgGridReact
                     ref={gridRef}
                     rowData={filteredRows}
                     columnDefs={columnDefs}
+                    context={{
+                        setSelectedFood
+                    }}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={
                         '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'

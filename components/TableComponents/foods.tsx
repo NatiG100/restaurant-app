@@ -2,7 +2,7 @@ import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community"
 import Image from "next/image";
 import Button from "../UIElements/Button";
 
-export interface TypeDrink{
+export interface TypeFood{
     id:string,
     categoryId:string,
     name:string,
@@ -17,10 +17,17 @@ export interface TypeDrink{
     totalSale:number,
 }
 
-const FoodsActionCell = (params:ICellRendererParams<TypeDrink>)=>{
+const FoodsActionCell = (params:ICellRendererParams<TypeFood>)=>{
     return(
         <div className="flex gap-4 font-semibold w-max">
-                    <Button type="outline" className="w-24">View</Button>
+                    <Button 
+                        type="outline" 
+                        className="w-24"
+                        onClick={()=>{
+                            params.context?.setSelectedFood(params.data);
+                        }}
+                    >
+                    View</Button>
             {
                 params.data?.status==="Active"?
                     <Button type="outline" color="error" className="w-24">Deactivate</Button>:
@@ -29,7 +36,7 @@ const FoodsActionCell = (params:ICellRendererParams<TypeDrink>)=>{
         </div>
     );
 }
-const FoodsAvatarCell = (params:ICellRendererParams<TypeDrink>)=>{
+const FoodsAvatarCell = (params:ICellRendererParams<TypeFood>)=>{
     return(
         <div className="flex justify-center items-center py-2 my-auto">
             <Image
@@ -42,7 +49,7 @@ const FoodsAvatarCell = (params:ICellRendererParams<TypeDrink>)=>{
         </div>
     );
 }
-const FoodsDescriptionCell = (params:ICellRendererParams<TypeDrink>)=>{
+const FoodsDescriptionCell = (params:ICellRendererParams<TypeFood>)=>{
     return(
         <div className="w-full max-h-24 overflow-y-auto">
             <p className="text-sm p-2 text-gray-600  leading-4">{params.data?.description}</p>
@@ -50,7 +57,7 @@ const FoodsDescriptionCell = (params:ICellRendererParams<TypeDrink>)=>{
     );
 }
 
-const statusColumnClass = (params:CellClassParams<TypeDrink>)=>(
+const statusColumnClass = (params:CellClassParams<TypeFood>)=>(
     params.data?.status==="Active"?"text-green-600 text-base":
     params.data?.status==="Suspended"?"text-red-600  text-base":
     "text-gray-600  text-base" 
@@ -65,7 +72,7 @@ export const defaultColDef:ColDef={
     headerClass
 }
 
-export const columnDefs:ColDef<TypeDrink>[] = [
+export const columnDefs:ColDef<TypeFood>[] = [
     {
         field:'img',
         headerName:"Avatar",
