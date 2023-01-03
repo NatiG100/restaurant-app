@@ -2,7 +2,6 @@ import {useRef, useEffect,useState, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeFood } from "../../components/TableComponents/foods";
 import { NextRouter, useRouter } from "next/router";
@@ -19,19 +18,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
-    const handleExportClicked = ()=>{
-        gridRef.current!.api.exportDataAsCsv();
-    }
-    const handlePrint = useCallback(()=>{
-        if(tableRef.current){
-            const api = gridRef.current!.api!;
-            api.setDomLayout("print");
-            setTimeout(function(){
-                print();
-                api.setDomLayout();
-            }, 2000)
-        }
-    },[tableRef])
     const router:NextRouter = useRouter();
     const {id} = router.query;
     //Add custom header components
@@ -41,9 +27,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
     }
     const handleOpenCreateModal = ()=>{
         setOpenCreateModal(true);
-    }
-    const handleCreateNewFoodClicked = ()=>{
-
     }
     const handleCategoriesClicked = ()=>{
         router.back();

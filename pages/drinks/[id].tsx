@@ -11,25 +11,26 @@ import Backdrop from "../../components/Backdrop";
 import Button from "../../components/UIElements/Button";
 import Divider from "../../components/UIElements/Divider";
 import {GoPlus as PlusIcon} from 'react-icons/go';
+import CreateDrinkModal from "../../components/modals/drinkTableModals/CreateDrinkModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
-    const handleExportClicked = ()=>{
-        gridRef.current!.api.exportDataAsCsv();
+
+    const router:NextRouter = useRouter();
+
+    const [openCreateModal,setOpenCreateModal] = useState<boolean>(false);
+    const handleCloseCreateModal = ()=>{
+        setOpenCreateModal(false);
     }
-    const handlePrint = useCallback(()=>{
-        if(tableRef.current){
-            const api = gridRef.current!.api!;
-            api.setDomLayout("print");
-            setTimeout(function(){
-                print();
-                api.setDomLayout();
-            }, 2000)
-        }
-    },[tableRef])
+    const handleOpenCreateModal = ()=>{
+        setOpenCreateModal(true);
+    }
+    const handleCategoriesClicked = ()=>{
+        router.back();
+    }
 
     //Add custom header components
     useEffect(()=>{
@@ -48,7 +49,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 type="outline"
                 color="success"
                 iconEnd={<PlusIcon className="text-xl"/>}
-            >Create New Food</IconButton>
+                onClick={handleOpenCreateModal}
+            >Create New Drink</IconButton>
           </div>
           
         );
@@ -145,7 +147,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
             totalSale:200,
         },
     ]);
-    const router:NextRouter = useRouter();
     const {id} = router.query;
     useEffect(()=>{
         if(id){
@@ -163,6 +164,12 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     selectedDrink&&
                     <Backdrop onClick={handleFoodViewModalClose}>
                         <DrinkTableViewModal drink={selectedDrink} onClose={handleFoodViewModalClose}/>
+                    </Backdrop>
+                }
+                {
+                    openCreateModal&&
+                    <Backdrop onClick={handleCloseCreateModal}>
+                        <CreateDrinkModal onClose={handleCloseCreateModal}/>
                     </Backdrop>
                 }
                 <AgGridReact
