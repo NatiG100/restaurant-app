@@ -20,7 +20,13 @@ export interface TypeDrink{
 const DrinksActionCell = (params:ICellRendererParams<TypeDrink>)=>{
     return(
         <div className="flex gap-4 font-semibold w-max">
-                    <Button type="outline" className="w-24">View</Button>
+                    <Button 
+                        type="outline" 
+                        className="w-24"
+                        onClick={()=>{
+                            params.context?.setSelectedDrink(params.data);
+                        }}
+                    >View</Button>
             {
                 params.data?.status==="Active"?
                     <Button type="outline" color="error" className="w-24">Deactivate</Button>:

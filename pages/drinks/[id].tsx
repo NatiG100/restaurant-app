@@ -6,6 +6,11 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeDrink } from "../../components/TableComponents/drinks";
 import { NextRouter, useRouter } from "next/router";
+import DrinkTableViewModal from "../../components/modals/drinkTableModals/DrinkTableViewModal";
+import Backdrop from "../../components/Backdrop";
+import Button from "../../components/UIElements/Button";
+import Divider from "../../components/UIElements/Divider";
+import {GoPlus as PlusIcon} from 'react-icons/go';
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -30,20 +35,20 @@ export default function DrinkCategories({setAppBarComponent}:any){
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
+            <div className="flex items-center ">
+                <Button type="text" className="w-28" size="lg" onClick={handleCategoriesClicked}>Categories</Button>
+                <p className="text-2xl text-indigo-600 font-semibold">/ Dinner</p>
+            </div>
+            <div className="h-7">
+                <Divider orientation="v"/>
+            </div>
             <IconButton 
-                className="w-28 py-2" 
-                size="lg" 
-                iconStart={<AiOutlinePrinter className="text-xl"/>}
-                onClick={handlePrint}
-            >Print</IconButton>
-            <IconButton 
-                className="w-28 py-2" 
+                className="w-46 py-2" 
                 size="lg" 
                 type="outline"
                 color="success"
-                iconStart={<AiOutlineExport className="text-xl"/>}
-                onClick={handleExportClicked}
-            >Export</IconButton>
+                iconEnd={<PlusIcon className="text-xl"/>}
+            >Create New Food</IconButton>
           </div>
           
         );
@@ -147,10 +152,23 @@ export default function DrinkCategories({setAppBarComponent}:any){
             setFilteredRows(rowData.filter((row)=>(row.categoryId===id)));
         }
     },[id]);
-
+    
+    const [selectedDrink, setSelectedDrink] = useState<TypeDrink | null>(null);
+    const handleFoodViewModalClose = ()=>{
+        setSelectedDrink(null);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                {
+                    selectedDrink&&
+                    <Backdrop onClick={handleFoodViewModalClose}>
+                        <DrinkTableViewModal drink={selectedDrink} onClose={handleFoodViewModalClose}/>
+                    </Backdrop>
+                }
                 <AgGridReact
+                    context={{
+                        setSelectedDrink
+                    }}
                     ref={gridRef}
                     rowData={filteredRows}
                     columnDefs={columnDefs}
