@@ -6,8 +6,9 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeDrinkCategory } from "../../components/TableComponents/drinkCategories";
 import { RowClickedEvent } from "ag-grid-community";
-import { TypeDrink } from "../../components/TableComponents/drinks";
 import { useRouter } from "next/router";
+import Backdrop from "../../components/Backdrop";
+import DrinkCategoriesModal from "../../components/modals/drinkCategoryModals/DrinkCategoryModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -92,10 +93,26 @@ export default function DrinkCategories({setAppBarComponent}:any){
         const id = event.data?.id;
         router.push('/drinks/'+id);
     }
+    const [selectedDrinkCategory,setSelectedDrinkCategory] = useState<TypeDrinkCategory|null>(null);
+    const handleModalClose = ()=>{
+        setSelectedDrinkCategory(null);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                {
+                    selectedDrinkCategory&&
+                    <Backdrop onClick={handleModalClose}>
+                        <DrinkCategoriesModal
+                            onClose={handleModalClose}
+                            category={selectedDrinkCategory}
+                        />
+                    </Backdrop>
+                }
                 <AgGridReact
-                    onRowClicked={handleClick}
+                    context={{
+                        setSelectedDrinkCategory
+                    }}
+                    onRowDoubleClicked={handleClick}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={columnDefs}
