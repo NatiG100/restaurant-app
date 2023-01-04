@@ -6,6 +6,8 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeUser } from "../components/TableComponents/user";
 import { useRouter } from "next/router";
+import Backdrop from "../components/Backdrop";
+import ViewUserModal from "../components/modals/userModals/ViewUserModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -96,9 +98,22 @@ export default function DrinkCategories({setAppBarComponent}:any){
         },
     ]);
     const router = useRouter();
+    const [selectedUser,setSelecteduser] = useState<TypeUser | null>(null);
+    const handleModalClose = ()=>{
+        setSelecteduser(null);
+    }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                {
+                    selectedUser&&
+                    <Backdrop onClick={handleModalClose}>
+                        <ViewUserModal user={selectedUser} onClose={handleModalClose}/>
+                    </Backdrop>
+                }
                 <AgGridReact
+                    context={{
+                        setSelecteduser
+                    }}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={columnDefs}
