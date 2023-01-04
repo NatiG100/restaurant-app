@@ -2,50 +2,44 @@ import {useRef, useEffect,useState, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeUser } from "../components/TableComponents/user";
-import { useRouter } from "next/router";
 import Backdrop from "../components/Backdrop";
 import ViewUserModal from "../components/modals/userModals/ViewUserModal";
+import Divider from "../components/UIElements/Divider";
+import {GoPlus as PlusIcon} from 'react-icons/go';
+import AddUserModal from "../components/modals/userModals/AddUserModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
-    const handleExportClicked = ()=>{
-        gridRef.current!.api.exportDataAsCsv();
-    }
-    const handlePrint = useCallback(()=>{
-        if(tableRef.current){
-            const api = gridRef.current!.api!;
-            api.setDomLayout("print");
-            setTimeout(function(){
-                print();
-                api.setDomLayout();
-            }, 2000)
-        }
-    },[tableRef])
 
+    //modal open state logic
+    const[openAddModal, setOpenAddModal] = useState<boolean>(false);
+    const handleAddModalOpen = ()=>{
+        setOpenAddModal(true);
+    }
+    const handleAddModalClose = ()=>{
+        setOpenAddModal(false);
+    }
     //Add custom header components
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
+            <p className="text-2xl text-indigo-600 font-semibold">Categories</p>
+            <div className="h-7">
+                <Divider orientation="v"/>
+            </div>
             <IconButton 
-                className="w-28 py-2" 
-                size="lg" 
-                iconStart={<AiOutlinePrinter className="text-xl"/>}
-                onClick={handlePrint}
-            >Print</IconButton>
-            <IconButton 
-                className="w-28 py-2" 
+                className="w-46 py-2" 
                 size="lg" 
                 type="outline"
                 color="success"
-                iconStart={<AiOutlineExport className="text-xl"/>}
-                onClick={handleExportClicked}
-            >Export</IconButton>
+                iconEnd={<PlusIcon className="text-xl"/>}
+                onClick={handleAddModalOpen}
+            >Add New User</IconButton>
           </div>
           
         );
@@ -97,7 +91,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
             previlages:["View Info","Manage Items"]
         },
     ]);
-    const router = useRouter();
     const [selectedUser,setSelecteduser] = useState<TypeUser | null>(null);
     const handleModalClose = ()=>{
         setSelecteduser(null);
@@ -107,7 +100,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 {
                     selectedUser&&
                     <Backdrop onClick={handleModalClose}>
-                        <ViewUserModal user={selectedUser} onClose={handleModalClose}/>
+                        <ViewUserModal 
+                            user={selectedUser} 
+                            onClose={handleModalClose}
+                        />
+                    </Backdrop>
+                }
+                {
+                    openAddModal&&
+                    <Backdrop onClick={handleAddModalClose}>
+                        <AddUserModal onClose={handleAddModalClose}/>
                     </Backdrop>
                 }
                 <AgGridReact
