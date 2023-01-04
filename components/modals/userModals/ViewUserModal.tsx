@@ -7,6 +7,8 @@ import Divider from "../../UIElements/Divider";
 import SingleImageUpload from "../../SingleImageUpload";
 import LabledInput from "../../UIElements/LabledInput";
 import LabledTextarea from "../../UIElements/LabledTextArea";
+import { allPermissions, TypePermission } from "../../../assets/permissions";
+import ToggleChip from "../../UIElements/ToggleChip";
 
 
 export interface TypeViewUserModal{
@@ -38,6 +40,37 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             className:"w-24",
         });
     }
+    ////// Refactor this code/////////////////////////////////////////////////////
+    const [selectedPermissions, setSelectedPermissions] = useState<TypePermission[]>(user.previlages);
+    const tooglePermission = (permission:TypePermission)=>()=>{
+
+        // if the permission already exists rmeove it
+        if(selectedPermissions.includes(permission)){
+            setSelectedPermissions((oldPermissions)=>{
+                let newPermissions:TypePermission[] = [...oldPermissions];
+                
+                //get the index of permission
+                const index:number = newPermissions.indexOf(permission);
+
+                //remove the permission from the list
+                newPermissions.splice(index,1);
+                return newPermissions;
+            })
+        }
+        // if the permission doesn't exist push it
+        else{
+            setSelectedPermissions((oldPermissions)=>{
+                const newPermission = [...oldPermissions];
+                newPermission.push(permission);
+                return newPermission;
+            })
+        }
+    }
+    const isPermissionOn = (permission:TypePermission)=>{
+        return selectedPermissions.includes(permission);
+    }
+    ////// Refactor this code/////////////////////////////////////////////////////
+
 
     const classes = {
         headerText:"text-lg font-bold text-gray-700",
@@ -72,20 +105,22 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
                         <p className={statusClass(user)}>{user.status}</p>
                     </div>
                 </div>
-                <div className={classes.container}>
-                    <p className={classes.headerText}>Previlages</p>
-                    <div className="w-full flex flex-wrap gap-2 pt-3">
-                        {user.previlages.map((previlage)=>(
-                            <div key={previlage} className="
-                                p-1
-                                border-2 border-indigo-500 bg-indigo-300/20 text-indigo-500
-                                rounded-full px-3 flex justify-center items-center font-semibold
-                            ">
-                                {previlage}
-                            </div>
-                        ))}
-                    </div>
+                <div className={classes.container + " pt-4"}>
+                <p className={classes.headerText}>Permissions</p>
+                <div className="w-full pt-4 flex flex-wrap gap-2">
+                    {
+                        allPermissions.map((permission)=>(
+                            <ToggleChip
+                                key={permission}
+                                on={isPermissionOn(permission)}
+                                onToggle={tooglePermission(permission)}
+                            >
+                                {permission}
+                            </ToggleChip>
+                        ))
+                    }
                 </div>
+            </div>
                 <Divider className='w-full my-4'/>
                 <div className='w-full flex flex-col gap-3 pt-3'>
                     <SingleImageUpload

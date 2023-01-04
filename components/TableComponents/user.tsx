@@ -1,11 +1,12 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
 import Image from "next/image";
+import { TypePermission } from "../../assets/permissions";
 import Button from "../UIElements/Button";
 
 export interface TypeUser{
     id:string,
     fullName:string,
-    previlages: string[],
+    previlages: TypePermission[],
     status: "Suspended"|"Active",
     img:string,
     email:string,
