@@ -9,6 +9,7 @@ import LabledInput from "../../UIElements/LabledInput";
 import LabledTextarea from "../../UIElements/LabledTextArea";
 import { allPermissions, TypePermission } from "../../../assets/permissions";
 import ToggleChip from "../../UIElements/ToggleChip";
+import usePermissionEditor from "../../../hooks/usePermissionEditor";
 
 
 export interface TypeViewUserModal{
@@ -40,36 +41,10 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             className:"w-24",
         });
     }
-    ////// Refactor this code/////////////////////////////////////////////////////
-    const [selectedPermissions, setSelectedPermissions] = useState<TypePermission[]>(user.previlages);
-    const tooglePermission = (permission:TypePermission)=>()=>{
-
-        // if the permission already exists rmeove it
-        if(selectedPermissions.includes(permission)){
-            setSelectedPermissions((oldPermissions)=>{
-                let newPermissions:TypePermission[] = [...oldPermissions];
-                
-                //get the index of permission
-                const index:number = newPermissions.indexOf(permission);
-
-                //remove the permission from the list
-                newPermissions.splice(index,1);
-                return newPermissions;
-            })
-        }
-        // if the permission doesn't exist push it
-        else{
-            setSelectedPermissions((oldPermissions)=>{
-                const newPermission = [...oldPermissions];
-                newPermission.push(permission);
-                return newPermission;
-            })
-        }
-    }
-    const isPermissionOn = (permission:TypePermission)=>{
-        return selectedPermissions.includes(permission);
-    }
-    ////// Refactor this code/////////////////////////////////////////////////////
+    const {
+        toogglePermission,
+        isPermissionOn
+    } = usePermissionEditor({initialPermissions:user.previlages})
 
 
     const classes = {
@@ -113,7 +88,7 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
                             <ToggleChip
                                 key={permission}
                                 on={isPermissionOn(permission)}
-                                onToggle={tooglePermission(permission)}
+                                onToggle={toogglePermission(permission)}
                             >
                                 {permission}
                             </ToggleChip>

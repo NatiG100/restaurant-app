@@ -16,7 +16,6 @@ export interface TypeAddUserModal{
 export default function AddUserModal({onClose}:TypeAddUserModal){
     const [userImage,setUserImage] = useState<string | null>(null);
     const {
-        selectedPermissions,
         toogglePermission,
         isPermissionOn
     } = usePermissionEditor({})
