@@ -5,6 +5,7 @@ import BaseModal from "./../BaseModal";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import { allPermissions, TypePermission } from "../../../assets/permissions";
 import ToggleChip from "../../UIElements/ToggleChip";
+import usePermissionEditor from "../../../hooks/usePermissionEditor";
 
 export interface TypeAddUserModal{
     onClose:()=>void
@@ -14,34 +15,11 @@ export interface TypeAddUserModal{
 
 export default function AddUserModal({onClose}:TypeAddUserModal){
     const [userImage,setUserImage] = useState<string | null>(null);
-    const [selectedPermissions, setSelectedPermissions] = useState<TypePermission[]>([]);
-    const tooglePermission = (permission:TypePermission)=>()=>{
-
-        // if the permission already exists rmeove it
-        if(selectedPermissions.includes(permission)){
-            setSelectedPermissions((oldPermissions)=>{
-                let newPermissions:TypePermission[] = [...oldPermissions];
-                
-                //get the index of permission
-                const index:number = newPermissions.indexOf(permission);
-
-                //remove the permission from the list
-                newPermissions.splice(index,1);
-                return newPermissions;
-            })
-        }
-        // if the permission doesn't exist push it
-        else{
-            setSelectedPermissions((oldPermissions)=>{
-                const newPermission = [...oldPermissions];
-                newPermission.push(permission);
-                return newPermission;
-            })
-        }
-    }
-    const isPermissionOn = (permission:TypePermission)=>{
-        return selectedPermissions.includes(permission);
-    }
+    const {
+        selectedPermissions,
+        toogglePermission,
+        isPermissionOn
+    } = usePermissionEditor({})
     const classes = {
         headerText:"text-lg font-bold text-gray-700",
         text:"text-lg text-gray-500",
@@ -87,7 +65,7 @@ export default function AddUserModal({onClose}:TypeAddUserModal){
                             <ToggleChip
                                 key={permission}
                                 on={isPermissionOn(permission)}
-                                onToggle={tooglePermission(permission)}
+                                onToggle={toogglePermission(permission)}
                             >
                                 {permission}
                             </ToggleChip>
