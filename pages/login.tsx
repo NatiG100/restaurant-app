@@ -5,7 +5,7 @@ import LabledInput from "../components/UIElements/LabledInput";
 
 export default function Login(){
     return(
-        <div className="w-full h-full flex justify-center pt-12 bg-white">
+        <div className="w-full h-screen flex justify-center items-center bg-white">
             <div className="
                 w-full max-w-md rounded-lg p-12 shadow-xl border 
                 border-indigo-50 h-max bg-white
