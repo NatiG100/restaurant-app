@@ -2,6 +2,8 @@ import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community"
 import QRCode from "react-qr-code";
 import Button from "../UIElements/Button";
 import domain from '../../constants/domain';
+import IconButton from "../UIElements/IconButton";
+import {MdOutlineDeleteOutline as DeleteIcon} from 'react-icons/md';
 
 export interface TypeTable{
     id:string,
@@ -12,12 +14,17 @@ export interface TypeTable{
 const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
     return(
         <div className="flex gap-4 font-semibold w-max">
-                    <Button type="outline" className="w-24">View</Button>
             {
                 params.data?.status==="Active"?
-                    <Button type="outline" color="error" className="w-24">Suspend</Button>:
-                    <Button type="outline" color="success" className="w-24">Activate</Button>
+                <Button type="outline" color="warning" className="w-24">Suspend</Button>:
+                <Button type="outline" color="success" className="w-24">Activate</Button>
             }
+            <IconButton 
+                type="outline" 
+                className="w-24 h-11"
+                color='error'
+                iconEnd={<DeleteIcon className="text-xl"/>}
+            >Delete</IconButton>
         </div>
     );
 }

@@ -12,9 +12,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
-    const handleExportClicked = ()=>{
-        gridRef.current!.api.exportDataAsCsv();
-    }
     const handlePrint = useCallback(()=>{
         if(tableRef.current){
             const api = gridRef.current!.api!;
@@ -36,14 +33,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 iconStart={<AiOutlinePrinter className="text-xl"/>}
                 onClick={handlePrint}
             >Print</IconButton>
-            <IconButton 
-                className="w-28 py-2" 
-                size="lg" 
-                type="outline"
-                color="success"
-                iconStart={<AiOutlineExport className="text-xl"/>}
-                onClick={handleExportClicked}
-            >Export</IconButton>
           </div>
           
         );
