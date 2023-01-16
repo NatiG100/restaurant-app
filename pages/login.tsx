@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {useState,useEffect} from 'react';
+import { useForm } from "react-hook-form";
 
 import {useMutation} from 'react-query';
 
@@ -9,16 +10,15 @@ import LabledInput from "../components/UIElements/LabledInput";
 import { login } from "../services/AuthService";
 
 export default function Login(){
-    const [{email,password},setAuthInfo]= useState<{email:string,password:string}>({email:"",password:""});
-    const onAuthInfoChange = (
-        field:"email"|"password",
-        event:React.ChangeEvent<HTMLInputElement>
-    )=>{
-        setAuthInfo((prevAuthInfo)=>{
-            let newAuthInfo = {...prevAuthInfo};
-            newAuthInfo[field] = event.target.value;
-            return newAuthInfo;
-        })
+    
+    //form validation logic
+    const {
+        register,
+        handleSubmit,
+        formState:{errors}
+    } = useForm<{password:string,email:string}>();
+    const onLogin = (data:{email:string,password:string})=>{
+        mutate(data)
     }
 
     // mutation for logging in
@@ -32,8 +32,8 @@ export default function Login(){
     return(
         <div className="w-full h-screen flex justify-center items-center bg-white">
             <div className="
-                w-full max-w-md rounded-lg p-12 shadow-xl border 
-                border-indigo-50 h-max bg-white
+                w-full max-w-md rounded-lg p-5 shadow-xl border 
+                border-indigo-50 h-max bg-white sm:p-12
             ">
                 <Image 
                     src={logo} 
@@ -46,37 +46,37 @@ export default function Login(){
                     text-3xl font-bold text-indigo-700 text-center
                 ">
                 Login</h1>
-                <div className="my-5 flex flex-col gap-3">
-                    <LabledInput 
-                        label={"Username"} 
-                        fullWidth 
-                        inputProps={{
-                            name:"email",
-                            placeholder:"Your email",
-                            value:email,
-                            onChange:(event)=>onAuthInfoChange("email",event)
-                        }}
-                    />
-                    <LabledInput 
-                        label={"Password"} 
-                        fullWidth 
-                        inputProps={{
-                            name:"password", 
-                            placeholder:"Your password",
-                            type:"password",
-                            value:password,
-                            onChange:(event)=>onAuthInfoChange("password",event)
-                        }}
-                    />
-                    <IconButton 
-                        type="outline" 
-                        className="mt-4 mx-0" 
-                        size="lg"
-                        onClick={()=>mutate({email,password})}
-                    >
-                        Login
-                    </IconButton>
-                </div>
+                <form onSubmit={handleSubmit(onLogin)}>
+                    <div className="my-5 flex flex-col gap-3">
+                        <LabledInput 
+                            label={"Username"} 
+                            fullWidth 
+                            inputProps={{
+                                placeholder:"Your email",
+                                ...register("email",{required:{message:"email  is required",value:true}})
+                            }}
+                            error={errors.email?.message as string}
+                        />
+                        <LabledInput 
+                            label={"Password"} 
+                            fullWidth 
+                            inputProps={{
+                                placeholder:"Your password",
+                                type:"password",
+                                ...register("password",{required:{message:"password is required",value:true}})
+                            }}
+                            error={errors.password?.message as string}
+                        />
+                        <IconButton 
+                            type="outline" 
+                            className="mt-4 mx-0" 
+                            size="lg"
+                            disabled={isLoading}
+                        >
+                            Login
+                        </IconButton>
+                    </div>
+                </form>
             </div>
         </div>
     );
