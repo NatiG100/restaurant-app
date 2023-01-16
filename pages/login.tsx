@@ -1,8 +1,9 @@
 import Image from "next/image";
-import {useState,useEffect} from 'react';
+import {useEffect} from 'react';
 import { useForm } from "react-hook-form";
 
 import {useMutation} from 'react-query';
+import { toast } from "react-toastify";
 
 import logo from '../assets/svg/Logo.svg'
 import IconButton from "../components/UIElements/IconButton";
@@ -21,6 +22,7 @@ export default function Login(){
         mutate(data)
     }
 
+    
     // mutation for logging in
     const {
         data,
@@ -28,6 +30,13 @@ export default function Login(){
         isLoading,
         mutate
     }  = useMutation(login);
+    //notification logic
+
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"})
+        }    
+    },[error,data])
 
     return(
         <div className="w-full h-screen flex justify-center items-center bg-white">
