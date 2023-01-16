@@ -10,13 +10,13 @@ instance.interceptors.request.use(function (config) {
     // Do something before request is sent
     return config;
   }, function (error) {
-    return {message:"Client Error"};
+    return Promise.reject({message:"Client Error"});
   });
 
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
     return response?.data;
     }, function (error) {
-    return error?.response?.data
+      return Promise.reject(error?.response?.data);
 });
 export default instance;

@@ -21,11 +21,13 @@ export default function Login(){
         })
     }
 
-    const {data,error,isLoading,isSuccess,isError,mutate}  = useMutation(login);
-    useEffect(()=>{
-        console.log(data);
-        console.log(error);
-    },[error,data]);
+    // mutation for logging in
+    const {
+        data,
+        error,
+        isLoading,
+        mutate
+    }  = useMutation(login);
 
     return(
         <div className="w-full h-screen flex justify-center items-center bg-white">
