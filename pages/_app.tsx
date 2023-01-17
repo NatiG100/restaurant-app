@@ -11,6 +11,8 @@ import {Provider} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
 
 import store from '../Context/store';
+import RedirectToHome from '../components/hoc/RedirecToHome';
+import WhoAmI from '../components/hoc/WhoAmI';
 
 export default function App(props: AppProps){
   const queryClient = new QueryClient();
@@ -18,7 +20,9 @@ export default function App(props: AppProps){
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ToastContainer position='bottom-left'/>
-        <AppContent {...props}/>
+        <WhoAmI>
+          <AppContent {...props}/>
+        </WhoAmI>
       </QueryClientProvider>
     </Provider>
   );
@@ -28,7 +32,9 @@ function AppContent({ Component, pageProps }: AppProps){
   const [component,setComponent]= useState(<div></div>);
   const router = useRouter();
   if(router.pathname==="/login") return (
+    <RedirectToHome>
       <Component {...pageProps}/>
+    </RedirectToHome>
   )
   return (
       <div className="grid grid-cols-main h-screen">

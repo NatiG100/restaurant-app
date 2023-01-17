@@ -1,10 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+
+type AuthSliceType = {user:null|any};
+const initialState:AuthSliceType = {user:null}
 export const AuthSlice = createSlice({
     name:'auth',
-    initialState:{
-        user:null
-    },
+    initialState,
     reducers:{
         login:(state,action)=>{
             state.user = action.payload

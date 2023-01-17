@@ -45,7 +45,6 @@ export default function Login(){
         }
     },[error,data]);
 
-
     return(
         <div className="w-full h-screen flex justify-center items-center bg-white">
             <div className="

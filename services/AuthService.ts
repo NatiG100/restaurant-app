@@ -5,10 +5,16 @@ export const login = async (data:{email:string,password:string})=>{
         'auth/login',
         data,
     );
-}
+};
 
 export const logout = async ()=>{
     return instance.post(
         'auth/logout'
     );
-}
+};
+
+export const who_am_i = async()=>{
+    return instance.get(
+        'auth/who-am-i'
+    );
+};
