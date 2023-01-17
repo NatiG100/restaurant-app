@@ -38,7 +38,6 @@ function AppContent({ Component, pageProps }: AppProps){
   )
   return (
       <div className="grid grid-cols-main h-screen">
-        <div id="portal" className='fixed z-10'></div>
         <div className=" bg-white border-slate-300 border-r">
           <Navigation/>
         </div>
