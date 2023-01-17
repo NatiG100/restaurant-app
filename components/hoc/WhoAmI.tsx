@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { who_am_i } from "../../services/AuthService";
 import {login as dispatchLogin, logout as dispatchLogout} from './../../Context/AuthSlice';
-import { toast } from "react-toastify";
 import Loading from "../UIElements/Loading";
 
 export default function WhoAmI({children}:{children:React.ReactNode}){
@@ -12,7 +11,7 @@ export default function WhoAmI({children}:{children:React.ReactNode}){
     const dispatch = useDispatch();
     useEffect(()=>{
         if(error){
-            toast(error?.message,{type:"error"})
+            setLoading(false);
         }
         if(data){
             dispatch(dispatchLogin(data?.data));

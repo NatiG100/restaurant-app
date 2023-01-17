@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import store from '../Context/store';
 import RedirectToHome from '../components/hoc/RedirecToHome';
 import WhoAmI from '../components/hoc/WhoAmI';
+import RedirectToLogin from '../components/hoc/RedirectToLogin';
 
 export default function App(props: AppProps){
   const queryClient = new QueryClient();
@@ -20,9 +21,7 @@ export default function App(props: AppProps){
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ToastContainer position='bottom-left'/>
-        <WhoAmI>
           <AppContent {...props}/>
-        </WhoAmI>
       </QueryClientProvider>
     </Provider>
   );
@@ -33,19 +32,25 @@ function AppContent({ Component, pageProps }: AppProps){
   const router = useRouter();
   if(router.pathname==="/login") return (
     <RedirectToHome>
-      <Component {...pageProps}/>
+      <WhoAmI>
+        <Component {...pageProps}/>
+      </WhoAmI>
     </RedirectToHome>
   )
   return (
-      <div className="grid grid-cols-main h-screen">
-        <div className=" bg-white border-slate-300 border-r">
-          <Navigation/>
+    <RedirectToLogin>
+      <WhoAmI>  
+        <div className="grid grid-cols-main h-screen">
+          <div className=" bg-white border-slate-300 border-r">
+            <Navigation/>
+          </div>
+          <div className="grid grid-rows-header h-screen">
+            <Appbar component={component}/>
+            <Component {...pageProps} setAppBarComponent={setComponent}/>
+          </div>
         </div>
-        <div className="grid grid-rows-header h-screen">
-          <Appbar component={component}/>
-          <Component {...pageProps} setAppBarComponent={setComponent}/>
-        </div>
-      </div>
+      </WhoAmI>
+    </RedirectToLogin>
   );
 
 }

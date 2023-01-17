@@ -6,7 +6,6 @@ import { columnDefs, TypeOrder } from "../components/TableComponents/order";
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import Backdrop from "../components/Backdrop";
-import BaseModal from "../components/modals/BaseModal";
 import OrderModal from "../components/modals/OrderModal";
 
 
@@ -97,29 +96,29 @@ export default function Orders({setAppBarComponent}:any){
         setSelectedOrder(null);
     }
     return (
-            <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-                {selectedOrder?<Backdrop onClick={handleOrderModalClose}>
-                    <OrderModal
-                        order={selectedOrder}
-                        onClose={handleOrderModalClose}
-                    />
-                </Backdrop>:null}
-                <AgGridReact
-                    context={{setSelectedOrder}}
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={columnDefs}
-                    rowHeight={55}
-                    rowStyle={{width:"100%"}}
-                    overlayLoadingTemplate={
-                        '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
-                    }
-                    rowDragManaged={true}
-                    containerStyle={{
-                        border:"0px solid #fff0"
-                    }}
-                >
-                </AgGridReact>
-            </div>
+        <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+            {selectedOrder?<Backdrop onClick={handleOrderModalClose}>
+                <OrderModal
+                    order={selectedOrder}
+                    onClose={handleOrderModalClose}
+                />
+            </Backdrop>:null}
+            <AgGridReact
+                context={{setSelectedOrder}}
+                ref={gridRef}
+                rowData={rowData}
+                columnDefs={columnDefs}
+                rowHeight={55}
+                rowStyle={{width:"100%"}}
+                overlayLoadingTemplate={
+                    '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
+                }
+                rowDragManaged={true}
+                containerStyle={{
+                    border:"0px solid #fff0"
+                }}
+            >
+            </AgGridReact>
+        </div>
     );
 }

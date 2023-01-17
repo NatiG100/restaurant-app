@@ -19,7 +19,7 @@ export default function Backdrop({type="dark",onClick=()=>{},children}:TypeBackd
       ? ReactDOM.createPortal(
         <div 
             className={`
-                w-screen h-screen fixed z-50  ${type==="dark"?"bg-black/70":"bg-white"}
+                w-screen h-screen fixed z-50  ${type==="dark"?"bg-black/70":"bg-white/70"}
                 flex items-center justify-center    
             `}
             onClick={onClick}
