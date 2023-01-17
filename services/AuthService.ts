@@ -6,3 +6,9 @@ export const login = async (data:{email:string,password:string})=>{
         data,
     );
 }
+
+export const logout = async ()=>{
+    return instance.post(
+        'auth/logout'
+    );
+}
