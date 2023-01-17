@@ -3,12 +3,14 @@ import {useEffect} from 'react';
 import { useForm } from "react-hook-form";
 
 import {useMutation} from 'react-query';
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import logo from '../assets/svg/Logo.svg'
 import IconButton from "../components/UIElements/IconButton";
 import LabledInput from "../components/UIElements/LabledInput";
-import { login } from "../services/AuthService";
+import { login,logout } from "../services/AuthService";
+import {login as dispatchLogin, logout as dispatchLogout} from './../Context/AuthSlice';
 
 export default function Login(){
     
@@ -30,13 +32,19 @@ export default function Login(){
         isLoading,
         mutate
     }  = useMutation(login);
-    //notification logic
 
+
+    //dispatch and notification logic
+    const dispatch = useDispatch();
     useEffect(()=>{
         if(error){
             toast(error?.message,{type:"error"})
-        }    
-    },[error,data])
+        }
+        if(data){
+            dispatch(dispatchLogin(data?.data));
+        }
+    },[error,data]);
+
 
     return(
         <div className="w-full h-screen flex justify-center items-center bg-white">

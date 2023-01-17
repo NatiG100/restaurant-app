@@ -7,15 +7,20 @@ import { useRouter } from 'next/router';
 import { QueryClientProvider } from 'react-query';
 import { QueryClient } from 'react-query';
 import {ToastContainer} from 'react-toastify'
+import {Provider} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
+
+import store from '../Context/store';
 
 export default function App(props: AppProps){
   const queryClient = new QueryClient();
   return(
-    <QueryClientProvider client={queryClient}>
-      <ToastContainer position='bottom-left'/>
-      <AppContent {...props}/>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <ToastContainer position='bottom-left'/>
+        <AppContent {...props}/>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 
