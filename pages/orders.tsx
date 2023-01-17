@@ -98,12 +98,12 @@ export default function Orders({setAppBarComponent}:any){
     }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-                {selectedOrder&&<Backdrop onClick={handleOrderModalClose}>
+                {selectedOrder?<Backdrop onClick={handleOrderModalClose}>
                     <OrderModal
                         order={selectedOrder}
                         onClose={handleOrderModalClose}
                     />
-                </Backdrop>}
+                </Backdrop>:null}
                 <AgGridReact
                     context={{setSelectedOrder}}
                     ref={gridRef}

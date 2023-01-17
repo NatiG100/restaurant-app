@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Context/store";
+import Loading from "../UIElements/Loading";
 
 export default function RedirectToHome({children}:{children:React.ReactNode}){
     const user = useSelector<RootState>(state=>state?.auth?.user);
@@ -14,6 +15,6 @@ export default function RedirectToHome({children}:{children:React.ReactNode}){
             setLoading(false);
         }
     },[user])
-    if(loading) return<p>loading</p>
+    if(loading) return<Loading type="full"/>
     return <>{children}</>;
 }

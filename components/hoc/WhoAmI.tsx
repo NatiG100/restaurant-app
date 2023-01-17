@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { who_am_i } from "../../services/AuthService";
 import {login as dispatchLogin, logout as dispatchLogout} from './../../Context/AuthSlice';
 import { toast } from "react-toastify";
+import Loading from "../UIElements/Loading";
 
 export default function WhoAmI({children}:{children:React.ReactNode}){
     const {data,error} = useQuery('whoAmI',who_am_i);
@@ -18,7 +19,7 @@ export default function WhoAmI({children}:{children:React.ReactNode}){
             setLoading(false);
         }
     },[error,data]);
-    if(loading) return <p>loading</p>
+    if(loading) return <Loading type="full"/>
     return(
         <>
             {children}
