@@ -10,11 +10,18 @@ export default function Redirect({children}:{children:React.ReactElement}){
     const [loading, setLoading]= useState(true);
     useEffect(()=>{
         if(user){
-            router.replace('/');
-        }else{
-            router.replace('/login')
+            router.replace('/').then(()=>{
+                setTimeout(()=>{
+                    setLoading(false);
+                },500);
+            })
+        }else if(!user){
+            router.replace('/login').then(()=>{
+                setTimeout(()=>{
+                    setLoading(false);
+                },500)
+            })
         }
-        setLoading(false);
     },[user]);
     if(loading) return <Loading type="full"/>
     return children;

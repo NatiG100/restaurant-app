@@ -12,15 +12,11 @@ export default function WhoAmI({children}:{children:React.ReactNode}){
     const dispatch = useDispatch();
     const router = useRouter();
     useEffect(()=>{
-        if(data?.data!==null){
+        if(data?.data){
             dispatch(dispatchLogin(data?.data));
-            if(router.pathname==="/login"){
-                router.replace('/')
-            }
             setLoading(false);
         }
         if(error){
-            router.replace('/login');
             setLoading(false);
         }
     },[error,data]);
