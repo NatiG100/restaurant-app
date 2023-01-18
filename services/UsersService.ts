@@ -19,7 +19,7 @@ export const addUser = async(data:TypeAddUser)=>{
     data.previlages.forEach((previlage)=>{
         formData.append("previlages",previlage);
     })
-    data.img&&formData.append("img",data.img,"userName");
+    data.img&&formData.append("img",data.img,data.img.name);
     return instance.post('/users/register',formData,{
         headers:{
             "Content-Type": "multipart/form-data",

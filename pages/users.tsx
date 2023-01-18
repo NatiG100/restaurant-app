@@ -19,6 +19,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
+    useEffect(()=>{
+        gridRef.current?.api?.showLoadingOverlay();
+    },[])
 
     //modal open state logic
     const[openAddModal, setOpenAddModal] = useState<boolean>(false);
@@ -60,13 +63,15 @@ export default function DrinkCategories({setAppBarComponent}:any){
         if(error){
             toast(error?.message);
         }
-    },[error])
+        if(response){
+            gridRef.current?.api?.hideOverlay();
+        }
+    },[error,response])
     
     const [selectedUser,setSelecteduser] = useState<TypeUser | null>(null);
     const handleModalClose = ()=>{
         setSelecteduser(null);
     }
-    if(isLoading) return <Loading type="contained"/>
     return (
         <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
             {
@@ -96,6 +101,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
                 }
                 rowDragManaged={true}
+                
                 containerStyle={{
                     border:"0px solid #fff0"
                 }}
