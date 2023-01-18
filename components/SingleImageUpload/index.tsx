@@ -4,14 +4,16 @@ import { useDropzone } from "react-dropzone";
 
 export interface TypeSingleImageUpload{
     img:string | null,
-    setImg:(value:string)=>void
+    setImg:(value:string)=>void,
+    setFile?:(file:File)=>void
 }
 
-export default function SingleImageUpload(props:TypeSingleImageUpload){
+export default function SingleImageUpload({setFile=()=>{},setImg,img}:TypeSingleImageUpload){
     const onDrop = useCallback((acceptedFiles:File[])=>{
+        setFile(acceptedFiles[0]);
         const reader = new FileReader();
         reader.onload = () =>{
-            props.setImg(reader.result as string);
+            setImg(reader.result as string);
         }
         reader.readAsDataURL(acceptedFiles[0]);
     },[])
@@ -32,7 +34,7 @@ export default function SingleImageUpload(props:TypeSingleImageUpload){
     return(
         <div {...getRootProps()} className="w-full h-64 relative">
             <Image
-                src={props.img?props.img:""}
+                src={img?img:""}
                 alt="avatar"
                 width={400}
                 height={400}
@@ -43,7 +45,7 @@ export default function SingleImageUpload(props:TypeSingleImageUpload){
                 absolute top-0 right-0 w-full h-full flex items-center justify-center
             ">
                 {
-                    !props.img&&
+                    !img&&
                     <div className="
                         absolute top-0 right-0 h-full w-full flex items-center justify-center
                         border-2 border-gray-300 border-dashed
