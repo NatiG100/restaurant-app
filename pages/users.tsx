@@ -70,6 +70,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [selectedUser,setSelecteduser] = useState<TypeUser | null>(null);
     const handleModalClose = ()=>{
         setSelecteduser(null);
+        refetch();
     }
     return (
         <div className="ag-theme-alpine h-full w-full" ref={tableRef}>

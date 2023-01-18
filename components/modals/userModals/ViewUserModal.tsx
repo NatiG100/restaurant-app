@@ -6,11 +6,15 @@ import BaseModal from "../BaseModal";
 import Divider from "../../UIElements/Divider";
 import SingleImageUpload from "../../SingleImageUpload";
 import LabledInput from "../../UIElements/LabledInput";
-import LabledTextarea from "../../UIElements/LabledTextArea";
-import { allPermissions, TypePermission } from "../../../assets/permissions";
+import {useEffect} from 'react';
+import { allPermissions } from "../../../assets/permissions";
 import ToggleChip from "../../UIElements/ToggleChip";
 import usePermissionEditor from "../../../hooks/usePermissionEditor";
 import baseURL from "../../../constants/BASE_URL";
+import { useMutation } from "react-query";
+import { updateUser } from "../../../services/UsersService";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 
 export interface TypeViewUserModal{
@@ -18,6 +22,44 @@ export interface TypeViewUserModal{
     onClose(event: void | React.MouseEvent<HTMLButtonElement>):void
 }
 export default function ViewUserModal({user,onClose}:TypeViewUserModal){
+    const [userImg,setUserImg] = useState<string>(baseURL+user.img);
+    const [imgFile,setImgFile] = useState<File|null>(null);
+    //form validation logic
+    const {mutate:requestUpdateUser,isLoading,data,error} = useMutation(updateUser);
+    const {
+        register,
+        formState:{errors},
+        handleSubmit
+    } = useForm<{fullName:string,email:string}>({
+            defaultValues:{
+                email:user.email,
+                fullName:user.fullName
+            }
+    });
+    //form submission logic
+    const onSubmit=(data:{email:string,fullName:string})=>{
+        requestUpdateUser({
+            data:{
+                email:data.email,
+                fullName:data.fullName,
+                img:imgFile,
+                previlages:selectedPermissions
+            },
+            id:user.id
+        });
+    }
+
+    //tostify
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"});
+        }if(data){
+            toast(data?.message);
+            onClose();
+        }
+    },[error,data])
+
+    //action buttons
     const actionButtons:TypeIconButton[] = [
         {
             type:"outline",
@@ -25,6 +67,10 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             iconEnd:<SaveIcon/>,
             className:"w-36",
             color:"warning",
+            disabled:isLoading,
+            butonProps:{
+                form:"updateUser"
+            }
         }
     ];
     if(user.status==='Active'){
@@ -42,12 +88,16 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             className:"w-24",
         });
     }
+
+    //permission editor
     const {
         toogglePermission,
-        isPermissionOn
+        isPermissionOn,
+        selectedPermissions
     } = usePermissionEditor({initialPermissions:user.previlages})
 
 
+    //classes for the modal
     const classes = {
         headerText:"text-lg font-bold text-gray-700",
         text:"text-lg text-gray-500",
@@ -63,7 +113,6 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             return "text-lg text-green-600"
         }
     }
-    const [userImg,setUserImg] = useState<string>(baseURL+user.img);
     return(
         <BaseModal
             headerSection={<p className='text-xl font-bold text-indigo-600'>{user.fullName}</p>}
@@ -102,22 +151,25 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
                     <SingleImageUpload
                         img={userImg}
                         setImg={setUserImg}
+                        setFile={setImgFile}
                     />
-                    <LabledInput
-                        inputProps={{name:"name", placeholder:"Full Name",value:user.fullName}}
-                        label="Full Name"
-                        fullWidth
-                    />
-                    <LabledInput
-                        inputProps={{
-                            name:"email", 
-                            placeholder:"Email",
-                            value:user.email,
-                            type:"email",
-                        }}
-                        label="Email"
-                        fullWidth
-                    />
+                    <form id="updateUser" onSubmit={handleSubmit(onSubmit)}>
+                        <LabledInput
+                            inputProps={{...register('fullName',{required:"Full name is required"}), placeholder:"Full Name"}}
+                            label="Full Name"
+                            fullWidth
+                            error={errors.fullName?.message}
+                        />
+                        <LabledInput
+                            inputProps={{
+                                ...register('email',{required:"Email is required"}), 
+                                placeholder:"Email",
+                            }}
+                            label="Email"
+                            fullWidth
+                            error={errors.email?.message}
+                        />
+                    </form>
                 </div>
             </div>
         </BaseModal>
