@@ -9,6 +9,10 @@ import ViewUserModal from "../components/modals/userModals/ViewUserModal";
 import Divider from "../components/UIElements/Divider";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import AddUserModal from "../components/modals/userModals/AddUserModal";
+import { useQuery } from "react-query";
+import { fetchAllUsers } from "../services/UsersService";
+import { toast } from "react-toastify";
+import Loading from "../components/UIElements/Loading";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -49,52 +53,19 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [rowData] = useState<TypeUser[]>([
-        {
-            id:"1200padkjfthisthat",
-            img:"/avatar.jpg",
-            fullName:"Abebe Kebede",
-            status:"Active",
-            email:"abebe@gmail.com",
-            previlages:["View Info","Manage Items","View Items","View Users","Manage Users","Setting","Manage Orders","View Orders"]
-        },
-        {
-            id:"ab00padkjfdhisthak",
-            img:"/avatar.jpg",
-            fullName:"Temesgen Beyene",
-            status:"Active",
-            email:"temesgen@gmail.com",
-            previlages:["View Items","View Users","Manage Users"]
-        },
-        {
-            id:"1200padkjaklsjsthat",
-            img:"/avatar.jpg",
-            fullName:"Mulgeta Demberu",
-            status:"Active",
-            email:"mulgeta@gmail.com",
-            previlages:["Manage Orders","View Orders"]
-        },
-        {
-            id:"fjaksdjfkjanduieopl",
-            img:"/avatar.jpg",
-            fullName:"Ayele Habte",
-            status:"Suspended",
-            email:"ayele@gmail.com",
-            previlages:["Manage Orders","View Orders"]
-        },
-        {
-            id:"nncmmkajdhfaldfkdjk",
-            img:"/avatar.jpg",
-            fullName:"Belete Belayneh",
-            status:"Active",
-            email:"belete@gmail.com",
-            previlages:["View Info","Manage Items"]
-        },
-    ]);
+
+    const {data:response,error,isLoading} = useQuery('fethAllUsers',fetchAllUsers);
+    useEffect(()=>{
+        if(error){
+            toast(error?.message);
+        }
+    },[error])
+    
     const [selectedUser,setSelecteduser] = useState<TypeUser | null>(null);
     const handleModalClose = ()=>{
         setSelecteduser(null);
     }
+    if(isLoading) return <Loading type="contained"/>
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 {
@@ -117,7 +88,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         setSelecteduser
                     }}
                     ref={gridRef}
-                    rowData={rowData}
+                    rowData={response?.data}
                     columnDefs={columnDefs}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={
