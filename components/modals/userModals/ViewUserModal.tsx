@@ -10,6 +10,7 @@ import LabledTextarea from "../../UIElements/LabledTextArea";
 import { allPermissions, TypePermission } from "../../../assets/permissions";
 import ToggleChip from "../../UIElements/ToggleChip";
 import usePermissionEditor from "../../../hooks/usePermissionEditor";
+import baseURL from "../../../constants/BASE_URL";
 
 
 export interface TypeViewUserModal{
@@ -62,7 +63,7 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             return "text-lg text-green-600"
         }
     }
-    const [userImg,setUserImg] = useState<string>(user.img);
+    const [userImg,setUserImg] = useState<string>(baseURL+user.img);
     return(
         <BaseModal
             headerSection={<p className='text-xl font-bold text-indigo-600'>{user.fullName}</p>}
