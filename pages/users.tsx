@@ -12,7 +12,6 @@ import AddUserModal from "../components/modals/userModals/AddUserModal";
 import { useQuery } from "react-query";
 import { fetchAllUsers } from "../services/UsersService";
 import { toast } from "react-toastify";
-import Loading from "../components/UIElements/Loading";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){

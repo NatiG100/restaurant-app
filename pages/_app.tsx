@@ -9,11 +9,21 @@ import { QueryClient } from 'react-query';
 import {ToastContainer} from 'react-toastify'
 import {Provider} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
+import Router from 'next/router';
 
 import store from '../Context/store';
 import WhoAmI from '../components/hoc/WhoAmI';
 import Redirect from '../components/hoc/Redirec';
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css';
 
+//bind loading indicator
+Router.events.on('routeChangeStart',()=>{
+  NProgress.start();
+});
+Router.events.on('routeChangeComplete',()=>{
+  NProgress.done();
+})
 export default function App(props: AppProps){
   const queryClient = new QueryClient();
   return(
