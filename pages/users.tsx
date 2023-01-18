@@ -27,12 +27,13 @@ export default function DrinkCategories({setAppBarComponent}:any){
     }
     const handleAddModalClose = ()=>{
         setOpenAddModal(false);
+        refetch();
     }
     //Add custom header components
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
-            <p className="text-2xl text-indigo-600 font-semibold">Categories</p>
+            <p className="text-2xl text-indigo-600 font-semibold">Users</p>
             <div className="h-7">
                 <Divider orientation="v"/>
             </div>
@@ -54,7 +55,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
 
     // get rows
 
-    const {data:response,error,isLoading} = useQuery('fethAllUsers',fetchAllUsers);
+    const {data:response,error,isLoading,refetch} = useQuery('fethAllUsers',fetchAllUsers);
     useEffect(()=>{
         if(error){
             toast(error?.message);
@@ -67,40 +68,40 @@ export default function DrinkCategories({setAppBarComponent}:any){
     }
     if(isLoading) return <Loading type="contained"/>
     return (
-            <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-                {
-                    selectedUser&&
-                    <Backdrop onClick={handleModalClose}>
-                        <ViewUserModal 
-                            user={selectedUser} 
-                            onClose={handleModalClose}
-                        />
-                    </Backdrop>
+        <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+            {
+                selectedUser&&
+                <Backdrop onClick={handleModalClose}>
+                    <ViewUserModal 
+                        user={selectedUser} 
+                        onClose={handleModalClose}
+                    />
+                </Backdrop>
+            }
+            {
+                openAddModal&&
+                <Backdrop onClick={handleAddModalClose}>
+                    <AddUserModal onClose={handleAddModalClose}/>
+                </Backdrop>
+            }
+            <AgGridReact
+                context={{
+                    setSelecteduser
+                }}
+                ref={gridRef}
+                rowData={response?.data}
+                columnDefs={columnDefs}
+                rowStyle={{width:"100%"}}
+                overlayLoadingTemplate={
+                    '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
                 }
-                {
-                    openAddModal&&
-                    <Backdrop onClick={handleAddModalClose}>
-                        <AddUserModal onClose={handleAddModalClose}/>
-                    </Backdrop>
-                }
-                <AgGridReact
-                    context={{
-                        setSelecteduser
-                    }}
-                    ref={gridRef}
-                    rowData={response?.data}
-                    columnDefs={columnDefs}
-                    rowStyle={{width:"100%"}}
-                    overlayLoadingTemplate={
-                        '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
-                    }
-                    rowDragManaged={true}
-                    containerStyle={{
-                        border:"0px solid #fff0"
-                    }}
-                    defaultColDef={defaultColDef}
-                >
-                </AgGridReact>
-            </div>
+                rowDragManaged={true}
+                containerStyle={{
+                    border:"0px solid #fff0"
+                }}
+                defaultColDef={defaultColDef}
+            >
+            </AgGridReact>
+        </div>
     );
 }
