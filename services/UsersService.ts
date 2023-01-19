@@ -43,9 +43,8 @@ export const updateUser = async({data,id}:{data:TypeAddUser,id:string})=>{
         }
     })
 }
-// export const login = async (data:{email:string,password:string})=>{
-//     return instance.post(
-//         'auth/login',
-//         data,
-//     );
-// };
+
+//change usuer status service
+export const changeUserStatus = async(data:{status:"Active"|"Suspended",id:string})=>{
+    return instance.patch(`/users/${data.id}/change-status`,{status:data.status});
+}
