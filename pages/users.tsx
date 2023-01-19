@@ -57,7 +57,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-
     const {data:response,error,isLoading,refetch} = useQuery<TypeMultiDataResponse,TypeCustomeErrorResponse>('fethAllUsers',fetchAllUsers);
     useEffect(()=>{
         if(error){
@@ -76,14 +75,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
         isLoading:isStatusUpdateLoading,
         data:statusUpdateData
     } = useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,{status:"Active"|"Suspended",id:string}>(changeUserStatus);
+
     useEffect(()=>{
         if(statusUpdateData){
             toast(statusUpdateData?.message,{type:"success"})
             //update the selected user after refetching
-            refetch().then(()=>{ 
+            refetch().then((data)=>{
+                const users = data.data?.data as any; 
                 if(selectedUser){
                     setSelecteduser((prevSelectedUser)=>{
-                        const currentUser = response?.data?.filter((user:TypeUser)=>(user.id===selectedUser?.id))[0];
+                        const currentUser = users.filter((user:TypeUser)=>(user.id===selectedUser?.id))[0];
                         return currentUser;
                     });
                 }
