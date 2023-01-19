@@ -29,7 +29,7 @@ export default function App(props: AppProps){
   return(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <ToastContainer position='bottom-left'/>
+        <ToastContainer position='bottom-left' autoClose={1500}/>
         <WhoAmI>
           <AppContent {...props}/>
         </WhoAmI>

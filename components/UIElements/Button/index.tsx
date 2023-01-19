@@ -4,7 +4,8 @@ export interface TypeButton{
     type?: "outline"|"fill"|"text",
     color?: "primary"|"success"|"warning"|"error",
     className?:string,
-    onClick?(event: void | React.MouseEvent<HTMLButtonElement>):void
+    onClick?(event: void | React.MouseEvent<HTMLButtonElement>):void,
+    disabled?:boolean
 }
 
 export default function Button({
@@ -13,11 +14,15 @@ export default function Button({
     type="fill",
     color="primary",
     className,
-    onClick=()=>{}
+    onClick=()=>{},
+    disabled=false
 }: TypeButton){
     return (
         <button 
+            disabled={disabled}
             className={`
+                opacity-100
+                disabled:opacity-60
                 rounded-lg transition-all ${className}
                 m-1
                 ${size==="sm"?"text-xs p-1":size==="lg"&&"text-lg p-2"}

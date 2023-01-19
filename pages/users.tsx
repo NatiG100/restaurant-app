@@ -9,8 +9,8 @@ import ViewUserModal from "../components/modals/userModals/ViewUserModal";
 import Divider from "../components/UIElements/Divider";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import AddUserModal from "../components/modals/userModals/AddUserModal";
-import { useQuery } from "react-query";
-import { fetchAllUsers } from "../services/UsersService";
+import { useMutation, useQuery } from "react-query";
+import { changeUserStatus, fetchAllUsers } from "../services/UsersService";
 import { toast } from "react-toastify";
 
 
@@ -60,13 +60,41 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const {data:response,error,isLoading,refetch} = useQuery('fethAllUsers',fetchAllUsers);
     useEffect(()=>{
         if(error){
-            toast(error?.message);
+            toast(error?.message,{type:"error"});
         }
         if(response){
             gridRef.current?.api?.hideOverlay();
         }
     },[error,response])
     
+
+    //api request for changing user status
+    const {
+        mutate:requestStatusUpdate,
+        error:statusUpdateError,
+        isLoading:isStatusUpdateLoading,
+        data:statusUpdateData
+    } = useMutation(changeUserStatus);
+    useEffect(()=>{
+        if(statusUpdateData){
+            toast(statusUpdateData?.message,{type:"success"})
+            //update the selected user after refetching
+            refetch().then(()=>{ 
+                if(selectedUser){
+                    
+                    setSelecteduser((prevSelectedUser)=>{
+                        const currentUser = response?.data?.filter((user:TypeUser)=>(user.id===selectedUser?.id))[0];
+                        return currentUser;
+                    });
+                }
+            });
+        }
+        if(statusUpdateError){
+            toast(statusUpdateError?.message,{type:"error"});
+        }
+    },[statusUpdateData,statusUpdateError])
+
+    //modal view logic
     const [selectedUser,setSelecteduser] = useState<TypeUser | null>(null);
     const handleModalClose = ()=>{
         setSelecteduser(null);
@@ -80,6 +108,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     <ViewUserModal 
                         user={selectedUser} 
                         onClose={handleModalClose}
+                        isStatusChangeLoading={isStatusUpdateLoading}
+                        changeUserStatus={requestStatusUpdate}
                     />
                 </Backdrop>
             }
@@ -91,7 +121,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
             }
             <AgGridReact
                 context={{
-                    setSelecteduser
+                    setSelecteduser,
+                    isStatusUpdateLoading,
+                    requestStatusUpdate,
                 }}
                 ref={gridRef}
                 rowData={response?.data}

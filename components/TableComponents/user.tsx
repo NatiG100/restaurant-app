@@ -22,11 +22,23 @@ const UserActionCell = (params:ICellRendererParams<TypeUser>)=>{
                         onClick={()=>{
                             params.context?.setSelecteduser(params.data);
                         }}
-                    >View</Button>
+                        >View</Button>
             {
                 params.data?.status==="Active"?
-                    <Button type="outline" color="error" className="w-24">Suspend</Button>:
-                    <Button type="outline" color="success" className="w-24">Activate</Button>
+                <Button 
+                        type="outline" 
+                        color="error" 
+                        className="w-24"
+                        onClick={()=>params.context?.requestStatusUpdate({status:"Suspended",id:params.data?.id})}
+                        disabled={params.context?.isStatusUpdateLoading}
+                    >Suspend</Button>:
+                    <Button 
+                        type="outline" 
+                        color="success" 
+                        className="w-24"
+                        onClick={()=>params.context?.requestStatusUpdate({status:"Active",id:params.data?.id})}
+                        disabled={params.context?.isStatusUpdateLoading}
+                    >Activate</Button>
             }
         </div>
     );

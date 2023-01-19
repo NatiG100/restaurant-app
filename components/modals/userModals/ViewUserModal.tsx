@@ -12,16 +12,18 @@ import ToggleChip from "../../UIElements/ToggleChip";
 import usePermissionEditor from "../../../hooks/usePermissionEditor";
 import baseURL from "../../../constants/BASE_URL";
 import { useMutation } from "react-query";
-import { updateUser } from "../../../services/UsersService";
+import { changeUserStatus, updateUser } from "../../../services/UsersService";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 
 export interface TypeViewUserModal{
     user:TypeUser,
-    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void
+    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void,
+    changeUserStatus:({status,id}:{status:'Active'|'Suspended',id:string})=>void,
+    isStatusChangeLoading:boolean
 }
-export default function ViewUserModal({user,onClose}:TypeViewUserModal){
+export default function ViewUserModal({user,onClose,changeUserStatus,isStatusChangeLoading}:TypeViewUserModal){
     const [userImg,setUserImg] = useState<string>(baseURL+user.img);
     const [imgFile,setImgFile] = useState<File|null>(null);
     //form validation logic
@@ -79,6 +81,8 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             children:"Suspend",
             color: "error",
             className:"w-24",
+            onClick:()=>changeUserStatus({status:'Suspended',id:user.id}),
+            disabled:isStatusChangeLoading
         });
     } else if(user.status==="Suspended"){
         actionButtons.push({
@@ -86,6 +90,8 @@ export default function ViewUserModal({user,onClose}:TypeViewUserModal){
             children:"Activate",
             color: "success",
             className:"w-24",
+            onClick:()=>changeUserStatus({status:'Active',id:user.id}),
+            disabled:isStatusChangeLoading
         });
     }
 
