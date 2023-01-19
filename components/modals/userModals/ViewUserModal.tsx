@@ -12,9 +12,10 @@ import ToggleChip from "../../UIElements/ToggleChip";
 import usePermissionEditor from "../../../hooks/usePermissionEditor";
 import baseURL from "../../../constants/BASE_URL";
 import { useMutation } from "react-query";
-import { changeUserStatus, updateUser } from "../../../services/UsersService";
+import { changeUserStatus, TypeAddUser, updateUser } from "../../../services/UsersService";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../../types/types";
 
 
 export interface TypeViewUserModal{
@@ -27,7 +28,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
     const [userImg,setUserImg] = useState<string>(baseURL+user.img);
     const [imgFile,setImgFile] = useState<File|null>(null);
     //form validation logic
-    const {mutate:requestUpdateUser,isLoading,data,error} = useMutation(updateUser);
+    const {mutate:requestUpdateUser,isLoading,data,error} = useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,{data:TypeAddUser,id:string}>(updateUser);
     const {
         register,
         formState:{errors},

@@ -1,11 +1,13 @@
+import { AxiosResponse } from "axios";
 import { TypePermission } from "../assets/permissions";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import instance from "./instance";
 
 export const fetchAllUsers = async ()=>{
-    return instance.get('/users')
+    return instance.get<TypeCustomeErrorResponse,TypeMultiDataResponse>('/users')
 }
 
-interface TypeAddUser{
+export interface TypeAddUser{
     email:string,
     fullName:string,
     img:File|null,
@@ -37,7 +39,7 @@ export const updateUser = async({data,id}:{data:TypeAddUser,id:string})=>{
         formData.append("previlages",previlage);
     })
     data.img&&formData.append("img",data.img,data.img.name);
-    return instance.patch(`/users/${id}/update`,formData,{
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${id}/update`,formData,{
         headers:{
             "Content-Type": "multipart/form-data",
         }
@@ -46,5 +48,5 @@ export const updateUser = async({data,id}:{data:TypeAddUser,id:string})=>{
 
 //change usuer status service
 export const changeUserStatus = async(data:{status:"Active"|"Suspended",id:string})=>{
-    return instance.patch(`/users/${data.id}/change-status`,{status:data.status});
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${data.id}/change-status`,{status:data.status});
 }
