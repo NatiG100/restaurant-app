@@ -1,7 +1,8 @@
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import instance from "./instance";
 
 export const login = async (data:{email:string,password:string})=>{
-    return instance.post(
+    return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(
         'auth/login',
         data,
     );
