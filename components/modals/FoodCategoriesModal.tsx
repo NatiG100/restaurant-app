@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {BiSave as SaveIcon} from 'react-icons/bi'
+import baseURL from '../../constants/BASE_URL';
 import SingleImageUpload from '../SingleImageUpload';
 import { TypeFoodCategory } from "../TableComponents/foodCategories";
 import Divider from '../UIElements/Divider';
@@ -54,7 +55,7 @@ export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagorie
             className:"w-24",
         });
     }
-    const [foodCategoryImg,setFoodCategoryImg] = useState<string>(category.img);
+    const [foodCategoryImg,setFoodCategoryImg] = useState<string>(baseURL+category.img);
     return(
         <BaseModal
             headerSection={
