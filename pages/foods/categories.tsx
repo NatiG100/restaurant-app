@@ -11,6 +11,10 @@ import Backdrop from "../../components/Backdrop";
 import FoodCategoriesModal from "../../components/modals/FoodCategoriesModal";
 import CreateFoodCategoryModal from "../../components/modals/CreateFoodCategoryModal";
 import Divider from "../../components/UIElements/Divider";
+import { useQuery } from "react-query";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
+import { fetchAllFoodCategories } from "../../services/FoodCategoryService";
+import {toast} from 'react-toastify';
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -52,38 +56,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [rowData] = useState<TypeFoodCategory[]>([
-        {
-            id:"1200padkjfthisthat",
-            img:"/dinner.jpg",
-            name:"Dinner",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            foodCount:23,
-            status:"Active"
-        },
-        {
-            id:"thereisanarmyrising",
-            img:"/bf.jpg",
-            name:"Lunch",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            foodCount:23,
-            status:"Active"
-        },
-        {
-            id:"rockofagescleftfor",
-            img:"/dessert.jpg",
-            name:"Dessert",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            foodCount:23,
-            status:"Suspended"
-        },
-    ]);
+    const {data:response,error,isLoading,refetch} = useQuery<TypeMultiDataResponse,TypeCustomeErrorResponse>('fethAllUsers',fetchAllFoodCategories);
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"});
+        }
+        if(response){
+            gridRef.current?.api?.hideOverlay();
+        }
+    },[error,response])
+    
     const router = useRouter();
     const handleClick = (event:RowClickedEvent<TypeFoodCategory>)=>{
         const id = event.data?.id;
@@ -118,7 +100,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     }}
                     onRowDoubleClicked={handleClick}
                     ref={gridRef}
-                    rowData={rowData}
+                    rowData={response?.data}
                     columnDefs={columnDefs}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={

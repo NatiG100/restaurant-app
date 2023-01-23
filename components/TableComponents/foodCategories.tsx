@@ -1,6 +1,7 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
 import Image from "next/image";
 import React from "react";
+import baseURL from "../../constants/BASE_URL";
 import Button from "../UIElements/Button";
 
 export interface TypeFoodCategory{
@@ -40,7 +41,7 @@ const FoodCategoriesAvatarCell = (params:ICellRendererParams<TypeFoodCategory>)=
             <Image
                 height={200}
                 width={200}
-                src={params.data?.img||""}
+                src={baseURL+params.data?.img||""}
                 alt={params.data?.name||""}
                 className="rounded-full object-cover h-20 w-20 ring ring-indigo-700/20"
             />

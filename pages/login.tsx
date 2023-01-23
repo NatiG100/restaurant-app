@@ -10,6 +10,7 @@ import logo from '../assets/svg/Logo.svg'
 import IconButton from "../components/UIElements/IconButton";
 import LabledInput from "../components/UIElements/LabledInput";
 import { login,logout } from "../services/AuthService";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import {login as dispatchLogin, logout as dispatchLogout} from './../Context/AuthSlice';
 
 export default function Login(){
@@ -31,7 +32,7 @@ export default function Login(){
         error,
         isLoading,
         mutate
-    }  = useMutation(login);
+    }  = useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,{email:string,password:string}>(login);
 
 
     //dispatch and notification logic
