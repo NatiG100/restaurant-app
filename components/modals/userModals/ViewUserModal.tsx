@@ -27,19 +27,20 @@ export interface TypeViewUserModal{
 export default function ViewUserModal({user,onClose,changeUserStatus,isStatusChangeLoading}:TypeViewUserModal){
     const [userImg,setUserImg] = useState<string>(baseURL+user.img);
     const [imgFile,setImgFile] = useState<File|null>(null);
-    //form validation logic
-    const {mutate:requestUpdateUser,isLoading,data,error} = useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,{data:TypeAddUser,id:string}>(updateUser);
+    //react hook form
     const {
         register,
         formState:{errors},
         handleSubmit
     } = useForm<{fullName:string,email:string}>({
-            defaultValues:{
-                email:user.email,
-                fullName:user.fullName
-            }
+        defaultValues:{
+            email:user.email,
+            fullName:user.fullName
+        }
     });
     //form submission logic
+    const {mutate:requestUpdateUser,isLoading,data,error} = 
+        useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,{data:TypeAddUser,id:string}>(updateUser);
     const onSubmit=(data:{email:string,fullName:string})=>{
         requestUpdateUser({
             data:{

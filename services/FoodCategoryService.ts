@@ -25,22 +25,23 @@ export const addFoodCategory = async(data:TypeAddFoodCategory)=>{
     })
 }
 
-// //update user service
-// export const updateUser = async({data,id}:{data:TypeAddUser,id:string})=>{
-//     //create form data and append fields
-//     const formData = new FormData();
-//     formData.append("email",data.email);
-//     formData.append("fullName",data.fullName);
-//     data.previlages.forEach((previlage)=>{
-//         formData.append("previlages",previlage);
-//     })
-//     data.img&&formData.append("img",data.img,data.img.name);
-//     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${id}/update`,formData,{
-//         headers:{
-//             "Content-Type": "multipart/form-data",
-//         }
-//     })
-// }
+//update food category service
+export interface TypeUpdateFoodCategory{
+    data:TypeAddFoodCategory,
+    id:string
+}
+export const updateFoodCategory = async({data,id}:TypeUpdateFoodCategory)=>{
+    //create form data and append fields
+    const formData = new FormData();
+    formData.append("name",data.name);
+    formData.append("description",data.description);
+    data.img&&formData.append("img",data.img,data.img.name);
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food-categories/${id}/update`,formData,{
+        headers:{
+            "Content-Type": "multipart/form-data",
+        }
+    })
+}
 
 // //change usuer status service
 // export const changeUserStatus = async(data:{status:"Active"|"Suspended",id:string})=>{

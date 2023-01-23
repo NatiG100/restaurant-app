@@ -80,7 +80,6 @@ export default function CreateFoodCategoryModal({onClose}:TypeCreateFoodCategory
                         inputProps={{
                             ...register(
                                 "description",
-                                {required:"Description is required"}
                             ),
                             placeholder:"Description"
                         }}
