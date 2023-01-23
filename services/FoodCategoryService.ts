@@ -43,7 +43,11 @@ export const updateFoodCategory = async({data,id}:TypeUpdateFoodCategory)=>{
     })
 }
 
-// //change usuer status service
-// export const changeUserStatus = async(data:{status:"Active"|"Suspended",id:string})=>{
-//     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${data.id}/change-status`,{status:data.status});
-// }
+//change food category status service
+export interface TypeChangeFoodCategoryStatus{
+    status:"Active"|"Suspended",
+    id:string
+}
+export const changeFoodCategoryStatus = async(data:TypeChangeFoodCategoryStatus)=>{
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food-categories/${data.id}/change-status`,{status:data.status});
+}
