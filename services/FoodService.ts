@@ -7,23 +7,26 @@ export const fetchAllFoods = async ({categoryId}:{categoryId:string})=>{
     return instance.get<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/foods?categoryId=${categoryId}`)
 }
 
-// export interface TypeAddFoodCategory{
-//     name:string,
-//     description:string,
-//     img:File|null,
-// }
-// export const addFoodCategory = async(data:TypeAddFoodCategory)=>{
-//     //create form data and append fields
-//     const formData = new FormData();
-//     formData.append("name",data.name);
-//     formData.append("description",data.description);
-//     data.img&&formData.append("img",data.img,data.img.name);
-//     return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>('/food-categories',formData,{
-//         headers:{
-//             "Content-Type": "multipart/form-data",
-//         }
-//     })
-// }
+export interface TypeAddFood{
+    name:string,
+    description:string,
+    cost:Number,
+    img:File|null,
+    categoryId:string,
+}
+export const addFood = async(data:TypeAddFood)=>{
+    //create form data and append fields
+    const formData = new FormData();
+    formData.append("name",data.name);
+    formData.append("description",data.description);
+    formData.append("cost",data.cost.toString())
+    data.img&&formData.append("img",data.img,data.img.name);
+    return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/foods?categoryId=${data.categoryId}`,formData,{
+        headers:{
+            "Content-Type": "multipart/form-data",
+        }
+    })
+}
 
 // //update food category service
 // export interface TypeUpdateFoodCategory{

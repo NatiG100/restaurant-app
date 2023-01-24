@@ -99,6 +99,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     <Backdrop onClick={handleCloseCreateModal}>
                         <CreateFoodModal
                             onClose={handleCloseCreateModal}
+                            categoryId={id as string}
                         />
                     </Backdrop>
                 }
