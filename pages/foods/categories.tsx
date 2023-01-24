@@ -133,7 +133,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 }
                 <AgGridReact
                     context={{
-                        setSelectedFoodCategory
+                        setSelectedFoodCategory,
+                        isStatusUpdateLoading,
+                        requestStatusUpdate,
                     }}
                     onRowDoubleClicked={handleClick}
                     ref={gridRef}
