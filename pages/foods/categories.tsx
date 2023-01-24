@@ -11,9 +11,9 @@ import Backdrop from "../../components/Backdrop";
 import FoodCategoriesModal from "../../components/modals/FoodCategoriesModal";
 import CreateFoodCategoryModal from "../../components/modals/CreateFoodCategoryModal";
 import Divider from "../../components/UIElements/Divider";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
-import { fetchAllFoodCategories } from "../../services/FoodCategoryService";
+import { changeFoodCategoryStatus, fetchAllFoodCategories, TypeChangeFoodCategoryStatus } from "../../services/FoodCategoryService";
 import {toast} from 'react-toastify';
 
 
@@ -66,14 +66,49 @@ export default function DrinkCategories({setAppBarComponent}:any){
         }
     },[error,response])
     
+    //routing logic
     const router = useRouter();
     const handleClick = (event:RowClickedEvent<TypeFoodCategory>)=>{
         const id = event.data?.id;
         router.push('/foods/'+id);
     }
+
+
+    //api request for changing food category status
+    const{
+        mutate:requestStatusUpdate,
+        error:statusUpdateError,
+        isLoading:isStatusUpdateLoading,
+        data:statusUpdateData
+    } = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        TypeChangeFoodCategoryStatus
+    >(changeFoodCategoryStatus);
+
+    useEffect(()=>{
+        if(statusUpdateData){
+            toast(statusUpdateData?.message,{type:"success"});
+            //update the selected user after refetching
+            refetch().then((data)=>{
+                const foodCategory = data.data?.data;
+                if(selectedFoodCategory){
+                    setSelectedFoodCategory((prev)=>{
+                        const currentCategory = foodCategory?.filter(
+                            (category:TypeFoodCategory)=>(category.id===selectedFoodCategory.id)
+                        )[0];
+                        return currentCategory;
+                    })
+                }
+            })
+        }
+    },[statusUpdateData,statusUpdateError])
+
+    //modal close logic
     const [selectedFoodCategory,setSelectedFoodCategory] = useState<TypeFoodCategory|null>(null);
     const handleModalClose = ()=>{
         setSelectedFoodCategory(null);
+        refetch();
     }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
@@ -83,6 +118,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         <FoodCategoriesModal
                             onClose={handleModalClose}
                             category={selectedFoodCategory}
+                            changeStatus={requestStatusUpdate}
+                            isStatusChangeLoading={isStatusUpdateLoading}
                         />
                     </Backdrop>
                 }

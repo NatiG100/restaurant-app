@@ -74,7 +74,11 @@ export default function DrinkCategories({setAppBarComponent}:any){
         error:statusUpdateError,
         isLoading:isStatusUpdateLoading,
         data:statusUpdateData
-    } = useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,{status:"Active"|"Suspended",id:string}>(changeUserStatus);
+    } = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        {status:"Active"|"Suspended",id:string}
+    >(changeUserStatus);
 
     useEffect(()=>{
         if(statusUpdateData){

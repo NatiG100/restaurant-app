@@ -4,7 +4,7 @@ import {BiSave as SaveIcon} from 'react-icons/bi'
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import baseURL from '../../constants/BASE_URL';
-import { TypeUpdateFoodCategory, updateFoodCategory } from '../../services/FoodCategoryService';
+import { TypeChangeFoodCategoryStatus, TypeUpdateFoodCategory, updateFoodCategory } from '../../services/FoodCategoryService';
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../types/types';
 import SingleImageUpload from '../SingleImageUpload';
 import { TypeFoodCategory } from "../TableComponents/foodCategories";
@@ -16,7 +16,9 @@ import BaseModal from "./BaseModal";
 
 export interface TypeFoodCatagoriesModal{
     category:TypeFoodCategory,
-    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void
+    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void,
+    changeStatus:({status,id}:TypeChangeFoodCategoryStatus)=>void,
+    isStatusChangeLoading:boolean
 }
 
 const classes = {
@@ -35,7 +37,7 @@ const statusClass = (category:TypeFoodCategory)=>{
     }
 }
 
-export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagoriesModal){
+export default function FoodCategoriesModal({category,onClose,changeStatus,isStatusChangeLoading}:TypeFoodCatagoriesModal){
 
     const [foodCategoryImg,setFoodCategoryImg] = useState<string>(baseURL+category.img);
     const [imgFile,setImgFile] = useState<File|null>(null);
@@ -94,6 +96,8 @@ export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagorie
             children:"Deactivate",
             color: "error",
             className:"w-24",
+            onClick:()=>changeStatus({id:category.id,status:"Suspended"}),
+            disabled:isStatusChangeLoading
         });
     } else if(category.status==="Suspended"){
         actionButtons.push({
@@ -101,6 +105,8 @@ export default function FoodCategoriesModal({category,onClose}:TypeFoodCatagorie
             children:"Activate",
             color: "success",
             className:"w-24",
+            onClick:()=>changeStatus({id:category.id,status:"Active"}),
+            disabled:isStatusChangeLoading
         });
     }
     return(
