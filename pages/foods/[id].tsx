@@ -11,6 +11,10 @@ import Backdrop from "../../components/Backdrop";
 import FoodTableViewModal from "../../components/modals/foodTableModals/FoodTableViewModal";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import CreateFoodModal from "../../components/modals/foodTableModals/CreateFoodModal";
+import { useQuery } from "react-query";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
+import { fetchAllFoods } from "../../services/FoodService";
+import { toast } from "react-toastify";
 
 
 
@@ -58,99 +62,23 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [filteredRows,setFilteredRows] = useState<TypeFood[]>([]);
-    const [rowData] = useState<TypeFood[]>([
-        {
-            id:"ahxjbnaiosdufneuil",
-            categoryId:"1200padkjfthisthat",
-            img:"/dinner.jpg",
-            name:"Firfir",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            status:"Active",
-            cost:120,
-            createdBy:"adkfjalksdjfk",
-            imgs:[],
-            totalSale:200,
-        },
-        {
-            id:"adfasdfsdgsfgsdfgs",
-            categoryId:"1200padkjfthisthat",
-            img:"/dinner.jpg",
-            name:"Shiro",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            status:"Active",
-            cost:120,
-            createdBy:"adkfjalksdjfk",
-            imgs:[],
-            totalSale:200,
-        },
-        {
-            id:"adlskfjasdkfjkjm",
-            categoryId:"thereisanarmyrising",
-            img:"/dinner.jpg",
-            name:"Beyaynet",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            status:"Active",
-            cost:120,
-            createdBy:"adkfjalksdjfk",
-            imgs:[],
-            totalSale:200,
-        },
-        {
-            id:"alkjsdfkjadkfjfd",
-            categoryId:"thereisanarmyrising",
-            img:"/dinner.jpg",
-            name:"Key Wot",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            status:"Active",
-            cost:120,
-            createdBy:"adkfjalksdjfk",
-            imgs:[],
-            totalSale:200,
-        },
-        {
-            id:"namtoieuuuuwlkfds",
-            categoryId:"rockofagescleftfor",
-            img:"/dinner.jpg",
-            name:"Fetira",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            status:"Active",
-            cost:120,
-            createdBy:"adkfjalksdjfk",
-            imgs:[],
-            totalSale:200,
-        },
-        {
-            id:"betsklkdkkfddfss",
-            categoryId:"rockofagescleftfor",
-            img:"/dinner.jpg",
-            name:"Chechebsa",
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            created:"10/3/2023",
-            updated:"12/7/2023",
-            status:"Active",
-            cost:120,
-            createdBy:"adkfjalksdjfk",
-            imgs:[],
-            totalSale:200,
-        },
-    ]);
-    
+    const {
+        refetch,
+        data,
+        error,
+    }=useQuery<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse
+    >('fetchAllFoods',()=>fetchAllFoods({categoryId:id as string}));
     useEffect(()=>{
-        if(id){
-            setFilteredRows(rowData.filter((row)=>(row.categoryId===id)));
+        if(data){
+            gridRef.current?.api?.hideOverlay();
         }
-    },[id]);
+        if(error){
+            toast(error.message,{type:"error"});
+        }
+    },[data,error])
+    
     const [selectedFood, setSelectedFood] = useState<TypeFood | null>(null);
     const handleFoodViewModalClose = ()=>{
         setSelectedFood(null);
@@ -172,7 +100,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 }
                 <AgGridReact
                     ref={gridRef}
-                    rowData={filteredRows}
+                    rowData={data?.data}
                     columnDefs={columnDefs}
                     context={{
                         setSelectedFood
