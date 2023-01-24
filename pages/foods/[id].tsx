@@ -82,12 +82,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [selectedFood, setSelectedFood] = useState<TypeFood | null>(null);
     const handleFoodViewModalClose = ()=>{
         setSelectedFood(null);
+        refetch();
     }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 {   selectedFood&&
                     <Backdrop onClick={handleFoodViewModalClose}>
-                        <FoodTableViewModal food={selectedFood} onClose={handleFoodViewModalClose}/>
+                        <FoodTableViewModal 
+                            food={selectedFood} 
+                            onClose={handleFoodViewModalClose}
+                        />
                     </Backdrop>
                 }
                 {
