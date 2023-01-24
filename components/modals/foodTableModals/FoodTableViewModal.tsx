@@ -7,6 +7,7 @@ import SingleImageUpload from '../../SingleImageUpload';
 import {useState} from 'react';
 import LabledInput from '../../UIElements/LabledInput';
 import LabledTextarea from '../../UIElements/LabledTextArea';
+import baseURL from '../../../constants/BASE_URL';
 
 export interface TypeFoodTableViewModal{
     food:TypeFood,
@@ -53,7 +54,7 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
             return "text-lg text-green-600"
         }
     }
-    const [foodImg,setFoodImg] = useState<string>(food.img);
+    const [foodImg,setFoodImg] = useState<string>(baseURL+food.img);
     return(
         <BaseModal
             headerSection={<p className='text-xl font-bold text-indigo-600'>{food.name}</p>}
