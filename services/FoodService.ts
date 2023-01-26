@@ -43,7 +43,7 @@ export const updateFood = async({name,description,cost,img,id}:TypeUpdateFood)=>
     formData.append("description",description);
     formData.append("cost",cost.toString())
     img&&formData.append("img",img,img.name);
-    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food/${id}/update`,formData,{
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/foods/${id}/update`,formData,{
         headers:{
             "Content-Type": "multipart/form-data",
         }

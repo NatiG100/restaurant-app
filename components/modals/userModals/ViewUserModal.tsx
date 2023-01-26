@@ -53,7 +53,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
         });
     }
 
-    //tostify
+    //toastify
     useEffect(()=>{
         if(error){
             toast(error?.message,{type:"error"});

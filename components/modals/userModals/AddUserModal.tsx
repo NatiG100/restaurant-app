@@ -8,8 +8,9 @@ import ToggleChip from "../../UIElements/ToggleChip";
 import usePermissionEditor from "../../../hooks/usePermissionEditor";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import { addUser } from "../../../services/UsersService";
+import { addUser, TypeAddUser } from "../../../services/UsersService";
 import { toast } from "react-toastify";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../../types/types";
 
 export interface TypeAddUserModal{
     onClose:()=>void
@@ -33,7 +34,9 @@ export default function AddUserModal({onClose}:TypeAddUserModal){
     }
 
     //form validation and submission logic
-    const {mutate:requestAddUser,isLoading,data,error} = useMutation(addUser);
+    const {mutate:requestAddUser,isLoading,data,error} = useMutation<
+        TypeMultiDataResponse,TypeCustomeErrorResponse,TypeAddUser
+    >(addUser);
     const {register,formState:{errors},handleSubmit} = useForm<{fullName:string,email:string}>();
     const onSubmit=(data:{email:string,fullName:string})=>{
         requestAddUser({

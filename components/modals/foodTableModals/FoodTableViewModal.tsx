@@ -4,16 +4,59 @@ import BaseModal from '../BaseModal';
 import {BiSave as SaveIcon} from 'react-icons/bi'
 import Divider from '../../UIElements/Divider';
 import SingleImageUpload from '../../SingleImageUpload';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import LabledInput from '../../UIElements/LabledInput';
 import LabledTextarea from '../../UIElements/LabledTextArea';
 import baseURL from '../../../constants/BASE_URL';
+import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/types';
+import { TypeUpdateFood, updateFood } from '../../../services/FoodService';
+import { toast } from 'react-toastify';
 
 export interface TypeFoodTableViewModal{
     food:TypeFood,
     onClose(event: void | React.MouseEvent<HTMLButtonElement>):void,
 }
 export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModal){
+    
+    const [foodImg,setFoodImg] = useState<string>(baseURL+food.img);
+    const [imgFile,setImgFile] = useState<File|null>(null)
+
+    //react jppl fpr
+    const {
+        register,
+        formState:{errors},
+        handleSubmit,
+    }  = useForm<{name:string,cost:Number,description:string}>({
+        defaultValues:{
+            name:food.name,
+            cost:food.cost,
+            description:food.description
+        }
+    });
+    //form submission logic
+    const {mutate:requestUpdateFood,isLoading,data,error} = 
+        useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,TypeUpdateFood>(updateFood);
+    const onSubmit = (data:{name:string,cost:Number,description:string})=>{
+        console.log(food)
+        requestUpdateFood({
+            name:data.name,
+            cost:data.cost,
+            img:imgFile,
+            description:data.description,
+            id:food.id,
+        })
+    }
+    //toastify
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"});
+        }if(data){
+            toast(data?.message,{type:"success"});
+            onClose();
+        }
+    },[error,data])
     const actionButtons:TypeIconButton[] = [
         {
             type:"outline",
@@ -21,6 +64,11 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
             iconEnd:<SaveIcon/>,
             className:"w-36",
             color:"warning",
+            disabled:isLoading,
+            onClick:()=>{},
+            butonProps:{
+                form:"updateFood"
+            }
         }
     ];
     if(food.status==='Active'){
@@ -54,7 +102,6 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
             return "text-lg text-green-600"
         }
     }
-    const [foodImg,setFoodImg] = useState<string>(baseURL+food.img);
     return(
         <BaseModal
             headerSection={<p className='text-xl font-bold text-indigo-600'>{food.name}</p>}
@@ -92,16 +139,36 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
                         img={foodImg}
                         setImg={setFoodImg}
                     />
-                    <LabledInput
-                        inputProps={{name:"name", placeholder:"Name",value:food.name}}
-                        label="Name"
-                        fullWidth
-                    />
-                    <LabledTextarea
-                        inputProps={{name:"description", value:food.description,rows:4,style:{resize:"none"}}}
-                        label="Description"
-                        fullWidth
-                    />
+                    <form id="updateFood" onSubmit={handleSubmit(onSubmit)}>
+                        <LabledInput
+                            inputProps={{
+                                ...register('name',{required:"Cost is required"}),
+                                placeholder:"Name"
+                            }}
+                            label="Name"
+                            fullWidth
+                            error={errors.name?.message}
+                        />
+                        <LabledInput
+                            inputProps={{
+                                ...register('cost',{required:"Cost is required"}),
+                                placeholder:"Cost",
+                                type:"number",
+                            }}
+                            label="Cost"
+                            fullWidth
+                            error={errors.cost?.message}
+                        />
+                        <LabledTextarea
+                            inputProps={{
+                                ...register('description'),
+                                placeholder:"Description", 
+                                rows:4,style:{resize:"none"}
+                            }}
+                            label="Description"
+                            fullWidth
+                        />
+                    </form>
                 </div>
             </div>
         </BaseModal>
