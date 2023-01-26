@@ -26,6 +26,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [openModal,setOpenModal] = useState<boolean>(false);
     const handleCreateModalClose = () =>{
         setOpenModal(false);
+        refetch();
     }
     const handleCreateModalOpen = () =>{
         setOpenModal(true);
