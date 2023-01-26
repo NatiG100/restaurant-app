@@ -39,7 +39,6 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
     const {mutate:requestUpdateFood,isLoading,data,error} = 
         useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,TypeUpdateFood>(updateFood);
     const onSubmit = (data:{name:string,cost:Number,description:string})=>{
-        console.log(food)
         requestUpdateFood({
             name:data.name,
             cost:data.cost,
