@@ -11,9 +11,9 @@ import Backdrop from "../../components/Backdrop";
 import FoodTableViewModal from "../../components/modals/foodTableModals/FoodTableViewModal";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import CreateFoodModal from "../../components/modals/foodTableModals/CreateFoodModal";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
-import { fetchAllFoods } from "../../services/FoodService";
+import { changeFoodStatus, fetchAllFoods, TypeChangeFoodStatus } from "../../services/FoodService";
 import { toast } from "react-toastify";
 
 
@@ -80,6 +80,36 @@ export default function DrinkCategories({setAppBarComponent}:any){
         }
     },[data,error])
     
+        //api request for changing food category status
+        const{
+            mutate:requestStatusUpdate,
+            error:statusUpdateError,
+            isLoading:isStatusUpdateLoading,
+            data:statusUpdateData
+        } = useMutation<
+            TypeMultiDataResponse,
+            TypeCustomeErrorResponse,
+            TypeChangeFoodStatus
+        >(changeFoodStatus);
+    
+        useEffect(()=>{
+            if(statusUpdateData){
+                toast(statusUpdateData?.message,{type:"success"});
+                //update the selected user after refetching
+                refetch().then((data)=>{
+                    const foodCategory = data.data?.data;
+                    if(selectedFood){
+                        setSelectedFood((prev)=>{
+                            const currentCategory = foodCategory?.filter(
+                                (category:TypeFood)=>(category.id===selectedFood.id)
+                            )[0];
+                            return currentCategory;
+                        })
+                    }
+                })
+            }
+        },[statusUpdateData,statusUpdateError])
+
     const [selectedFood, setSelectedFood] = useState<TypeFood | null>(null);
     const handleFoodViewModalClose = ()=>{
         setSelectedFood(null);
@@ -92,6 +122,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         <FoodTableViewModal 
                             food={selectedFood} 
                             onClose={handleFoodViewModalClose}
+                            changeStatus={requestStatusUpdate}
+                            isStatusChangeLoading={isStatusUpdateLoading}
                         />
                     </Backdrop>
                 }
@@ -109,7 +141,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     rowData={data?.data}
                     columnDefs={columnDefs}
                     context={{
-                        setSelectedFood
+                        setSelectedFood,
+                        isStatusUpdateLoading,
+                        requestStatusUpdate,
                     }}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={

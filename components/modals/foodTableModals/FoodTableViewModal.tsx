@@ -11,14 +11,16 @@ import baseURL from '../../../constants/BASE_URL';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/types';
-import { TypeUpdateFood, updateFood } from '../../../services/FoodService';
+import { TypeChangeFoodStatus, TypeUpdateFood, updateFood } from '../../../services/FoodService';
 import { toast } from 'react-toastify';
 
 export interface TypeFoodTableViewModal{
     food:TypeFood,
     onClose(event: void | React.MouseEvent<HTMLButtonElement>):void,
+    changeStatus:({status,id}:TypeChangeFoodStatus)=>void,
+    isStatusChangeLoading:boolean
 }
-export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModal){
+export default function FoodTableViewModal({onClose, food, changeStatus,isStatusChangeLoading}:TypeFoodTableViewModal){
     
     const [foodImg,setFoodImg] = useState<string>(baseURL+food.img);
     const [imgFile,setImgFile] = useState<File|null>(null)
@@ -76,6 +78,8 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
             children:"Deactivate",
             color: "error",
             className:"w-24",
+            disabled:isStatusChangeLoading,
+            onClick:()=>{changeStatus({status:"Suspended",id:food.id})}
         });
     } else if(food.status==="Suspended"){
         actionButtons.push({
@@ -83,6 +87,8 @@ export default function FoodTableViewModal({onClose, food}:TypeFoodTableViewModa
             children:"Activate",
             color: "success",
             className:"w-24",
+            disabled:isStatusChangeLoading,
+            onClick:()=>{changeStatus({status:"Active",id:food.id})}
         });
     }
 

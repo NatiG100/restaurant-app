@@ -55,6 +55,6 @@ export interface TypeChangeFoodStatus{
     status:"Active"|"Suspended",
     id:string
 }
-export const changeFoodCategoryStatus = async(data:TypeChangeFoodStatus)=>{
+export const changeFoodStatus = async(data:TypeChangeFoodStatus)=>{
     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/foods/${data.id}/change-status`,{status:data.status});
 }

@@ -19,6 +19,7 @@ export interface TypeFood{
 }
 
 const FoodsActionCell = (params:ICellRendererParams<TypeFood>)=>{
+    const {isStatusUpdateLoading:loading, requestStatusUpdate:changeStatus} = params.context;
     return(
         <div className="flex gap-4 font-semibold w-max">
                     <Button 
@@ -31,8 +32,20 @@ const FoodsActionCell = (params:ICellRendererParams<TypeFood>)=>{
                     View</Button>
             {
                 params.data?.status==="Active"?
-                    <Button type="outline" color="error" className="w-24">Deactivate</Button>:
-                    <Button type="outline" color="success" className="w-24">Activate</Button>
+                    <Button 
+                        type="outline" 
+                        color="error" 
+                        className="w-24"
+                        disabled={loading}
+                        onClick={()=>{changeStatus({status:"Suspended",id:params.data?.id})}}
+                    >Deactivate</Button>:
+                    <Button 
+                        type="outline" 
+                        color="success" 
+                        className="w-24"
+                        disabled={loading}
+                        onClick={()=>{changeStatus({status:"Active",id:params.data?.id})}}
+                    >Activate</Button>
             }
         </div>
     );
