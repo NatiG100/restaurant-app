@@ -50,11 +50,11 @@ export const updateFood = async({name,description,cost,img,id}:TypeUpdateFood)=>
     })
 }
 
-// //change food category status service
-// export interface TypeChangeFoodCategoryStatus{
-//     status:"Active"|"Suspended",
-//     id:string
-// }
-// export const changeFoodCategoryStatus = async(data:TypeChangeFoodCategoryStatus)=>{
-//     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food-categories/${data.id}/change-status`,{status:data.status});
-// }
+//change food status service
+export interface TypeChangeFoodStatus{
+    status:"Active"|"Suspended",
+    id:string
+}
+export const changeFoodCategoryStatus = async(data:TypeChangeFoodStatus)=>{
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/foods/${data.id}/change-status`,{status:data.status});
+}
