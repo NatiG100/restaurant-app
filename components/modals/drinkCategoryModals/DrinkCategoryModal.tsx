@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import {BiSave as SaveIcon} from 'react-icons/bi'
+import { useMutation } from 'react-query';
 import baseURL from '../../../constants/BASE_URL';
+import { TypeUpdateDrinkCategory, updateDrinkCategory } from '../../../services/DrinkCategoryService';
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/types';
 import SingleImageUpload from '../../SingleImageUpload';
 import { TypeDrinkCategory } from '../../TableComponents/drinkCategories';
 import Divider from '../../UIElements/Divider';
@@ -8,6 +12,8 @@ import { TypeIconButton } from '../../UIElements/IconButton';
 import LabledInput from '../../UIElements/LabledInput';
 import LabledTextarea from '../../UIElements/LabledTextArea';
 import BaseModal from "./../BaseModal";
+import {useEffect} from 'react'
+import { toast } from 'react-toastify';
 
 export interface TypeDrinkCatagoriesModal{
     category:TypeDrinkCategory,
@@ -31,6 +37,44 @@ const statusClass = (category:TypeDrinkCategory)=>{
 }
 
 export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagoriesModal){
+    const [drinkCategoryImg,setDrinkCategoryImg] = useState<string>(baseURL+category.img);
+    const [imgFile,setImgFile] = useState<File|null>(null);
+    //react hook form
+    const {
+        register,
+        formState:{errors},
+        handleSubmit
+    } = useForm<{name:string,description:string}>({
+        defaultValues:{
+            name:category.name,
+            description:category.description
+        }
+    });
+
+    //form submission logic
+    const {mutate:requestDrinkCategoryUpdate,error,data,isLoading} = 
+    useMutation<TypeMultiDataResponse,TypeCustomeErrorResponse,TypeUpdateDrinkCategory>(updateDrinkCategory);
+    const onSubmit = (data:{name:string,description:string})=>{
+        requestDrinkCategoryUpdate({
+            data:{
+                name:data.name,
+                description:data.description,
+                img:imgFile,
+            },
+            id:category.id
+        });
+    }
+
+    //toastify
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"});
+        }if(data){
+            toast(data?.message);
+            onClose();
+        }
+    },[error,data]);
+
     const actionButtons:TypeIconButton[] = [
         {
             type:"outline",
@@ -38,6 +82,10 @@ export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagor
             iconEnd:<SaveIcon/>,
             className:"w-36",
             color:"warning",
+            disabled:isLoading,
+            butonProps:{
+                form:"updateDrinkCategory"
+            }
         }
     ];
     if(category.status==='Active'){
@@ -55,7 +103,6 @@ export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagor
             className:"w-24",
         });
     }
-    const [drinkCategoryImg,setDrinkCategoryImg] = useState<string>(baseURL+category.img);
     return(
         <BaseModal
             headerSection={
@@ -94,17 +141,27 @@ export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagor
                     <SingleImageUpload
                         img={drinkCategoryImg}
                         setImg={setDrinkCategoryImg}
+                        setFile={setImgFile}
                     />
-                    <LabledInput
-                        inputProps={{name:"name", placeholder:"Name",value:category.name}}
-                        label="Name"
-                        fullWidth
-                    />
-                    <LabledTextarea
-                        inputProps={{name:"description", value:category.description,rows:4,style:{resize:"none"}}}
-                        label="Description"
-                        fullWidth
-                    />
+                    <form id="updateDrinkCategory" onSubmit={handleSubmit(onSubmit)}>
+                        <LabledInput
+                            inputProps={{
+                                ...register("name",{required:"Category name is required"}),
+                                placeholder:"Name"
+                            }}
+                            label="Name"
+                            fullWidth
+                            error={errors.name?.message}
+                        />
+                        <LabledTextarea
+                            inputProps={{
+                                ...register("description"),
+                                rows:4,style:{resize:"none"}
+                            }}
+                            label="Description"
+                            fullWidth
+                        />
+                    </form>
                 </div>
             </div>
         </BaseModal>

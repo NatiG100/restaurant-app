@@ -28,7 +28,7 @@ export interface TypeUpdateDrinkCategory{
     data:TypeAddDrinkCategory,
     id:string
 }
-export const updateFoodCategory = async({data,id}:TypeUpdateDrinkCategory)=>{
+export const updateDrinkCategory = async({data,id}:TypeUpdateDrinkCategory)=>{
     //create form data and append fields
     const formData = new FormData();
     formData.append("name",data.name);
