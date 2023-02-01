@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {BiSave as SaveIcon} from 'react-icons/bi'
+import baseURL from '../../../constants/BASE_URL';
 import SingleImageUpload from '../../SingleImageUpload';
 import { TypeDrinkCategory } from '../../TableComponents/drinkCategories';
 import Divider from '../../UIElements/Divider';
@@ -54,7 +55,7 @@ export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagor
             className:"w-24",
         });
     }
-    const [drinkCategoryImg,setDrinkCategoryImg] = useState<string>(category.img);
+    const [drinkCategoryImg,setDrinkCategoryImg] = useState<string>(baseURL+category.img);
     return(
         <BaseModal
             headerSection={

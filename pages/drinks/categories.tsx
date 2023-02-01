@@ -26,6 +26,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [openModal,setOpenModal] = useState<boolean>(false);
     const handleCreateModalClose = () =>{
         setOpenModal(false);
+        refetch();
     }
     const handleCreateModalOpen = () =>{
         setOpenModal(true);
@@ -82,6 +83,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [selectedDrinkCategory,setSelectedDrinkCategory] = useState<TypeDrinkCategory|null>(null);
     const handleModalClose = ()=>{
         setSelectedDrinkCategory(null);
+        refetch();
     }
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
