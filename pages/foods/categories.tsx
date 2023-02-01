@@ -65,7 +65,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     } = useQuery<
         TypeMultiDataResponse,
         TypeCustomeErrorResponse
-    >('fethAllUsers',fetchAllFoodCategories);
+    >('fethAllFoods',fetchAllFoodCategories);
     
     useEffect(()=>{
         if(error){
