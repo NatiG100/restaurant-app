@@ -15,6 +15,8 @@ export interface TypeDrinkCategory{
 }
 
 const DrinkCategoriesActionCell = (params:ICellRendererParams<TypeDrinkCategory>)=>{
+    const loading = params.context.isStatusUpdateLoading;
+    const changeStatus = params.context.requestStatusUpdate;
     return(
         <div className="flex gap-4 font-semibold w-max">
                     <Button 
@@ -25,8 +27,21 @@ const DrinkCategoriesActionCell = (params:ICellRendererParams<TypeDrinkCategory>
                     View</Button>
             {
                 params.data?.status==="Active"?
-                    <Button type="outline" color="error" className="w-24">Deactivate</Button>:
-                    <Button type="outline" color="success" className="w-24">Activate</Button>
+                    <Button 
+                        type="outline" 
+                        color="error" 
+                        className="w-24"
+                        disabled={loading}
+                        onClick={()=>changeStatus({id:params.data?.id,status:"Suspended"})}
+                    >Deactivate</Button>:
+                    <Button 
+                        type="outline" 
+                        color="success" 
+                        className="w-24"
+                        disabled={loading}
+                        onClick={()=>changeStatus({id:params.data?.id,status:"Active"})}
+
+                    >Activate</Button>
             }
         </div>
     );
