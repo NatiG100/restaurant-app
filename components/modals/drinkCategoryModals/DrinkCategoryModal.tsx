@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import {BiSave as SaveIcon} from 'react-icons/bi'
 import { useMutation } from 'react-query';
 import baseURL from '../../../constants/BASE_URL';
-import { TypeUpdateDrinkCategory, updateDrinkCategory } from '../../../services/DrinkCategoryService';
+import { TypeChangeDrinkCategoryStatus, TypeUpdateDrinkCategory, updateDrinkCategory } from '../../../services/DrinkCategoryService';
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/types';
 import SingleImageUpload from '../../SingleImageUpload';
 import { TypeDrinkCategory } from '../../TableComponents/drinkCategories';
@@ -17,7 +17,9 @@ import { toast } from 'react-toastify';
 
 export interface TypeDrinkCatagoriesModal{
     category:TypeDrinkCategory,
-    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void
+    onClose(event: void | React.MouseEvent<HTMLButtonElement>):void,
+    changeStatus:({status,id}:TypeChangeDrinkCategoryStatus)=>void,
+    isStatusChangeLoading:boolean
 }
 
 const classes = {
@@ -36,7 +38,7 @@ const statusClass = (category:TypeDrinkCategory)=>{
     }
 }
 
-export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagoriesModal){
+export default function DrinkCategoriesModal({category,onClose,changeStatus,isStatusChangeLoading}:TypeDrinkCatagoriesModal){
     const [drinkCategoryImg,setDrinkCategoryImg] = useState<string>(baseURL+category.img);
     const [imgFile,setImgFile] = useState<File|null>(null);
     //react hook form
@@ -94,6 +96,8 @@ export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagor
             children:"Deactivate",
             color: "error",
             className:"w-24",
+            onClick:()=>changeStatus({id:category.id,status:"Suspended"}),
+            disabled:isStatusChangeLoading
         });
     } else if(category.status==="Suspended"){
         actionButtons.push({
@@ -101,6 +105,8 @@ export default function DrinkCategoriesModal({category,onClose}:TypeDrinkCatagor
             children:"Activate",
             color: "success",
             className:"w-24",
+            onClick:()=>changeStatus({id:category.id,status:"Active"}),
+            disabled:isStatusChangeLoading
         });
     }
     return(
