@@ -12,9 +12,9 @@ import Button from "../../components/UIElements/Button";
 import Divider from "../../components/UIElements/Divider";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import CreateDrinkModal from "../../components/modals/drinkTableModals/CreateDrinkModal";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
-import { fetchAllDrinks } from "../../services/DrinkService";
+import { changeDrinkStatus, fetchAllDrinks, TypeChangeDrinkStatus } from "../../services/DrinkService";
 import { toast } from "react-toastify";
 
 
@@ -84,7 +84,36 @@ export default function DrinkCategories({setAppBarComponent}:any){
     },[data,error]);
 
 
-    
+    //api request for changing food category status
+    const{
+        mutate:requestStatusUpdate,
+        error:statusUpdateError,
+        isLoading:isStatusUpdateLoading,
+        data:statusUpdateData
+    } = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        TypeChangeDrinkStatus
+    >(changeDrinkStatus);
+
+    useEffect(()=>{
+        if(statusUpdateData){
+            toast(statusUpdateData?.message,{type:"success"});
+            //update the selected user after refetching
+            refetch().then((data)=>{
+                const drink = data.data?.data;
+                if(selectedDrink){
+                    setSelectedDrink((prev)=>{
+                        const currentDrink = drink?.filter(
+                            (category:TypeDrink)=>(category.id===selectedDrink.id)
+                        )[0];
+                        return currentDrink;
+                    })
+                }
+            })
+        }
+    },[statusUpdateData,statusUpdateError])
+
     const [selectedDrink, setSelectedDrink] = useState<TypeDrink | null>(null);
     const handleFoodViewModalClose = ()=>{
         setSelectedDrink(null);
@@ -95,7 +124,12 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 {
                     selectedDrink&&
                     <Backdrop onClick={handleFoodViewModalClose}>
-                        <DrinkTableViewModal drink={selectedDrink} onClose={handleFoodViewModalClose}/>
+                        <DrinkTableViewModal 
+                            drink={selectedDrink} 
+                            onClose={handleFoodViewModalClose}
+                            changeStatus={requestStatusUpdate}
+                            isStatusChangeLoading={isStatusUpdateLoading}
+                        />
                     </Backdrop>
                 }
                 {
@@ -109,7 +143,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 }
                 <AgGridReact
                     context={{
-                        setSelectedDrink
+                        setSelectedDrink,
+                        isStatusUpdateLoading,
+                        requestStatusUpdate,
                     }}
                     ref={gridRef}
                     rowData={data?.data}

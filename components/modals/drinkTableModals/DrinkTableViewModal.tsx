@@ -11,15 +11,17 @@ import baseURL from '../../../constants/BASE_URL';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/types';
-import { TypeUpdateDrink, updateDrink } from '../../../services/DrinkService';
+import { TypeChangeDrinkStatus, TypeUpdateDrink, updateDrink } from '../../../services/DrinkService';
 import {useEffect} from 'react'
 import { toast } from 'react-toastify';
 
 export interface TypeDrinkTableViewModal{
     drink:TypeDrink,
     onClose(event: void | React.MouseEvent<HTMLButtonElement>):void,
+    changeStatus:({status,id}:TypeChangeDrinkStatus)=>void,
+    isStatusChangeLoading:boolean
 }
-export default function DrinkTableViewModal({onClose, drink}:TypeDrinkTableViewModal){
+export default function DrinkTableViewModal({onClose, drink,changeStatus,isStatusChangeLoading}:TypeDrinkTableViewModal){
     const [drinkImg,setdrinkImg] = useState<string>(baseURL+drink.img);
     const [imgFile,setImgFile] = useState<File|null>(null)
 
@@ -76,6 +78,8 @@ export default function DrinkTableViewModal({onClose, drink}:TypeDrinkTableViewM
             children:"Deactivate",
             color: "error",
             className:"w-24",
+            disabled:isStatusChangeLoading,
+            onClick:()=>{changeStatus({status:"Suspended",id:drink.id})}
         });
     } else if(drink.status==="Suspended"){
         actionButtons.push({
@@ -83,6 +87,8 @@ export default function DrinkTableViewModal({onClose, drink}:TypeDrinkTableViewM
             children:"Activate",
             color: "success",
             className:"w-24",
+            disabled:isStatusChangeLoading,
+            onClick:()=>{changeStatus({status:"Active",id:drink.id})}
         });
     }
 
