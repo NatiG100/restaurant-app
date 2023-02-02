@@ -7,6 +7,7 @@ import {useState} from 'react';
 import LabledInput from '../../UIElements/LabledInput';
 import LabledTextarea from '../../UIElements/LabledTextArea';
 import { TypeDrink } from '../../TableComponents/drinks';
+import baseURL from '../../../constants/BASE_URL';
 
 export interface TypeDrinkTableViewModal{
     drink:TypeDrink,
@@ -53,7 +54,7 @@ export default function DrinkTableViewModal({onClose, drink}:TypeDrinkTableViewM
             return "text-lg text-green-600"
         }
     }
-    const [drinkImg,setdrinkImg] = useState<string>(drink.img);
+    const [drinkImg,setdrinkImg] = useState<string>(baseURL+drink.img);
     return(
         <BaseModal
             headerSection={<p className='text-xl font-bold text-indigo-600'>{drink.name}</p>}

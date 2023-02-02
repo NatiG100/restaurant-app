@@ -90,7 +90,7 @@ export default function Login(){
                             className="mt-4 mx-0" 
                             disabled={isLoading}
                         >
-                            Login
+                            Sing in
                         </IconButton>
                     </div>
                 </form>

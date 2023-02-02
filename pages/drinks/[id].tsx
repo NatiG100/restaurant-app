@@ -28,6 +28,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const [openCreateModal,setOpenCreateModal] = useState<boolean>(false);
     const handleCloseCreateModal = ()=>{
         setOpenCreateModal(false);
+        refetch();
     }
     const handleOpenCreateModal = ()=>{
         setOpenCreateModal(true);
@@ -99,7 +100,10 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 {
                     openCreateModal&&
                     <Backdrop onClick={handleCloseCreateModal}>
-                        <CreateDrinkModal onClose={handleCloseCreateModal}/>
+                        <CreateDrinkModal 
+                            onClose={handleCloseCreateModal} 
+                            categoryId={id as string}
+                        />
                     </Backdrop>
                 }
                 <AgGridReact

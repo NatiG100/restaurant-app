@@ -12,7 +12,7 @@ export interface TypeAddDrink{
     img:File|null,
     categoryId:string,
 }
-export const addFood = async(data:TypeAddDrink)=>{
+export const addDrink = async(data:TypeAddDrink)=>{
     //create form data and append fields
     const formData = new FormData();
     formData.append("name",data.name);
