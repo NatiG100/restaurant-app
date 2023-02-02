@@ -143,6 +143,7 @@ export default function FoodTableViewModal({onClose, food, changeStatus,isStatus
                     <SingleImageUpload
                         img={foodImg}
                         setImg={setFoodImg}
+                        setFile={setImgFile}
                     />
                     <form id="updateFood" onSubmit={handleSubmit(onSubmit)}>
                         <LabledInput

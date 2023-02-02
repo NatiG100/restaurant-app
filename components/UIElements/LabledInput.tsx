@@ -8,7 +8,7 @@ export interface TypeLabledInput{
 export default function LabledInput({inputProps,label,error,fullWidth=false}:TypeLabledInput){
     return(
         <div className={`${fullWidth&&"w-full"} flex flex-col gap-1 ${inputProps.disabled&&"opacity-70"}`}>
-            <label htmlFor={inputProps.name} className="text-lg font-semibold text-indigo-800">{label}</label>
+            <label htmlFor={inputProps.name} className="text-md text-gray-900">{label}</label>
             <input
                 className={`
                     border bg-gray-100 
