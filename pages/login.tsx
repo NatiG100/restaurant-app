@@ -47,22 +47,23 @@ export default function Login(){
     },[error,data]);
 
     return(
-        <div className="w-full h-screen flex justify-center items-center bg-white">
+        <div className="w-full h-screen flex justify-center bg-gray-100">
             <div className="
-                w-full max-w-md rounded-lg p-5 shadow-xl border 
-                border-indigo-50 h-max bg-white sm:p-12
+                w-full max-w-md rounded-lg p-5 px-1 border 
+                border-indigo-100 h-max bg-white sm:p-12 sm:px-6 mt-16 sm:pt-5
             ">
-                <Image 
+                {/* <Image 
                     src={logo} 
                     alt="Logo" 
                     height={70}
                     width={70}
                     className="fill-transparent ml-auto mr-auto mb-3"
-                />
+                /> */}
                 <h1 className="
-                    text-3xl font-bold text-indigo-700 text-center
+                    text-2xl text-indigo-700 text-center
                 ">
-                Login</h1>
+                Restaurant Menu</h1>
+                <p className="text-2xl text-gray-900 mt-5">Sign in</p>
                 <form onSubmit={handleSubmit(onLogin)}>
                     <div className="my-5 flex flex-col gap-3">
                         <LabledInput 
@@ -85,9 +86,8 @@ export default function Login(){
                             error={errors.password?.message as string}
                         />
                         <IconButton 
-                            type="outline" 
+                            type="fill" 
                             className="mt-4 mx-0" 
-                            size="lg"
                             disabled={isLoading}
                         >
                             Login
