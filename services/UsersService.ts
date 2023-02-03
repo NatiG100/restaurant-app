@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { TypePermission } from "../assets/permissions";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import instance from "./instance";
