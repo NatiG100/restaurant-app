@@ -4,6 +4,11 @@ import Button from "../UIElements/Button";
 import domain from '../../constants/domain';
 import IconButton from "../UIElements/IconButton";
 import {MdOutlineDeleteOutline as DeleteIcon} from 'react-icons/md';
+import { useMutation } from "react-query";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
+import { deleteTable } from "../../services/TableService";
+import { useCallback, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export interface TypeTable{
     id:string,
@@ -12,6 +17,29 @@ export interface TypeTable{
 }
 
 const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
+    const refetch = params.context?.refetch;
+    const id = params.data?.id as string;
+
+    //delete table
+    const {mutate,error,data,isLoading} = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        {id:string}
+    >(deleteTable);
+        
+    useEffect(()=>{
+        if(data){
+            toast(data.message,{type:"success"});
+            refetch();
+        }
+        if(error){
+            toast(error.message,{type:"error"})
+        }
+    },[error,data])
+    const handleDelete = useCallback(()=>{
+        mutate({id});
+    },[id]);
+
     return(
         <div className="flex gap-4 font-semibold w-max">
             {
@@ -24,6 +52,8 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
                 className="w-24 h-11"
                 color='error'
                 iconEnd={<DeleteIcon className="text-xl"/>}
+                disabled={isLoading}
+                onClick={handleDelete}
             >Delete</IconButton>
         </div>
     );

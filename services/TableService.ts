@@ -35,9 +35,16 @@ export interface TypeChangeTableStatus{
     status:"Active"|"Suspended",
     id:string
 }
-export const changeFoodStatus = async(data:TypeChangeTableStatus)=>{
+export const changeTableStatus = async(data:TypeChangeTableStatus)=>{
     return instance.patch<
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`/tables/${data.id}/change-status`,{status:data.status});
+};
+
+export const deleteTable = async(data:{id:string})=>{
+    return instance.delete<
+        TypeCustomeErrorResponse,
+        TypeMultiDataResponse
+    >(`tables/${data.id}`);
 }

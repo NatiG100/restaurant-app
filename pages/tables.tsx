@@ -68,8 +68,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
             }
         },[]);
         
-        // get rows
-        const {
+    // get rows
+    const {
         data:response,
         error,
         isLoading,
@@ -88,6 +88,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
         }
     },[error,response]);
 
+    
+
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 {
@@ -99,6 +101,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     </Backdrop>
                 }
                 <AgGridReact
+                    context={{
+                        refetch
+                    }}
                     ref={gridRef}
                     rowData={response?.data}
                     columnDefs={columnDefs}
