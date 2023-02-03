@@ -6,7 +6,7 @@ import IconButton from "../UIElements/IconButton";
 import {MdOutlineDeleteOutline as DeleteIcon} from 'react-icons/md';
 import { useMutation } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
-import { deleteTable } from "../../services/TableService";
+import { changeTableStatus, deleteTable } from "../../services/TableService";
 import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -40,12 +40,42 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
         mutate({id});
     },[id]);
 
+    //change table stauts
+    const {mutate:changeStatus,error:statusError,data:statusData,isLoading:statusLoading} = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        {id:string,status:"Active"|"Suspended"}
+    >(changeTableStatus);
+
+    useEffect(()=>{
+        if(statusData){
+            toast(statusData.message,{type:"success"});
+            refetch();
+        }
+        if(statusError){
+            toast(statusError.message,{type:"error"})
+        }
+    },[statusData,statusError]);
+
+
     return(
         <div className="flex gap-4 font-semibold w-max">
             {
                 params.data?.status==="Active"?
-                <Button type="outline" color="warning" className="w-24">Suspend</Button>:
-                <Button type="outline" color="success" className="w-24">Activate</Button>
+                <Button 
+                    type="outline" 
+                    color="warning" 
+                    className="w-24"
+                    disabled={statusLoading}
+                    onClick={()=>{changeStatus({id,status:"Suspended"})}}
+                >Suspend</Button>:
+                <Button 
+                    type="outline" 
+                    color="success" 
+                    className="w-24"
+                    disabled={statusLoading}
+                    onClick={()=>{changeStatus({id,status:"Active"})}}
+                >Activate</Button>
             }
             <IconButton 
                 type="outline" 
