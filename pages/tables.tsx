@@ -6,6 +6,10 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import { columnDefs, defaultColDef, TypeTable } from "../components/TableComponents/tables";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
+import { fetchAllTables } from "../services/TableService";
+import { toast } from "react-toastify";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -42,39 +46,30 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [rowData] = useState<TypeTable[]>([
-        {
-            id:"1200padkjfthisthat",
-            status:"Active",
-            tableNumber:"A1"
-        },
-        {
-            id:"ab00padkjfdhisthak",
-            status:"Suspended",
-            tableNumber:"A2"
-        },
-        {
-            id:"1200padkjaklsjsthat",
-            status:"Active",
-            tableNumber:"B1"
-        },
-        {
-            id:"fjaksdjfkjanduieopl",
-            status:"Suspended",
-            tableNumber:"B2"
-        },
-        {
-            id:"nncmmkajdhfaldfkdjk",
-            status:"Active",
-            tableNumber:"C1"
-        },
-    ]);
-    const router = useRouter();
+    const {
+        data:response,
+        error,
+        isLoading,
+        refetch
+    } = useQuery<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse
+    >('fethAllTables',fetchAllTables);
+    
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"});
+        }
+        if(response){
+            gridRef.current?.api?.hideOverlay();
+        }
+    },[error,response]);
+
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 <AgGridReact
                     ref={gridRef}
-                    rowData={rowData}
+                    rowData={response?.data}
                     columnDefs={columnDefs}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={

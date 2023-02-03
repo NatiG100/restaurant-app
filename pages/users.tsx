@@ -57,7 +57,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const {data:response,error,isLoading,refetch} = useQuery<TypeMultiDataResponse,TypeCustomeErrorResponse>('fethAllUsers',fetchAllUsers);
+    const {
+        data:response,
+        error,
+        isLoading,
+        refetch
+    } = useQuery<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse
+    >('fethAllUsers',fetchAllUsers);
+    
     useEffect(()=>{
         if(error){
             toast(error?.message,{type:"error"});
