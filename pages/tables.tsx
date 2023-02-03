@@ -10,12 +10,26 @@ import { useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import { fetchAllTables } from "../services/TableService";
 import { toast } from "react-toastify";
+import Divider from "../components/UIElements/Divider";
+import {GoPlus as PlusIcon} from 'react-icons/go';
+import Backdrop from "../components/Backdrop";
+import CreateTableModal from "../components/modals/TableModal/CreateTableModal";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
+
+    //Add custom header components
+    const [openCreateModal,setOpenCreateModal] = useState<boolean>(false);
+    const handleCloseCreateModal = ()=>{
+        setOpenCreateModal(false);
+        refetch();
+    }
+    const handleOpenCreateModal = ()=>{
+        setOpenCreateModal(true);
+    }
     const handlePrint = useCallback(()=>{
         if(tableRef.current){
             const api = gridRef.current!.api!;
@@ -26,8 +40,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
             }, 2000)
         }
     },[tableRef])
-
-    //Add custom header components
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
@@ -36,17 +48,28 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 size="lg" 
                 iconStart={<AiOutlinePrinter className="text-xl"/>}
                 onClick={handlePrint}
-            >Print</IconButton>
+                >Print</IconButton>
+            <div className="h-7">
+                <Divider orientation="v"/>
+            </div>
+            <IconButton 
+                className="w-46 py-2" 
+                size="lg" 
+                type="outline"
+                color="success"
+                iconEnd={<PlusIcon className="text-xl"/>}
+                onClick={handleOpenCreateModal}
+                >Add New Table</IconButton>
           </div>
           
-        );
-        return ()=>{
-          setAppBarComponent(<div></div>);
-        }
-      },[]);
-
-    // get rows
-    const {
+          );
+          return ()=>{
+              setAppBarComponent(<div></div>);
+            }
+        },[]);
+        
+        // get rows
+        const {
         data:response,
         error,
         isLoading,
@@ -67,6 +90,14 @@ export default function DrinkCategories({setAppBarComponent}:any){
 
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+                {
+                    openCreateModal&&
+                    <Backdrop onClick={handleCloseCreateModal}>
+                        <CreateTableModal
+                            onClose={handleCloseCreateModal}
+                        />
+                    </Backdrop>
+                }
                 <AgGridReact
                     ref={gridRef}
                     rowData={response?.data}
