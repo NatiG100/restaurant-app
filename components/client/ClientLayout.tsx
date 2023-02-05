@@ -5,26 +5,30 @@ import {
     FaGlassMartini as DrinkIcon,
     FaShoppingCart as CartIcon
 } from 'react-icons/fa';
+import { useRouter } from "next/router";
 
 export default function ClientLayout({children}:{children:React.ReactNode}){
+    const router = useRouter();
     return (
         <div className="w-full h-screen flex justify-center bg-white">
             <div className="w-full h-full max-w-3xl flex flex-col justify-between">
-                <div className="w-full bg-indigo-500 h-16 flex items-center px-4">
+                <div className="w-full bg-indigo-500 h-20 flex items-center px-4">
                     <p className="text-lg text-white">Restaurant App</p>
                 </div>
-                <div>
+                <div className="h-full">
                     {children}
                 </div>
                 <div className="
-                    w-full h-16 border-t-2 border-gray-100 
+                    w-full h-20 border-t border-gray-100 
                     flex justify-between items-center
-                    px-4 gap-2
+                    px-4 gap-2 bg-gray-50
                 ">
                     <IconButton
                         iconStart={<FoodIcon/>}
                         className="w-full h-10"
                         type="text"
+                        color={router.pathname=="/client/foods"?"primary":"default"}
+                        onClick={()=>router.push('/client/foods')}
                     >
                         Foods
                     </IconButton>
@@ -32,6 +36,8 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         iconStart={<DrinkIcon/>}
                         className="w-full h-10"
                         type="text"
+                        color={router.pathname=="/client/drinks"?"primary":"default"}
+                        onClick={()=>router.push('/client/drinks')}
                     >
                         Drinks
                     </IconButton>
@@ -39,6 +45,8 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         iconStart={<CartIcon/>}
                         className="w-full h-10"
                         type="text"
+                        color={router.pathname=="/client/cart"?"primary":"default"}
+                        onClick={()=>router.push('/client/cart')}
                     >
                         Cart
                     </IconButton>
