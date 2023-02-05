@@ -8,7 +8,7 @@ import {
 
 export default function ClientLayout({children}:{children:React.ReactNode}){
     return (
-        <div className="w-full h-screen flex justify-center">
+        <div className="w-full h-screen flex justify-center bg-white">
             <div className="w-full h-full max-w-3xl flex flex-col justify-between">
                 <div className="w-full bg-indigo-500 h-16 flex items-center px-4">
                     <p className="text-lg text-white">Restaurant App</p>
@@ -17,7 +17,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                     {children}
                 </div>
                 <div className="
-                    w-full h-16 border-t-2 border-gray-200 
+                    w-full h-16 border-t-2 border-gray-100 
                     flex justify-between items-center
                     px-4 gap-2
                 ">
