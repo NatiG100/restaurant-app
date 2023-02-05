@@ -16,6 +16,7 @@ import WhoAmI from '../components/hoc/WhoAmI';
 import Redirect from '../components/hoc/Redirec';
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css';
+import ClientLayout from '../components/client/ClientLayout';
 
 //bind loading indicator
 Router.events.on('routeChangeStart',()=>{
@@ -26,13 +27,18 @@ Router.events.on('routeChangeComplete',()=>{
 })
 export default function App(props: AppProps){
   const queryClient = new QueryClient();
+  const router = useRouter();
   return(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ToastContainer position='bottom-left' autoClose={1500}/>
-        <WhoAmI>
-          <AppContent {...props}/>
-        </WhoAmI>
+        {
+        router.pathname.startsWith('/client')?
+          <AppContent {...props}/>:
+          <WhoAmI>
+            <AppContent {...props}/>
+          </WhoAmI>
+        }
       </QueryClientProvider>
     </Provider>
   );
@@ -45,6 +51,11 @@ function AppContent({ Component, pageProps }: AppProps){
     <Redirect>
       <Component {...pageProps}/>
     </Redirect>
+  )
+  if(router.pathname.startsWith('/client')) return(
+    <ClientLayout>
+      <Component/>
+    </ClientLayout>
   )
   return (
     <Redirect>
