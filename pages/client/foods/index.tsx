@@ -10,7 +10,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Header from "../../../components/client/Header";
 
 export default function Foods(){
-    const {data,error} = useQuery<
+    const {data,error,isLoading} = useQuery<
         TypeMultiDataResponse,
         TypeCustomeErrorResponse
     >('fetchAllActiveFoodCategories',fetchAllFoodCategories);
@@ -27,12 +27,12 @@ export default function Foods(){
             <Header>
                 <div className="flex gap-3 items-center">
                     <div className="h-5 w-5 rounded-md bg-indigo-700/40 sticky top-0 left-0 right-0"></div>
-                    <p className="text-gray-800">Choose Food Category</p>
+                    <p className="text-gray-800">Food Categories</p>
                 </div>
             </Header>
-            {data?.data?<>
+            {!isLoading?<>
                 {data?.data.map((foodCategory)=>(
-                    <Category 
+                    <Category
                         title={foodCategory.name} 
                         img={baseURL+""+foodCategory.img}
                         numberOfItems={foodCategory.foodCount} 
@@ -42,7 +42,7 @@ export default function Foods(){
                     />
                 ))}            
             </>:
-            <div className="py-4 px-3">
+            <div className="px-6">
                 <div className="grid grid-cols-mx1fr gap-4 items-center border border-gray-100 rounded-xl p-2 my-4">
                     <Skeleton circle width={70} height={70}/>
                     <Skeleton height={20} count={2}/>

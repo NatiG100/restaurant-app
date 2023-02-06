@@ -7,17 +7,18 @@ export interface TypeClientCategory{
     title:string,
     description?:string,
     numberOfItems:number,
-    id:string
+    id:string,
+    type?:"drink"|"food"
 }
 
-export default function Category({img,title,description,numberOfItems,id}:TypeClientCategory){
+export default function Category({img,title,description,numberOfItems,id,type="food"}:TypeClientCategory){
     return(
         <Link 
             className="
                 h-max flex justify-between items-center p-3 py-4
-                border border-gray-300 mx-auto my-4 rounded-xl max-w-xs
+                border border-black/10 mx-auto my-4 rounded-xl max-w-xs
             "
-            href={"/client/foods/"+id}
+            href={type=="food"?`/client/foods/${id}?name=${title}`:`/client/drinks/${id}`}
         >
             <Image
                 src={img}

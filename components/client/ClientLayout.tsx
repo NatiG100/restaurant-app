@@ -29,6 +29,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         type="text"
                         color={router.pathname.includes("/client/foods")?"primary":"default"}
                         onClick={()=>router.push('/client/foods')}
+                        size="smd"
                     >
                         Foods
                     </IconButton>
@@ -38,6 +39,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         type="text"
                         color={router.pathname.includes("/client/drinks")?"primary":"default"}
                         onClick={()=>router.push('/client/drinks')}
+                        size="smd"
                     >
                         Drinks
                     </IconButton>
@@ -47,6 +49,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         type="text"
                         color={router.pathname=="/client/cart"?"primary":"default"}
                         onClick={()=>router.push('/client/cart')}
+                        size="smd"
                     >
                         Cart
                     </IconButton>

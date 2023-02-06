@@ -12,6 +12,7 @@ import IconButton from "../../../components/UIElements/IconButton";
 
 import {FaChevronLeft} from 'react-icons/fa'
 import { useRouter } from "next/router";
+import Divider from "../../../components/UIElements/Divider";
 
 export default function Foods(){
     const router = useRouter();
@@ -30,13 +31,14 @@ export default function Foods(){
     return(
         <div className="relative">
             <Header>
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center h-6">
                     <IconButton 
                         iconStart={<FaChevronLeft/>} 
                         type={'text'}
                         onClick={()=>router.back()}
-                    > </IconButton>
-                    <p className="text-gray-800">Choose Foods</p>
+                    >Categories</IconButton>
+                    <Divider orientation="v"/>
+                    <p className="text-gray-700/80">{router.query.name}</p>
                 </div>
             </Header>
             {data?.data?<>
@@ -51,7 +53,7 @@ export default function Foods(){
                     />
                 ))}            
             </>:
-            <div className="py-4 px-3">
+            <div className="px-6">
                 <div className="grid grid-cols-mx1fr gap-4 items-center border border-gray-100 rounded-xl p-2 my-4">
                     <Skeleton circle width={70} height={70}/>
                     <Skeleton height={20} count={2}/>

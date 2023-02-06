@@ -2,7 +2,7 @@ import React from 'react';
 import { IconType } from 'react-icons/lib';
 export interface TypeIconButton{
     children: string,
-    size?:"sm"|"md"|"lg",
+    size?:"sm"|"smd"|"md"|"lg",
     type?: "outline"|"fill"|"text",
     color?: "primary"|"success"|"warning"|"error"|"default",
     className?:string,
@@ -33,7 +33,7 @@ export default function IconButton({
                 flex gap-2 items-center justify-center
                 rounded-md transition-all ${className}
                  m-1 py-2 font-semibold
-                ${size==="sm"?"text-xs p-1":size==="lg"&&"text-lg p-2"}
+                ${size==="sm"?"text-xs p-1":size==="smd"?"text-sm p-2":size==="lg"&&"text-lg p-2"}
                 ${
                     type==="outline"?`border 
                         ${
