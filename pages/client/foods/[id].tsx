@@ -8,8 +8,13 @@ import { fetchAllFoodCategories } from "../../../services/ClientServices";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../../types/types";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Header from "../../../components/client/Header";
+import IconButton from "../../../components/UIElements/IconButton";
+
+import {FaChevronLeft} from 'react-icons/fa'
+import { useRouter } from "next/router";
 
 export default function Foods(){
+    const router = useRouter();
     const {data,error} = useQuery<
         TypeMultiDataResponse,
         TypeCustomeErrorResponse
@@ -26,8 +31,12 @@ export default function Foods(){
         <div className="relative">
             <Header>
                 <div className="flex gap-3 items-center">
-                    <div className="h-5 w-5 rounded-md bg-indigo-700/40 sticky top-0 left-0 right-0"></div>
-                    <p className="text-gray-800">Choose Food Category</p>
+                    <IconButton 
+                        iconStart={<FaChevronLeft/>} 
+                        type={'text'}
+                        onClick={()=>router.back()}
+                    > </IconButton>
+                    <p className="text-gray-800">Choose Foods</p>
                 </div>
             </Header>
             {data?.data?<>

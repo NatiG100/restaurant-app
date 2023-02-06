@@ -27,7 +27,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         iconStart={<FoodIcon/>}
                         className="w-full h-10"
                         type="text"
-                        color={router.pathname=="/client/foods"?"primary":"default"}
+                        color={router.pathname.includes("/client/foods")?"primary":"default"}
                         onClick={()=>router.push('/client/foods')}
                     >
                         Foods
@@ -36,7 +36,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                         iconStart={<DrinkIcon/>}
                         className="w-full h-10"
                         type="text"
-                        color={router.pathname=="/client/drinks"?"primary":"default"}
+                        color={router.pathname.includes("/client/drinks")?"primary":"default"}
                         onClick={()=>router.push('/client/drinks')}
                     >
                         Drinks
