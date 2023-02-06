@@ -15,7 +15,7 @@ export default function ClientLayout({children}:{children:React.ReactNode}){
                 <div className="w-full bg-indigo-500 h-20 flex items-center px-4">
                     <p className="text-lg text-white">Restaurant App</p>
                 </div>
-                <div className="h-full">
+                <div className="h-full overflow-y-auto">
                     {children}
                 </div>
                 <div className="
