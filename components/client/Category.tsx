@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import baseURL from "../../constants/BASE_URL";
 
 export interface TypeClientCategory{
     img:string,
@@ -23,7 +24,7 @@ export default function Category({img,title,description,numberOfItems}:TypeClien
                 alt={"title"}
                 height={60}
                 width={60}
-                className="rounded-full h-16 w-16"
+                className="rounded-full h-16 w-16 object-cover"
             />
             <div className="w-full ml-3">
                 <div style={{maxWidth:"220px"}}>
