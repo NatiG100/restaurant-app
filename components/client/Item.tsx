@@ -1,6 +1,7 @@
 import Image from "next/image";
 import useQuantitySelect from "../../hooks/useQuantitySelect";
 import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react-icons/ai'
+import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 
 export interface TypeItem{
     name:string,
@@ -44,11 +45,21 @@ export default function Item({
     return(
         <div
             className="
-                h-max w-full overflow-hidden
+                h-max w-full relative
                 border border-black/10 rounded-xl max-w-xs mx-auto my-4 
             "
             onClick={handleClick}
         >
+            {quantity>0&&
+                <div className="
+                    absolute -right-2 -top-2 h-7 w-7 rounded-full 
+                    bg-yellow-500 flex items-center justify-center
+                    animate-appear
+                "
+                >
+                    <CartIcon className="text-white text-sm"/>
+                </div>
+            }
             <div className="
                 h-max flex justify-between items-center p-3 py-4
                 
@@ -84,7 +95,7 @@ export default function Item({
             </div>
             {
                 showDetai&&
-                <div className="p-3 bg-gray-100">
+                <div className="p-3 bg-gray-100 rounded-b-xl">
                     <p className="text-gray-800">Description</p>
                     <p className="text-sm text-gray-500">{description}</p>
                 </div>
