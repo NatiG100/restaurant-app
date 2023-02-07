@@ -67,9 +67,9 @@ export default function Item({
                 <Image
                     src={img}
                     alt={"title"}
-                    height={60}
-                    width={60}
-                    className="rounded-full h-16 w-16 object-cover"
+                    height={400}
+                    width={400}
+                    className="rounded-full h-16 w-16 object-cover shrink-0"
                 />
                 <div className="w-full ml-3">
                     <div style={{maxWidth:"220px"}}>
@@ -79,17 +79,17 @@ export default function Item({
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center justify-between mr-2 h-12 w-60" onClick={(e)=>{e.stopPropagation()}}>
+                <div className="flex items-center justify-between mr-2 h-12 w-20 shrink-0" onClick={(e)=>{e.stopPropagation()}}>
                     <button
                         onClick={decrement}
                         disabled={!canDecrese}
-                        className={'text-gray-400 disabled:text-gray-300 text-3xl'}
+                        className={'text-gray-400 disabled:text-gray-300 text-2xl'}
                     ><MinusIcon/></button>
                     <p>{quantity}</p>
                     <button
                         onClick={increment}
                         disabled={!canIncrese}
-                        className={'text-gray-400 disabled:text-gray-300 text-3xl'}
+                        className={'text-gray-400 disabled:text-gray-300 text-2xl'}
                     ><PlusIcon/></button>
                 </div>
             </div>

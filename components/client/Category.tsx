@@ -25,7 +25,7 @@ export default function Category({img,title,description,numberOfItems,id,type="f
                 alt={"title"}
                 height={60}
                 width={60}
-                className="rounded-full h-16 w-16 object-cover"
+                className="rounded-full h-16 w-16 object-cover shrink-0"
             />
             <div className="w-full ml-3">
                 <div style={{maxWidth:"220px"}}>
