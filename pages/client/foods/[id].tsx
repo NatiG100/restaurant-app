@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import Category from "../../../components/client/Category";
 import baseURL from "../../../constants/BASE_URL";
-import { fetchAllFoodCategories } from "../../../services/ClientServices";
+import { fetchAllFoodCategories, fetchAllFoods } from "../../../services/ClientServices";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../../types/types";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Header from "../../../components/client/Header";
@@ -14,13 +14,14 @@ import {FaChevronLeft} from 'react-icons/fa'
 import { useRouter } from "next/router";
 import Divider from "../../../components/UIElements/Divider";
 import Item from "../../../components/client/Item";
+import { TypeFood } from "../../../components/TableComponents/foods";
 
 export default function Foods(){
     const router = useRouter();
     const {data,error} = useQuery<
         TypeMultiDataResponse,
         TypeCustomeErrorResponse
-    >('fetchAllActiveFoodCategories',fetchAllFoodCategories);
+    >('fetchAllActiveFoods',()=>fetchAllFoods({categoryId:router.query.id as string}));
     useEffect(()=>{
         if(error){
             toast(error.message,{type:"error"})
@@ -52,16 +53,16 @@ export default function Foods(){
                 </div>
             </Header>
             {data?.data?<>
-                {data?.data.map((foodCategory)=>(
+                {data?.data.map((food:TypeFood)=>(
                     <Item
                         cost={400}
-                        description="This is a test description don't worry about it"
-                        id={foodCategory.id}
-                        key={foodCategory.id}
-                        img={baseURL+foodCategory.img}
-                        name={foodCategory.name}
+                        description={food.description}
+                        id={food.id}
+                        key={food.id}
+                        img={baseURL+food.img}
+                        name={food.name}
                         type={"food"}
-                        showDetai={isItemBeingShown(foodCategory.id)}
+                        showDetai={isItemBeingShown(food.id)}
                         onClick={handleClick}
                     />
                 ))}            
