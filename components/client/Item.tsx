@@ -1,4 +1,6 @@
 import Image from "next/image";
+import useQuantitySelect from "../../hooks/useQuantitySelect";
+import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react-icons/ai'
 
 export interface TypeItem{
     name:string,
@@ -21,6 +23,8 @@ export default function Item({
     onClick=(id:string)=>{}
 }:TypeItem){
 
+
+
     const handleClick = ()=>{
         if(showDetai){
             onClick("");
@@ -28,6 +32,15 @@ export default function Item({
             onClick(id);
         }
     }
+
+    //quantity in cart
+    const {
+        increment,
+        decrement,
+        canDecrese,
+        canIncrese,
+        quantity
+    } = useQuantitySelect(10,0);
     return(
         <div
             className="
@@ -55,7 +68,19 @@ export default function Item({
                         </p>
                     </div>
                 </div>
-                <p>Quantity Selector</p>
+                <div className="flex items-center justify-between mr-2 h-12 w-60" onClick={(e)=>{e.stopPropagation()}}>
+                    <button
+                        onClick={decrement}
+                        disabled={!canDecrese}
+                        className={'text-gray-400 disabled:text-gray-300 text-3xl'}
+                    ><MinusIcon/></button>
+                    <p>{quantity}</p>
+                    <button
+                        onClick={increment}
+                        disabled={!canIncrese}
+                        className={'text-gray-400 disabled:text-gray-300 text-3xl'}
+                    ><PlusIcon/></button>
+                </div>
             </div>
             {
                 showDetai&&
