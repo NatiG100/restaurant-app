@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ import IconButton from "../../../components/UIElements/IconButton";
 import {FaChevronLeft} from 'react-icons/fa'
 import { useRouter } from "next/router";
 import Divider from "../../../components/UIElements/Divider";
+import Item from "../../../components/client/Item";
 
 export default function Foods(){
     const router = useRouter();
@@ -27,7 +28,16 @@ export default function Foods(){
         console.log(data?.data)
     },[error,data])
 
-    
+
+    //logic for toggling description
+    const [showId,setShowId] = useState<string>("");
+    const handleClick = (id:string)=>{
+        setShowId(id);
+    }
+    const isItemBeingShown = (id:string)=>{
+        return id===showId;
+    }
+
     return(
         <div className="relative">
             <Header>
@@ -43,13 +53,16 @@ export default function Foods(){
             </Header>
             {data?.data?<>
                 {data?.data.map((foodCategory)=>(
-                    <Category 
-                        title={foodCategory.name} 
-                        img={baseURL+""+foodCategory.img}
-                        numberOfItems={foodCategory.foodCount} 
-                        description={foodCategory.description}
+                    <Item
+                        cost={400}
+                        description="This is a test description don't worry about it"
                         id={foodCategory.id}
                         key={foodCategory.id}
+                        img={baseURL+foodCategory.img}
+                        name={foodCategory.name}
+                        type={"food"}
+                        showDetai={isItemBeingShown(foodCategory.id)}
+                        onClick={handleClick}
                     />
                 ))}            
             </>:
