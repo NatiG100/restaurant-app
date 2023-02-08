@@ -32,10 +32,7 @@ export default function Stats({setAppBarComponent}:any){
       setAppBarComponent(<div></div>);
     }
   },[from,to,onFromChange,onToChange]);
-  useEffect(()=>{
-    console.log("from: ",from);
-    console.log("to: ",to);
-  },[from,to])
+  
   const stats = [
     {
       title:"Total Orders",

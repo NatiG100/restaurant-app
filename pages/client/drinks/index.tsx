@@ -18,7 +18,6 @@ export default function Drinks(){
         if(error){
             toast(error.message,{type:"error"})
         }
-        console.log(data?.data)
     },[error,data])
 
     

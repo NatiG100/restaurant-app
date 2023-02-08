@@ -27,7 +27,6 @@ export default function Foods(){
         if(error){
             toast(error.message,{type:"error"})
         }
-        console.log(data?.data)
     },[error,data])
 
 
