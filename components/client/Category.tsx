@@ -18,7 +18,7 @@ export default function Category({img,title,description,numberOfItems,id,type="f
                 h-max flex justify-between items-center p-3 py-4
                 border border-black/10 mx-auto my-4 rounded-xl max-w-xs
             "
-            href={type=="food"?`/client/foods/${id}?name=${title}`:`/client/drinks/${id}`}
+            href={type=="food"?`/client/foods/${id}?name=${title}`:`/client/drinks/${id}?name=${title}`}
         >
             <Image
                 src={img}
