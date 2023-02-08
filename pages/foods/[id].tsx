@@ -41,7 +41,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
           <div className="h-full flex gap-4 items-center">
             <div className="flex items-center ">
                 <Button type="text" className="w-28" size="lg" onClick={handleCategoriesClicked}>Categories</Button>
-                <p className="text-2xl text-indigo-600 font-semibold">/ Dinner</p>
+                <p className="text-2xl text-indigo-600 font-semibold">/ {router.query.name}</p>
             </div>
             <div className="h-7">
                 <Divider orientation="v"/>

@@ -78,7 +78,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const router = useRouter();
     const handleClick = (event:RowClickedEvent<TypeDrinkCategory>)=>{
         const id = event.data?.id;
-        router.push('/drinks/'+id);
+        router.push('/drinks/'+id+'?name='+event.data?.name);
     }
 
     //api request for changing food category status

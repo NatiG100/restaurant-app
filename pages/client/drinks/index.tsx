@@ -26,7 +26,7 @@ export default function Drinks(){
             <Header>
                 <div className="flex gap-3 items-center">
                     <div className="h-5 w-5 rounded-md bg-indigo-700/40 sticky top-0 left-0 right-0"></div>
-                    <p className="text-gray-800">Food Categories</p>
+                    <p className="text-gray-800">Drink Categories</p>
                 </div>
             </Header>
             {!isLoading?<>
