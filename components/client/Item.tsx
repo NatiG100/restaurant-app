@@ -2,6 +2,8 @@ import Image from "next/image";
 import useQuantitySelect from "../../hooks/useQuantitySelect";
 import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react-icons/ai'
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
+import { TypeFood } from "../TableComponents/foods";
+import { useDispatch } from "react-redux";
 
 export interface TypeItem{
     name:string,
@@ -34,6 +36,8 @@ export default function Item({
         }
     }
 
+    const dispatch = useDispatch();
+
     //quantity in cart
     const {
         increment,
@@ -42,6 +46,11 @@ export default function Item({
         canIncrese,
         quantity
     } = useQuantitySelect(10,0);
+    const handleAdd = ()=>{
+        if(type==="food"){
+            
+        }
+    }
     return(
         <div
             className="
