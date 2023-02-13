@@ -3,7 +3,9 @@ import useQuantitySelect from "../../hooks/useQuantitySelect";
 import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react-icons/ai'
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 import { TypeFood } from "../TableComponents/foods";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, subtractItem } from "../../Context/CartSlice";
+import { RootState } from "../../Context/store";
 
 export interface TypeItem{
     name:string,
@@ -37,6 +39,7 @@ export default function Item({
     }
 
     const dispatch = useDispatch();
+    const cart = useSelector<RootState>((state)=>{state?.cart});
 
     //quantity in cart
     const {
@@ -47,9 +50,21 @@ export default function Item({
         quantity
     } = useQuantitySelect(10,0);
     const handleAdd = ()=>{
-        if(type==="food"){
-            
-        }
+        dispatch(addItem({
+            cost,
+            description,
+            id,
+            img,
+            name,
+            type
+        }));
+        increment();
+        console.log(cart);
+    };
+    const handleSubtract = ()=>{
+        dispatch(subtractItem(id));
+        decrement();
+        console.log(cart);
     }
     return(
         <div
@@ -90,13 +105,13 @@ export default function Item({
                 </div>
                 <div className="flex items-center justify-between mr-2 h-12 w-20 shrink-0" onClick={(e)=>{e.stopPropagation()}}>
                     <button
-                        onClick={decrement}
+                        onClick={handleSubtract}
                         disabled={!canDecrese}
                         className={'text-gray-400 disabled:text-gray-300 text-2xl'}
                     ><MinusIcon/></button>
                     <p>{quantity}</p>
                     <button
-                        onClick={increment}
+                        onClick={handleAdd}
                         disabled={!canIncrese}
                         className={'text-gray-400 disabled:text-gray-300 text-2xl'}
                     ><PlusIcon/></button>

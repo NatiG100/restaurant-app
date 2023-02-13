@@ -33,7 +33,7 @@ export const CartSlice = createSlice({
                 }
             });
 
-            let items = [...state.items];
+            let items= [...state.items];
             //if the food was found increment it's quantity
             if(itemPos!==-1){
                 items[itemPos].count +=1;
@@ -43,18 +43,20 @@ export const CartSlice = createSlice({
                 items.push({item:action.payload,count:1});
             }
             //update the state including the total cost
-            let newState={...state,items,totalCost:state.totalCost+action.payload.cost}
-            return newState;
+            let newState={...state,items,totalCost:state.totalCost+action.payload.cost};
+            state = {...newState}
+            return state;
         },
-        subtractItem:(state,action:PayloadAction<TypeItemContext>)=>{
+        subtractItem:(state,action:PayloadAction<string>)=>{
             //assume the food is not in the state and set food posititon to -1
             let itemPos = -1;
             state.items.forEach((item,index)=>{
                 //if the food is in the state store it's index in food position
-                if(item.item.id===action.payload.id){
+                if(item.item.id===action.payload){
                     itemPos = index;
                 }
             });
+            let cost = state.items[itemPos].item.cost;
             let items =[...state.items];
             //decrement the food quantity
             items[itemPos].count -=1;
@@ -62,8 +64,9 @@ export const CartSlice = createSlice({
             if(items[itemPos].count===0) {items.splice(itemPos,itemPos)};
 
             //update the state including the total cost
-            let newState={...state,items,totalCost:state.totalCost-action.payload.cost}
-            return newState;
+            let newState={...state,items,totalCost:state.totalCost-cost}
+            state={...newState};
+            return state;
         },
     }
 });
