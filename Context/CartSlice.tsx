@@ -60,4 +60,11 @@ export const CartSlice = createSlice({
             return newState;
         },
     }
-})
+});
+
+export const {
+    addFood,
+    subtractFood,
+} = CartSlice.actions;
+
+export default CartSlice.reducer;
