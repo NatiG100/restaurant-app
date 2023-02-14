@@ -6,6 +6,7 @@ import { TypeFood } from "../TableComponents/foods";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, subtractItem } from "../../Context/CartSlice";
 import { RootState } from "../../Context/store";
+import { useEffect } from "react";
 
 export interface TypeItem{
     name:string,
@@ -39,7 +40,7 @@ export default function Item({
     }
 
     const dispatch = useDispatch();
-    const cart = useSelector<RootState>((state)=>{state?.cart});
+    const cart = useSelector<RootState>((state)=>state?.cart);
 
     //quantity in cart
     const {
@@ -59,13 +60,14 @@ export default function Item({
             type
         }));
         increment();
-        console.log(cart);
     };
     const handleSubtract = ()=>{
         dispatch(subtractItem(id));
         decrement();
-        console.log(cart);
     }
+    useEffect(()=>{
+        console.log(cart);
+    },[cart])
     return(
         <div
             className="
