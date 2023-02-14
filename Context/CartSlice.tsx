@@ -71,10 +71,10 @@ export const CartSlice = createSlice({
             let newState={...state,items:items,totalCost:state.totalCost-cost}
             return newState;
         },
-        saveState:(state)=>{
+        saveCart:(state)=>{
             localStorage.setItem("items-in-cart",JSON.stringify(state));
         },
-        loadState:(state)=>{
+        loadCart:(state)=>{
             let loadedState = JSON.parse(localStorage.getItem("items-in-cart") as string);
             if(loadedState){
                 return loadedState;
@@ -86,7 +86,8 @@ export const CartSlice = createSlice({
 export const {
     addItem,
     subtractItem,
-    saveState
+    saveCart,
+    loadCart
 } = CartSlice.actions;
 
 export default CartSlice.reducer;

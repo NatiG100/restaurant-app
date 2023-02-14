@@ -4,9 +4,10 @@ import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 import { TypeFood } from "../TableComponents/foods";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, CartSliceType, subtractItem } from "../../Context/CartSlice";
+import { addItem, CartSliceType, saveCart, subtractItem } from "../../Context/CartSlice";
 import { RootState } from "../../Context/store";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 export interface TypeItem{
     name:string,
@@ -16,7 +17,8 @@ export interface TypeItem{
     id:string,
     type:"food"|"drink",
     showDetai?:boolean,
-    onClick:(id:string)=>void
+    onClick:(id:string)=>void,
+    cart:CartSliceType
 }
 function Item({
     img,
@@ -26,7 +28,8 @@ function Item({
     id,
     type,
     showDetai=false,
-    onClick=(id:string)=>{}
+    onClick=(id:string)=>{},
+    cart
 }:TypeItem){
 
     const handleClick = ()=>{
@@ -38,7 +41,6 @@ function Item({
     }
 
     const dispatch = useDispatch();
-    const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);
 
     //quantity in cart
     const handleAdd = useCallback(()=>{
@@ -54,13 +56,6 @@ function Item({
     const handleSubtract = useCallback(()=>{
         dispatch(subtractItem(id));
     },[id])
-    useEffect(()=>{
-        cart.items.forEach((item)=>{
-            if(item.item.id===id){
-                changeQt(item.count);
-            }
-        })
-    },[cart])
     const {
         increment,
         decrement,
@@ -69,6 +64,18 @@ function Item({
         quantity,
         changeQt
     } = useQuantitySelect(10,0,handleAdd,handleSubtract);
+    const qttLoaded = useRef<boolean>(false);
+    useEffect(()=>{
+        if(cart&&(!qttLoaded.current)){
+            cart.items.forEach((item)=>{
+                if(item.item.id===id){
+                    changeQt(item.count);
+                }
+            });
+            console.log("copy state");
+            qttLoaded.current = true;
+        }
+    },[cart]);
     return(
         <div
             className="

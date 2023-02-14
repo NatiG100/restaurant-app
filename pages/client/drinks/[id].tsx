@@ -16,8 +16,19 @@ import Divider from "../../../components/UIElements/Divider";
 import Item from "../../../components/client/Item";
 import { TypeFood } from "../../../components/TableComponents/foods";
 import { TypeDrink } from "../../../components/TableComponents/drinks";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../Context/store";
+import { CartSliceType, saveCart } from "../../../Context/CartSlice";
+import { useDebouncedCallback } from "use-debounce";
+
 
 export default function Foods(){
+    const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);
+    const dispatch = useDispatch();
+    const debouncedSaveCart = useDebouncedCallback(()=>dispatch(saveCart()),1500);
+    useEffect(()=>{
+        debouncedSaveCart();
+    },[cart])
     const router = useRouter();
     const {data,error} = useQuery<
         TypeMultiDataResponse,
@@ -64,6 +75,7 @@ export default function Foods(){
                         type={"drink"}
                         showDetai={isItemBeingShown(drink.id)}
                         onClick={handleClick}
+                        cart={cart}
                     />
                 ))}            
             </>:
