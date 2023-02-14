@@ -19,6 +19,11 @@ export default function useQuantitySelect(
             setQuantity((qtt)=>(--qtt))
         }
     }
+    const changeQt = (qt:number)=>{
+        if(qt>0&&qt<=maxQuantity){
+            setQuantity(qt);
+        }
+    }
 
     return{
         quantity,
@@ -26,5 +31,6 @@ export default function useQuantitySelect(
         decrement,
         canIncrese:quantity<maxQuantity,
         canDecrese:quantity>0,
+        changeQt,
     }
 }
