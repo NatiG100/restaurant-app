@@ -60,13 +60,15 @@ export const CartSlice = createSlice({
             let cost = state.items[itemPos].item.cost;
             let items =[...state.items];
             //decrement the food quantity
-            items[itemPos].count -=1;
+            let item = {...items[itemPos]};
+            item.count-=1;
+            items[itemPos] = item;
             //if the quantity is 0 remove it from the array
-            if(items[itemPos].count===0) {items.splice(itemPos,itemPos)};
+            if(items[itemPos].count===0) {items.splice(itemPos,1)};
 
             //update the state including the total cost
-            state={...state,items,totalCost:state.totalCost-cost}
-            return state;
+            let newState={...state,items:items,totalCost:state.totalCost-cost}
+            return newState;
         },
     }
 });
