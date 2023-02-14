@@ -6,7 +6,7 @@ import { TypeFood } from "../TableComponents/foods";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, subtractItem } from "../../Context/CartSlice";
 import { RootState } from "../../Context/store";
-import { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export interface TypeItem{
     name:string,
@@ -18,7 +18,7 @@ export interface TypeItem{
     showDetai?:boolean,
     onClick:(id:string)=>void
 }
-export default function Item({
+function Item({
     img,
     name,
     description,
@@ -28,8 +28,6 @@ export default function Item({
     showDetai=false,
     onClick=(id:string)=>{}
 }:TypeItem){
-
-
 
     const handleClick = ()=>{
         if(showDetai){
@@ -43,14 +41,7 @@ export default function Item({
     const cart = useSelector<RootState>((state)=>state?.cart);
 
     //quantity in cart
-    const {
-        increment,
-        decrement,
-        canDecrese,
-        canIncrese,
-        quantity
-    } = useQuantitySelect(10,0);
-    const handleAdd = ()=>{
+    const handleAdd = useCallback(()=>{
         dispatch(addItem({
             cost,
             description,
@@ -59,15 +50,21 @@ export default function Item({
             name,
             type
         }));
-        increment();
-    };
-    const handleSubtract = ()=>{
+    },[cost,description,id,img,name,type]);
+    const handleSubtract = useCallback(()=>{
         dispatch(subtractItem(id));
-        decrement();
-    }
+    },[id])
+    const [quantityInCart,setQuantityInCart] = useState<number>(0);
     useEffect(()=>{
-        console.log(cart);
+        
     },[cart])
+    const {
+        increment,
+        decrement,
+        canDecrese,
+        canIncrese,
+        quantity
+    } = useQuantitySelect(10,quantityInCart,handleAdd,handleSubtract);
     return(
         <div
             className="
@@ -107,13 +104,13 @@ export default function Item({
                 </div>
                 <div className="flex items-center justify-between mr-2 h-12 w-20 shrink-0" onClick={(e)=>{e.stopPropagation()}}>
                     <button
-                        onClick={handleSubtract}
+                        onClick={decrement}
                         disabled={!canDecrese}
                         className={'text-gray-400 disabled:text-gray-300 text-2xl'}
                     ><MinusIcon/></button>
                     <p>{quantity}</p>
                     <button
-                        onClick={handleAdd}
+                        onClick={increment}
                         disabled={!canIncrese}
                         className={'text-gray-400 disabled:text-gray-300 text-2xl'}
                     ><PlusIcon/></button>
@@ -128,4 +125,6 @@ export default function Item({
             }
         </div>
     );
-}
+};
+
+export default React.memo(Item)
