@@ -55,7 +55,7 @@ export default function Foods(){
             {data?.data?<>
                 {data?.data.map((drink:TypeDrink)=>(
                     <Item
-                        cost={400}
+                        cost={drink.cost}
                         description={drink.description}
                         id={drink.id}
                         key={drink.id}
