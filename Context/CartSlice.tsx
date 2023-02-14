@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { json } from "stream/consumers";
 import { TypeDrink } from "../components/TableComponents/drinks";
 import { TypeItem } from "../components/TableComponents/order";
 
@@ -70,12 +71,22 @@ export const CartSlice = createSlice({
             let newState={...state,items:items,totalCost:state.totalCost-cost}
             return newState;
         },
+        saveState:(state)=>{
+            localStorage.setItem("items-in-cart",JSON.stringify(state));
+        },
+        loadState:(state)=>{
+            let loadedState = JSON.parse(localStorage.getItem("items-in-cart") as string);
+            if(loadedState){
+                return loadedState;
+            }
+        }
     }
 });
 
 export const {
     addItem,
     subtractItem,
+    saveState
 } = CartSlice.actions;
 
 export default CartSlice.reducer;
