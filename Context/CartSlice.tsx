@@ -11,7 +11,7 @@ export interface TypeItemContext {
     type:"food"|"drink",
 }
 
-type CartSliceType = {
+export type CartSliceType = {
     items:{item:TypeItemContext,count:number}[],
     totalCost:number,
 }

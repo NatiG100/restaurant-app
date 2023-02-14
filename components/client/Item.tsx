@@ -4,7 +4,7 @@ import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 import { TypeFood } from "../TableComponents/foods";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, subtractItem } from "../../Context/CartSlice";
+import { addItem, CartSliceType, subtractItem } from "../../Context/CartSlice";
 import { RootState } from "../../Context/store";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -38,7 +38,7 @@ function Item({
     }
 
     const dispatch = useDispatch();
-    const cart = useSelector<RootState>((state)=>state?.cart);
+    const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);
 
     //quantity in cart
     const handleAdd = useCallback(()=>{
@@ -54,17 +54,21 @@ function Item({
     const handleSubtract = useCallback(()=>{
         dispatch(subtractItem(id));
     },[id])
-    const [quantityInCart,setQuantityInCart] = useState<number>(0);
     useEffect(()=>{
-        
+        cart.items.forEach((item)=>{
+            if(item.item.id===id){
+                changeQt(item.count);
+            }
+        })
     },[cart])
     const {
         increment,
         decrement,
         canDecrese,
         canIncrese,
-        quantity
-    } = useQuantitySelect(10,quantityInCart,handleAdd,handleSubtract);
+        quantity,
+        changeQt
+    } = useQuantitySelect(10,0,handleAdd,handleSubtract);
     return(
         <div
             className="
