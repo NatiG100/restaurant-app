@@ -2,12 +2,9 @@ import Image from "next/image";
 import useQuantitySelect from "../../hooks/useQuantitySelect";
 import {AiFillPlusCircle as PlusIcon,AiFillMinusCircle as MinusIcon} from 'react-icons/ai'
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
-import { TypeFood } from "../TableComponents/foods";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem, CartSliceType, saveCart, subtractItem } from "../../Context/CartSlice";
-import { RootState } from "../../Context/store";
+import { useDispatch } from "react-redux";
+import { addItem, CartSliceType, subtractItem } from "../../Context/CartSlice";
 import React, { useCallback, useEffect, useRef } from "react";
-import { useDebouncedCallback } from "use-debounce";
 
 export interface TypeItem{
     name:string,
