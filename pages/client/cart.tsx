@@ -9,6 +9,7 @@ import { RootState } from "../../Context/store";
 import { CartSliceType, saveCart, TypeItemContext } from "../../Context/CartSlice";
 import { useDebouncedCallback } from "use-debounce";
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
+import Button from "../../components/UIElements/Button";
 
 export default function Cart(){
     const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);
@@ -78,6 +79,28 @@ export default function Cart(){
                 </div>
             </div>
             }
+            {cart.items.length===0&&<>
+                <div className="p-3 px-7">
+                    <div className="
+                        w-full flex items-center justify-center 
+                        border rounded-full p-1 border-gray-200
+                        animate-appear mt-4
+                    ">
+                        <p className="text-gray-400 text-lg">No items in cart</p>  
+                    </div>
+                </div>
+            </>}
+            {cart.items.length>0&&<>
+                <div className="p-3 px-7">
+                    <p className="text-lg font-bold text-gray-700">Total Cost</p>
+                    <p className="text-gray-500 text-lg">{cart.totalCost} ETB</p>
+                </div>
+                <div className="w-full px-5">
+                    <Button
+                        className="w-full p-2 ml-auto mr-auto mb-3"
+                    >Order Now</Button>
+                </div>
+            </>}
         </div>
     );
 };

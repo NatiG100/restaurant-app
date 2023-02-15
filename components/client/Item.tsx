@@ -125,13 +125,12 @@ function Item({
                     ><PlusIcon/></button>
                 </div>
             </div>
-            {
-                showDetai&&
-                <div className="p-3 bg-gray-100 rounded-b-xl">
-                    <p className="text-gray-800">Description</p>
-                    <p className="text-sm text-gray-500">{description}</p>
-                </div>
-            }
+            
+            <div className={`bg-gray-100 rounded-b-xl px-3 ${showDetai?"py-3":"h-0 overflow-hidden opacity-0"} transition-all`}>
+                <p className="text-gray-800">Description</p>
+                <p className="text-sm text-gray-500">{description}</p>
+            </div>
+
         </div>
     );
 };
