@@ -93,7 +93,7 @@ const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
     return(
         <div className="bg-white h-20 w-20 my-2">
             <QRCode 
-                value={domain+params.data?.id||""}
+                value={domain+"?tableNumber="+params.data?.id||""}
                 className="w-full h-auto"
             />
         </div>

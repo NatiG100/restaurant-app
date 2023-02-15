@@ -1,1 +1,1 @@
-export default "www.smartcafe.com";
+export default "http://172.20.44.116:3000/client/foods";
