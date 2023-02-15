@@ -15,7 +15,8 @@ export interface TypeItem{
     type:"food"|"drink",
     showDetai?:boolean,
     onClick:(id:string)=>void,
-    cart:CartSliceType
+    cart:CartSliceType,
+    showCartIcon?:boolean
 }
 function Item({
     img,
@@ -26,7 +27,8 @@ function Item({
     type,
     showDetai=false,
     onClick=(id:string)=>{},
-    cart
+    cart,
+    showCartIcon=true
 }:TypeItem){
 
     const handleClick = ()=>{
@@ -80,7 +82,7 @@ function Item({
             "
             onClick={handleClick}
         >
-            {quantity>0&&
+            {quantity>0&&showCartIcon&&
                 <div className="
                     absolute -right-2 -top-2 h-7 w-7 rounded-full 
                     bg-yellow-500 flex items-center justify-center

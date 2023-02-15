@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-
-import baseURL from "../../constants/BASE_URL";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Header from "../../components/client/Header";
-import IconButton from "../../components/UIElements/IconButton";
-
-import {FaChevronLeft} from 'react-icons/fa'
 import { useRouter } from "next/router";
-import Divider from "../../components/UIElements/Divider";
 import Item from "../../components/client/Item";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Context/store";
 import { CartSliceType, saveCart, TypeItemContext } from "../../Context/CartSlice";
 import { useDebouncedCallback } from "use-debounce";
+import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 
 export default function Cart(){
     const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);
@@ -37,7 +32,13 @@ export default function Cart(){
         <div className="relative">
             <Header>
                 <div className="flex gap-3 items-center">
-                   <div className="h-5 w-5 rounded-md bg-indigo-700/40 sticky top-0 left-0 right-0"></div>
+                    <div className="
+                        h-7 w-7 rounded-full bg-indigo-500 flex 
+                        items-center justify-center
+                    "
+                    >
+                        <CartIcon className="text-white text-sm"/>
+                    </div>
                     <p className="text-gray-800">Cart</p>
                 </div> 
             </Header>
@@ -54,6 +55,7 @@ export default function Cart(){
                         showDetai={isItemBeingShown(item.id)}
                         onClick={handleClick}
                         cart={cart}
+                        showCartIcon={false}
                     />
                 ))}            
             </>:
