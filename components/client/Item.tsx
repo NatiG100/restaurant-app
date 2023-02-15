@@ -72,7 +72,6 @@ function Item({
                     changeQt(item.count);
                 }
             });
-            console.log("copy state");
             qttLoaded.current = true;
         }
     },[cart]);

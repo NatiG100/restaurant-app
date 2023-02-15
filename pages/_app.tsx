@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app'
 import Appbar from '../components/Appbar';
 import Navigation from '../components/Navigation';
@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { QueryClientProvider } from 'react-query';
 import { QueryClient } from 'react-query';
 import {ToastContainer} from 'react-toastify'
-import {Provider} from 'react-redux'
+import {Provider, useDispatch} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
 
@@ -17,6 +17,7 @@ import Redirect from '../components/hoc/Redirec';
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css';
 import ClientLayout from '../components/client/ClientLayout';
+import { loadCart } from '../Context/CartSlice';
 
 //bind loading indicator
 Router.events.on('routeChangeStart',()=>{
@@ -34,7 +35,7 @@ export default function App(props: AppProps){
         <ToastContainer position='bottom-left' autoClose={1500}/>
         {
         router.pathname.startsWith('/client')?
-          <AppContent {...props}/>:
+          <Client {...props}/>:
           <WhoAmI>
             <AppContent {...props}/>
           </WhoAmI>
@@ -42,6 +43,13 @@ export default function App(props: AppProps){
       </QueryClientProvider>
     </Provider>
   );
+}
+function Client(props:AppProps){
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(loadCart());
+  },[]);
+  return <AppContent {...props}/>
 }
 
 function AppContent({ Component, pageProps }: AppProps){
