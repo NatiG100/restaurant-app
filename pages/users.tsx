@@ -74,7 +74,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
         if(response){
             gridRef.current?.api?.hideOverlay();
         }
-    },[error,response])
+    },[error,response]);
     
 
     //api request for changing user status

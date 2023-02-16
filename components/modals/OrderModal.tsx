@@ -1,4 +1,5 @@
 import Image from "next/image";
+import baseURL from "../../constants/BASE_URL";
 import { TypeItem, TypeOrder } from "../TableComponents/order";
 import { TypeButton } from "../UIElements/Button";
 import BaseModal from "./BaseModal";
@@ -44,7 +45,7 @@ export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
             headerSection={
                 <div className="flex items-center justify-start gap-4">
                     <p className="text-xl text-indigo-600 font-bold">Order</p>
-                    <p className="text-gray-600">{order._id}</p>
+                    <p className="text-gray-600">{order.id}</p>
                 </div>
             }
             actions={actions}
@@ -90,7 +91,7 @@ function OrderItem(props:TypeItem){
         ">
             <div className="flex justify-start items-center gap-6">
                 <Image 
-                    src={props.img} 
+                    src={baseURL+'/img/drink/'+props.img} 
                     alt={props.name} 
                     width={70} 
                     height={70}

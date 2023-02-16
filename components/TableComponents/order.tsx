@@ -8,7 +8,7 @@ export interface TypeItem{
     amount: number,
 }
 export interface TypeOrder{
-    _id:string,
+    id:string,
     date:string,
     totalCost:number,
     timeElapsed:string,
@@ -52,7 +52,7 @@ const cellClass:string = "text-gray-600 text-base";
 
 export const columnDefs:ColDef<TypeOrder>[] = [
     { 
-        field: '_id',
+        field: 'id',
         headerName:"ID",
         headerClass:headerClass,
         cellClass:cellClass,

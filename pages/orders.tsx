@@ -7,6 +7,10 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import Backdrop from "../components/Backdrop";
 import OrderModal from "../components/modals/OrderModal";
+import { useQuery } from "react-query";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
+import { fetchAllOrders } from "../services/OrderService";
+import { toast } from "react-toastify";
 
 
 export default function Orders({setAppBarComponent}:any){
@@ -54,43 +58,24 @@ export default function Orders({setAppBarComponent}:any){
       },[]);
 
     // get rows
-    const [rowData] = useState<TypeOrder[]>([
-        {_id:"nakdjfjeial",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Pending",items:[
-            {
-                amount:20,
-                cost: 220,
-                img: "/avatar.jpg",
-                name: "Chechebsa"
-            },
-            {
-                amount:18,
-                cost: 250,
-                img: "/bf.jpg",
-                name: "Pasta"
-            },
-            {
-                amount:4,
-                cost: 125,
-                img: "/bf.jpg",
-                name: "Tea"
-            }
-        ]},
-        {_id:"nsdknvfkkcd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Pending",items:[
-
-        ]},
-        {_id:"alksdfj,dfd",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Started",items:[
-
-        ]},
-        {_id:"ueiopaisdfx",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Cancelled",items:[
-
-        ]},
-        {_id:"nalskjsdoto",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Served",items:[
-
-        ]},
-        {_id:"abegkielmdf",date: "10/10/2015", totalCost: 4000, timeElapsed: "1hr 10min",tableNumber:"A10",status:"Served",items:[
-
-        ]},
-    ]);
+    const {
+        data:response,
+        error,
+        isLoading,
+        refetch
+    } = useQuery<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse
+    >('fetchAllOrders',fetchAllOrders);
+    
+    useEffect(()=>{
+        if(error){
+            toast(error?.message,{type:"error"});
+        }
+        if(response){
+            gridRef.current?.api?.hideOverlay();
+        }
+    },[error,response]);
     const [selectedOrder, setSelectedOrder] = useState<TypeOrder | null>(null);
     const handleOrderModalClose = ()=>{
         setSelectedOrder(null);
@@ -106,7 +91,7 @@ export default function Orders({setAppBarComponent}:any){
             <AgGridReact
                 context={{setSelectedOrder}}
                 ref={gridRef}
-                rowData={rowData}
+                rowData={response?.data}
                 columnDefs={columnDefs}
                 rowHeight={55}
                 rowStyle={{width:"100%"}}
