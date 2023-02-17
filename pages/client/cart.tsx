@@ -48,6 +48,7 @@ export default function Cart(){
         }
     },[data,error])
     const handleOrder = ()=>{
+        const tableNumber = localStorage.getItem("table-number");
         mutate({
             items:cart.items.map((item)=>{
                 let newItem:any={...item.item};
@@ -59,7 +60,7 @@ export default function Cart(){
                 return newItem;
             }),
             totalCost:cart.totalCost,
-            tableNumber:"A45"
+            tableNumber:tableNumber as string,
         });
     }
 

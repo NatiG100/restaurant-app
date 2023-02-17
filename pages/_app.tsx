@@ -45,10 +45,17 @@ export default function App(props: AppProps){
   );
 }
 function Client(props:AppProps){
+  const router = useRouter();
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(loadCart());
   },[]);
+  useEffect(()=>{
+    if(router.query.tableNumber){
+      localStorage.setItem("table-number",router.query.tableNumber as string);
+    }
+    return ()=>{localStorage.removeItem("table-number")}
+  },[router])
   return <AppContent {...props}/>
 }
 
