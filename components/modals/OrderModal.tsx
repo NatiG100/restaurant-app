@@ -91,7 +91,7 @@ function OrderItem(props:TypeItem){
         ">
             <div className="flex justify-start items-center gap-6">
                 <Image 
-                    src={baseURL+'/img/drink/'+props.img} 
+                    src={baseURL+props.img} 
                     alt={props.name} 
                     width={70} 
                     height={70}

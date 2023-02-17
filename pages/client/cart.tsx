@@ -11,6 +11,10 @@ import { useDebouncedCallback } from "use-debounce";
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 import Button from "../../components/UIElements/Button";
 import baseURL from "../../constants/BASE_URL";
+import { useMutation } from "react-query";
+import { requestOrder, TypeRequestOrder } from "../../services/ClientServices";
+import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
+import { toast } from "react-toastify";
 
 export default function Cart(){
     const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);
@@ -28,6 +32,35 @@ export default function Cart(){
     }
     const isItemBeingShown = (id:string)=>{
         return id===showId;
+    }
+
+    //order
+    const {mutate,data,error,isLoading} = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        TypeRequestOrder>(requestOrder);
+    useEffect(()=>{
+        if(error){
+            toast(error.message,{type:"error"});
+        }
+        else if(data){
+            toast(data.message,{type:"success"});
+        }
+    },[data,error])
+    const handleOrder = ()=>{
+        mutate({
+            items:cart.items.map((item)=>{
+                let newItem:any={...item.item};
+                delete newItem.description;
+                delete newItem.id;
+                newItem.amount = item.count;
+                newItem.itemType = newItem.type;
+                delete newItem.type;
+                return newItem;
+            }),
+            totalCost:cart.totalCost,
+            tableNumber:"A45"
+        });
     }
 
     return(
@@ -99,6 +132,8 @@ export default function Cart(){
                 <div className="w-full px-5">
                     <Button
                         className="w-full p-2 ml-auto mr-auto mb-3"
+                        disabled={isLoading}
+                        onClick={handleOrder}
                     >Order Now</Button>
                 </div>
             </>}

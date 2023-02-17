@@ -6,4 +6,5 @@ export const fetchAllOrders = async ()=>{
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`/orders`)
-}
+};
+
