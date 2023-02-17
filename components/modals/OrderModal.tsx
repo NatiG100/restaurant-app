@@ -1,5 +1,6 @@
 import Image from "next/image";
 import baseURL from "../../constants/BASE_URL";
+import useTimeCounter from "../../hooks/useTimeCounter";
 import { TypeItem, TypeOrder } from "../TableComponents/order";
 import { TypeButton } from "../UIElements/Button";
 import BaseModal from "./BaseModal";
@@ -32,6 +33,7 @@ const statusClass = (order:TypeOrder)=>{
 }
 
 export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
+    const {secs,minutes} = useTimeCounter(parseInt(order.timeElapsed));
     const className="w-24";
     const actions:TypeButton[] = [];
     if(order.status==="Pending"){
@@ -58,7 +60,7 @@ export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
                     </div>
                     <div className={classes.container}>
                         <p className={classes.headerText}>Time Elapsed</p>
-                        <p className={classes.text}>{order.timeElapsed}</p>
+                        <p className={classes.text}>{minutes} Mins - {secs} Secs</p>
                     </div>
                 </div>
                 <div className={classes.twoCols + " mb-3"}>

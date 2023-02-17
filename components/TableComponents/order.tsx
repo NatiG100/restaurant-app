@@ -1,4 +1,5 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
+import useTimeCounter from "../../hooks/useTimeCounter";
 import Button from "../UIElements/Button";
 
 export interface TypeItem{
@@ -36,6 +37,12 @@ export const OrderTableActionRow = (params: ICellRendererParams<TypeOrder>)=>{
                 :<></>
             }
         </div>
+    );
+}
+export const TimeElapsed = (params: ICellRendererParams<TypeOrder>)=>{
+    const {secs,minutes} = useTimeCounter(parseInt(params.data?.timeElapsed as string));
+    return(
+        <p>{minutes} Mins - {secs} Secs</p>
     );
 }
 
@@ -78,8 +85,7 @@ export const columnDefs:ColDef<TypeOrder>[] = [
     { 
         field: 'timeElapsed',
         headerName:"Time Elapsed",
-        headerClass:headerClass,
-        cellClass:cellClass,
+        cellRenderer:TimeElapsed,
         width:150,
         sortable:true  
     },
