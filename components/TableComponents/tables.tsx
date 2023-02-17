@@ -9,6 +9,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/typ
 import { changeTableStatus, deleteTable } from "../../services/TableService";
 import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
+import { formatDate } from "../../utils/date";
 
 export interface TypeTable{
     id:string,

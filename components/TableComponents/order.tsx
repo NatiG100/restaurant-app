@@ -1,5 +1,6 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
 import useTimeCounter from "../../hooks/useTimeCounter";
+import { formatDate } from "../../utils/date";
 import Button from "../UIElements/Button";
 
 export interface TypeItem{
@@ -45,7 +46,11 @@ export const TimeElapsed = (params: ICellRendererParams<TypeOrder>)=>{
         <p>{minutes} Mins - {secs} Secs</p>
     );
 }
-
+const OrderDate = (params:ICellRendererParams<TypeOrder>)=>{
+    return(
+        <p>{formatDate(new Date(params.data?.date as string))}</p>
+    );
+}
 const statusColumnClass = (param:CellClassParams<TypeOrder>)=>(
     param?.value==="Pending"?"text-yellow-600 text-lg":
     param?.value==="Started"?"text-indigo-600 text-lg":
@@ -67,10 +72,9 @@ export const columnDefs:ColDef<TypeOrder>[] = [
     },
     { 
         field: 'date',
-        headerName:"Date",
+        headerName:"Date(yyyy-mm-dd)",
         filter: 'agDateColumnFilter',
-        headerClass:headerClass,
-        cellClass:cellClass,
+        cellRenderer:OrderDate,
         width:150,
         sortable:true,
     },
