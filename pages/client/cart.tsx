@@ -10,6 +10,7 @@ import { CartSliceType, saveCart, TypeItemContext } from "../../Context/CartSlic
 import { useDebouncedCallback } from "use-debounce";
 import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 import Button from "../../components/UIElements/Button";
+import baseURL from "../../constants/BASE_URL";
 
 export default function Cart(){
     const cart = useSelector<RootState,CartSliceType>((state)=>state?.cart);

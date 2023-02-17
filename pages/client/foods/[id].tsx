@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
-import Category from "../../../components/client/Category";
-import baseURL from "../../../constants/BASE_URL";
-import { fetchAllFoodCategories, fetchAllFoods } from "../../../services/ClientServices";
+import {  fetchAllFoods } from "../../../services/ClientServices";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../../types/types";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Header from "../../../components/client/Header";
@@ -68,7 +66,7 @@ export default function Foods(){
                         description={food.description}
                         id={food.id}
                         key={food.id}
-                        img={baseURL+food.img}
+                        img={food.img}
                         name={food.name}
                         type={"food"}
                         showDetai={isItemBeingShown(food.id)}

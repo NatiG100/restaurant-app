@@ -70,7 +70,7 @@ export default function Foods(){
                         description={drink.description}
                         id={drink.id}
                         key={drink.id}
-                        img={baseURL+drink.img}
+                        img={drink.img}
                         name={drink.name}
                         type={"drink"}
                         showDetai={isItemBeingShown(drink.id)}

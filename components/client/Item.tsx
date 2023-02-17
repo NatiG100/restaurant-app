@@ -5,6 +5,7 @@ import {FaShoppingCart as CartIcon} from 'react-icons/fa';
 import { useDispatch } from "react-redux";
 import { addItem, CartSliceType, subtractItem } from "../../Context/CartSlice";
 import React, { useCallback, useEffect, useRef } from "react";
+import baseURL from "../../constants/BASE_URL";
 
 export interface TypeItem{
     name:string,
@@ -97,7 +98,7 @@ function Item({
                 
             ">
                 <Image
-                    src={img}
+                    src={baseURL+img}
                     alt={"title"}
                     height={400}
                     width={400}
