@@ -8,3 +8,13 @@ export const fetchAllOrders = async ()=>{
     >(`/orders`)
 };
 
+export interface TypeChangeOrderStatus{
+    status:"Served"|"Pending"|"Cancelled"|"Started",
+    id:string
+}
+export const changeOrderStatus = async(data:TypeChangeOrderStatus)=>{
+    return instance.patch<
+        TypeCustomeErrorResponse,
+        TypeMultiDataResponse
+    >(`/orders/${data.id}/change-status`,{status:data.status});
+};
