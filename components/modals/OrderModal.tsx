@@ -1,6 +1,7 @@
 import Image from "next/image";
 import baseURL from "../../constants/BASE_URL";
 import useTimeCounter from "../../hooks/useTimeCounter";
+import { TypeChangeOrderStatus } from "../../services/OrderService";
 import { TypeItem, TypeOrder } from "../TableComponents/order";
 import { TypeButton } from "../UIElements/Button";
 import BaseModal from "./BaseModal";
@@ -8,6 +9,8 @@ import BaseModal from "./BaseModal";
 export interface TypeOrderModal{
     order:TypeOrder,
     onClose?:()=>void,
+    changeStatus:({status,id}:TypeChangeOrderStatus)=>void,
+    isStatusChangeLoading:boolean
 }
 
 const classes = {
@@ -32,14 +35,26 @@ const statusClass = (order:TypeOrder)=>{
     }
 }
 
-export default function OrderModal({order,onClose=()=>{}}:TypeOrderModal){
+export default function OrderModal({order,onClose=()=>{},changeStatus,isStatusChangeLoading}:TypeOrderModal){
     const {secs,minutes} = useTimeCounter(parseInt(order.timeElapsed));
     const className="w-24";
     const actions:TypeButton[] = [];
     if(order.status==="Pending"){
-        actions.push({children:"Start", color:"warning", className});
+        actions.push({
+            children:"Start", 
+            color:"warning", 
+            className,
+            disabled:isStatusChangeLoading,
+            onClick:()=>{changeStatus({status:"Started",id:order.id})}
+        });
     }else if(order.status==="Started"){
-        actions.push({children:"Ready",color:"success", className});
+        actions.push({
+            children:"Ready",
+            color:"success", 
+            className,
+            disabled:isStatusChangeLoading,
+            onClick:()=>{changeStatus({status:"Served",id:order.id})}
+        });
     }
     return(
         <BaseModal

@@ -115,6 +115,8 @@ export default function Orders({setAppBarComponent}:any){
                 <OrderModal
                     order={selectedOrder}
                     onClose={handleOrderModalClose}
+                    changeStatus={requestStatusUpdate}
+                    isStatusChangeLoading={isStatusUpdateLoading}
                 />
             </Backdrop>:null}
             <AgGridReact
