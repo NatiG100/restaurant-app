@@ -18,6 +18,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css';
 import ClientLayout from '../components/client/ClientLayout';
 import { loadCart } from '../Context/CartSlice';
+import Loading from '../components/UIElements/Loading';
 
 //bind loading indicator
 Router.events.on('routeChangeStart',()=>{
@@ -47,6 +48,7 @@ export default function App(props: AppProps){
 function Client(props:AppProps){
   const router = useRouter();
   const dispatch = useDispatch();
+  const [loading,setLoading] = useState<boolean>(true);
   useEffect(()=>{
     dispatch(loadCart());
   },[]);
@@ -54,8 +56,19 @@ function Client(props:AppProps){
     if(router.query.tableNumber){
       localStorage.setItem("table-number",router.query.tableNumber as string);
     }
+    if(router.query){
+      setLoading(false);
+    }
     return ()=>{localStorage.removeItem("table-number")}
   },[router])
+  if(loading) return <Loading type='full'/>
+  if(!router.query.tableNumber) return (
+    <div className='flex items-center justify-center flex-col h-screen w-full border border-red-300'>
+      <p className='text-red-600'>Table number was not provided</p>
+      <p className='text-sm text-gray-500'>Please scan a correct QR code</p>
+      <p className='text-sm text-gray-500'>or contact the admin</p>
+    </div>
+  )
   return <AppContent {...props}/>
 }
 
