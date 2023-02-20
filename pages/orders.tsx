@@ -7,9 +7,9 @@ import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import Backdrop from "../components/Backdrop";
 import OrderModal from "../components/modals/OrderModal";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
-import { fetchAllOrders } from "../services/OrderService";
+import { changeOrderStatus, fetchAllOrders, TypeChangeOrderStatus } from "../services/OrderService";
 import { toast } from "react-toastify";
 
 
@@ -76,6 +76,35 @@ export default function Orders({setAppBarComponent}:any){
             gridRef.current?.api?.hideOverlay();
         }
     },[error,response]);
+
+    const{
+        mutate:requestStatusUpdate,
+        error:statusUpdateError,
+        isLoading:isStatusUpdateLoading,
+        data:statusUpdateData
+    } = useMutation<
+        TypeMultiDataResponse,
+        TypeCustomeErrorResponse,
+        TypeChangeOrderStatus
+    >(changeOrderStatus);
+
+    useEffect(()=>{
+        if(statusUpdateData){
+            toast(statusUpdateData?.message,{type:"success"});
+            //update the selected user after refetching
+            refetch().then((data)=>{
+                const foodCategory = data.data?.data;
+                if(selectedOrder){
+                    setSelectedOrder((prev)=>{
+                        const currentCategory = foodCategory?.filter(
+                            (order:TypeOrder)=>(order.id===selectedOrder.id)
+                        )[0];
+                        return currentCategory;
+                    })
+                }
+            })
+        }
+    },[statusUpdateData,statusUpdateError])
     const [selectedOrder, setSelectedOrder] = useState<TypeOrder | null>(null);
     const handleOrderModalClose = ()=>{
         setSelectedOrder(null);
@@ -89,7 +118,11 @@ export default function Orders({setAppBarComponent}:any){
                 />
             </Backdrop>:null}
             <AgGridReact
-                context={{setSelectedOrder}}
+                context={{
+                    setSelectedOrder,
+                    requestStatusUpdate,
+                    isStatusUpdateLoading,
+                }}
                 ref={gridRef}
                 rowData={response?.data}
                 columnDefs={columnDefs}

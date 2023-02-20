@@ -20,6 +20,7 @@ export interface TypeOrder{
 }
 
 export const OrderTableActionRow = (params: ICellRendererParams<TypeOrder>)=>{
+    const {requestStatusUpdate:changeStatus,isStatusUpdateLoading:isLoading} = params.context;
     return(
         <div className="flex gap-4 font-semibold w-max">
             <Button type="outline" className="w-24" onClick={()=>{params.context?.setSelectedOrder(params.data)}}>
@@ -27,12 +28,24 @@ export const OrderTableActionRow = (params: ICellRendererParams<TypeOrder>)=>{
             </Button>
             {
                 params?.value==="Pending"?
-                    <Button type="outline" className="w-24" color="warning">
+                    <Button 
+                        type="outline" 
+                        className="w-24" 
+                        color="warning"
+                        disabled={isLoading}
+                        onClick={()=>{changeStatus({status:"Started",id:params.data?.id})}}
+                    >
                         Start
                     </Button>
                 :
                 params?.value==="Started"?
-                    <Button type="outline" className="w-24" color="success">
+                    <Button 
+                        type="outline" 
+                        className="w-24" 
+                        color="success"
+                        disabled={isLoading}
+                        onClick={()=>{changeStatus({status:"Served",id:params.data?.id})}}
+                    >
                         Ready
                     </Button>
                 :<></>
