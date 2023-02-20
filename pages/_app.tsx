@@ -48,21 +48,32 @@ export default function App(props: AppProps){
 function Client(props:AppProps){
   const router = useRouter();
   const dispatch = useDispatch();
-  const [loading,setLoading] = useState<boolean>(true);
+  const [tableNumber,setTableNumber] = useState<string|null|number>(null);
+  const [loading,setLoading] = useState(true);
   useEffect(()=>{
     dispatch(loadCart());
   },[]);
   useEffect(()=>{
     if(router.query.tableNumber){
-      localStorage.setItem("table-number",router.query.tableNumber as string);
-    }
-    if(router.query){
-      setLoading(false);
+      if(tableNumber===-1||!tableNumber){
+        localStorage.setItem("table-number",router.query.tableNumber as string);
+        setTableNumber(router.query.tableNumber as string);
+      }
+    }else if(router.query){
+      if(tableNumber===-1||!tableNumber){
+        setTableNumber(-1);
+      }
     }
     return ()=>{localStorage.removeItem("table-number")}
-  },[router])
+  },[router]);
+  useEffect(()=>{
+    if(tableNumber){
+      setLoading(false);
+    }
+  },[tableNumber])
+
   if(loading) return <Loading type='full'/>
-  if(!router.query.tableNumber) return (
+  if(tableNumber===-1||(!tableNumber)) return (
     <div className='flex items-center justify-center flex-col h-screen w-full border border-red-300'>
       <p className='text-red-600'>Table number was not provided</p>
       <p className='text-sm text-gray-500'>Please scan a correct QR code</p>
