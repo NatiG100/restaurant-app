@@ -20,9 +20,9 @@ export default function Navigation() {
       <Image 
           src={logo} 
           alt="Logo" 
-          height={45}
-          width={45}
-          className="fill-transparent ml-4"
+          height={60}
+          width={60}
+          className="fill-transparent ml-2"
       />
       </div>
 
