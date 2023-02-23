@@ -17,6 +17,7 @@ export default function WhoAmI({children}:{children:React.ReactNode}){
             setLoading(false);
         }
         if(error){
+            router.replace("/login")
             setLoading(false);
         }
     },[error,data]);
