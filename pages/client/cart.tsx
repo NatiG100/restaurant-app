@@ -53,6 +53,7 @@ export default function Cart(){
             items:cart.items.map((item)=>{
                 let newItem:any={...item.item};
                 delete newItem.description;
+                newItem.itemId = newItem.id;
                 delete newItem.id;
                 newItem.amount = item.count;
                 newItem.itemType = newItem.type;

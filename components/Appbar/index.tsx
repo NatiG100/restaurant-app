@@ -8,7 +8,8 @@ import Button from "../UIElements/Button";
 import { useMutation } from "react-query";
 import { logout } from "../../services/AuthService";
 import {logout as dispatchLogout} from '../../Context/AuthSlice';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Context/store";
 
 interface AppbarInterface {
     component?: ReactElement,
@@ -18,6 +19,7 @@ interface AppbarInterface {
 export default function Appbar({component} : AppbarInterface){
     const dispatch = useDispatch();
     const {error,data,mutate:requestLogout} = useMutation(logout);
+    const user = useSelector<RootState>(state=>state?.auth?.user);
     useEffect(()=>{
         if(data||error){
             dispatch(dispatchLogout());
@@ -38,7 +40,11 @@ export default function Appbar({component} : AppbarInterface){
                 </Button>
                 <MessageIcon className="text-2xl text-indigo-500"/>
                 <NotificationIcon className="text-2xl text-indigo-500"/>
-                <Image alt="avater" src={avatar} className="w-14 h-14 rounded-full object-cover"/>
+                <Image 
+                    alt="avater" 
+                    src={avatar} 
+                    className="w-14 h-14 rounded-full object-cover"
+                />
             </div>
         </div>
     );

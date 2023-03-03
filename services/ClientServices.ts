@@ -21,7 +21,8 @@ export interface TypeRequestOrder{
         img:string,
         name:string,
         cost:number,
-        amount:number
+        amount:number,
+        itemId:string,
     }[]
 }
 export const requestOrder = async(data:TypeRequestOrder)=>{
