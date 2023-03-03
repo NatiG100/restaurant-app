@@ -8,6 +8,7 @@ export interface TypeItem{
     name: string,
     cost: number,
     amount: number,
+    itemId: string,
 }
 export interface TypeOrder{
     id:string,

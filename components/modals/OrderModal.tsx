@@ -91,7 +91,7 @@ export default function OrderModal({order,onClose=()=>{},changeStatus,isStatusCh
                 <div className={classes.container + " max-w-md"}>
                     <p className={classes.headerText}>Order Items</p>
                     {order.items.map((orderItem)=>(
-                        <OrderItem {...orderItem} key={orderItem.name}/>
+                        <OrderItem {...orderItem} key={orderItem.itemId}/>
                     ))}
                 </div>
             </div>
