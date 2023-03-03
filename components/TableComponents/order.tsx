@@ -55,7 +55,8 @@ export const OrderTableActionRow = (params: ICellRendererParams<TypeOrder>)=>{
     );
 }
 export const TimeElapsed = (params: ICellRendererParams<TypeOrder>)=>{
-    const {secs,minutes} = useTimeCounter(parseInt(params.data?.timeElapsed as string));
+    const shouldCount = !(params.data?.status=="Cancelled"||params.data?.status=="Served");
+    const {secs,minutes} = useTimeCounter(parseInt(params.data?.timeElapsed as string),shouldCount);
     return(
         <p>{minutes} Mins - {secs} Secs</p>
     );
