@@ -14,11 +14,12 @@ import Router from 'next/router';
 import store from '../Context/store';
 import WhoAmI from '../components/hoc/WhoAmI';
 import Redirect from '../components/hoc/Redirec';
-import NProgress from 'nprogress'
+import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import ClientLayout from '../components/client/ClientLayout';
 import { loadCart } from '../Context/CartSlice';
 import Loading from '../components/UIElements/Loading';
+import { setTableNumber } from '../Context/TableNumberSlice';
 
 //bind loading indicator
 Router.events.on('routeChangeStart',()=>{
@@ -48,36 +49,24 @@ export default function App(props: AppProps){
 function Client(props:AppProps){
   const router = useRouter();
   const dispatch = useDispatch();
-  const [tableNumber,setTableNumber] = useState<string|null|number>(null);
   const [loading,setLoading] = useState(true);
   useEffect(()=>{
     dispatch(loadCart());
   },[]);
   useEffect(()=>{
     if(router.query.tableNumber){
-      if(tableNumber===-1||!tableNumber){
-        localStorage.setItem("table-number",router.query.tableNumber as string);
-        setTableNumber(router.query.tableNumber as string);
-      }
-    }else if(router.query){
-      if(tableNumber===-1||!tableNumber){
-        setTableNumber(-1);
-      }
-    }
-    return ()=>{localStorage.removeItem("table-number")}
-  },[router]);
-  useEffect(()=>{
-    if(tableNumber){
+      dispatch(setTableNumber({tableId:router.query.tableNumber as string}));
       setLoading(false);
     }
-  },[tableNumber])
+  },[router]);
 
-  if(loading) return <Loading type='full'/>
-  if(tableNumber===-1||(!tableNumber)) return (
-    <div className='flex items-center justify-center flex-col h-screen w-full border border-red-300'>
-      <p className='text-red-600'>Table number was not provided</p>
-      <p className='text-sm text-gray-500'>Please scan a correct QR code</p>
-      <p className='text-sm text-gray-500'>or contact the admin</p>
+  if(loading) return (
+    <div className='flex items-center justify-center flex-col h-screen w-full border-2 border-indigo-500'>
+      <p className='text-gray-900'>Loading...</p>
+      <Loading type='contained'/>
+      <p className='text-sm text-gray-700 text-center px-3 animate-pulse'>
+        If this takes more than 10 seconds please make sure that you scanned  a correct QR code
+      </p>
     </div>
   )
   return <AppContent {...props}/>

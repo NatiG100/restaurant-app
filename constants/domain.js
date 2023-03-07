@@ -1,1 +1,1 @@
-export default "http://172.20.44.116:3000/client/foods";
+export default "http://192.168.1.11:3000/client/foods";

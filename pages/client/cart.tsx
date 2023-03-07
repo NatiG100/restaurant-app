@@ -47,8 +47,8 @@ export default function Cart(){
             toast(data.message,{type:"success"});
         }
     },[data,error])
+    const tableId = useSelector<RootState>(state=>state?.tableNumber.tableId);
     const handleOrder = ()=>{
-        const tableNumber = localStorage.getItem("table-number");
         mutate({
             items:cart.items.map((item)=>{
                 let newItem:any={...item.item};
@@ -61,7 +61,7 @@ export default function Cart(){
                 return newItem;
             }),
             totalCost:cart.totalCost,
-            tableNumber:tableNumber as string,
+            tableNumber:tableId as string,
         });
     }
 
