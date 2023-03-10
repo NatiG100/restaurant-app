@@ -1,7 +1,6 @@
 import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
 import QRCode from "react-qr-code";
 import Button from "../UIElements/Button";
-import domain from '../../constants/domain';
 import IconButton from "../UIElements/IconButton";
 import {MdOutlineDeleteOutline as DeleteIcon} from 'react-icons/md';
 import { useMutation } from "react-query";
@@ -9,7 +8,6 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/typ
 import { changeTableStatus, deleteTable } from "../../services/TableService";
 import { useCallback, useEffect,useState } from "react";
 import { toast } from "react-toastify";
-import { formatDate } from "../../utils/date";
 
 export interface TypeTable{
     id:string,
