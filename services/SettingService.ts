@@ -2,6 +2,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types"
 import instance from "./instance";
 export interface TypeFetchSettingResponse{
     data:TypeUpdateSetting,
+    message:string,
 }
 export const fetchSetting = async ()=>{
     return instance.get<

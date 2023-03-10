@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 export default function Setting(){
-    const {data,error,isLoading} = useQuery<
+    const {data,error,isLoading,refetch} = useQuery<
       TypeFetchSettingResponse,
       TypeCustomeErrorResponse
     >('fetchApplicationSetting',fetchSetting);
@@ -23,6 +23,8 @@ export default function Setting(){
       else if(data){
         setValue("frontendWebDomain",data.data.frontendWebDomain);
         setValue("taxRate",data.data.taxRate);
+        localStorage.setItem("frontendWebDomain",data.data.frontendWebDomain)
+        toast(data.message);
       }
     },[data,error]);
     const {handleSubmit,formState:{errors},register,setValue} = useForm<TypeUpdateSetting>();
@@ -43,6 +45,7 @@ export default function Setting(){
       }
       else if(data){
         toast(updateData?.message,{type:"success"});
+        refetch();
       }
     },[updateError,updateData]);
     const onSubmit = (data:TypeUpdateSetting)=>{

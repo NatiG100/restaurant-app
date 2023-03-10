@@ -7,7 +7,7 @@ import {MdOutlineDeleteOutline as DeleteIcon} from 'react-icons/md';
 import { useMutation } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
 import { changeTableStatus, deleteTable } from "../../services/TableService";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect,useState } from "react";
 import { toast } from "react-toastify";
 import { formatDate } from "../../utils/date";
 
@@ -18,6 +18,7 @@ export interface TypeTable{
 }
 
 const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
+    
     const refetch = params.context?.refetch;
     const id = params.data?.id as string;
 
@@ -91,10 +92,18 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
 }
 
 const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
+    const [frontendWebDomain,setFrontendWebDomain] = useState<string|null>(null);
+    useEffect(()=>{
+        if(!localStorage.getItem("frontendWebDomain")){
+            toast("Web domain is missing, please refresh the page",{type:"error",autoClose:false})
+        }else{
+            setFrontendWebDomain(localStorage.getItem("frontendWebDomain"));
+        }
+    },[])
     return(
         <div className="bg-white h-20 w-20 my-2">
             <QRCode 
-                value={domain+"?tableNumber="+params.data?.id||""}
+                value={frontendWebDomain+"/client/foods?tableNumber="+params.data?.id||""}
                 className="w-full h-auto"
             />
         </div>
