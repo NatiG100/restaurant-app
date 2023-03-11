@@ -40,11 +40,16 @@ export default function Appbar({component} : AppbarInterface){
                 </Button>
                 <MessageIcon className="text-2xl text-indigo-500"/>
                 <NotificationIcon className="text-2xl text-indigo-500"/>
-                <Image 
-                    alt="avater" 
-                    src={avatar} 
-                    className="w-14 h-14 rounded-full object-cover"
-                />
+                <div className="h-max w-max relative">
+                    <Image 
+                        alt="avater" 
+                        src={avatar} 
+                        className="w-14 h-14 rounded-full object-cover"
+                    />
+                    <div >
+
+                    </div>
+                </div>
             </div>
         </div>
     );
