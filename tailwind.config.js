@@ -27,6 +27,7 @@ module.exports = {
       },
       animation:{
         'appear':'appear 200ms ease-in 1',
+        'disappear':'disappear 200ms ease-in 1 forwards',
         'zoom':'zoom 100ms ease-in 1'
       },
       keyframes:{
@@ -38,6 +39,16 @@ module.exports = {
           to:{
             transform:"scale(1)",
             opacity:"1",
+          }
+        },
+        'disappear':{
+          from:{
+            transform:"scale(1)",
+            opacity:"1",
+          },
+          to:{
+            transform:"scale(1.5)",
+            opacity:"0",
           }
         },
         'zoom':{
