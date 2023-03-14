@@ -10,14 +10,14 @@ import { TypeCustomeErrorResponse } from "../../types/types";
 import { toast } from "react-toastify";
 
 export default function WhoAmI({children}:{children:React.ReactNode}){
-    const {data,error} = useQuery('whoAmI',who_am_i);
+    const {data,error} = useQuery('whoAmI',who_am_i,{retry:4});
     const [loading,setLoading] = useState(true);
     const dispatch = useDispatch();
     const router = useRouter();
     const {data:setting,error:settingError,isLoading} = useQuery<
       TypeFetchSettingResponse,
       TypeCustomeErrorResponse
-    >('fetchApplicationSetting',fetchSetting);
+    >('fetchApplicationSetting',fetchSetting,{retry:4});
 
     useEffect(()=>{
       if(settingError){

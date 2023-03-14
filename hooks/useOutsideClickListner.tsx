@@ -34,6 +34,6 @@ export function useOutsideClickListner(
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [ref]);
+    }, [ref,exceptionElements]);
     return clickedOutside;
 }
