@@ -28,7 +28,8 @@ module.exports = {
       animation:{
         'appear':'appear 200ms ease-in 1',
         'disappear':'disappear 200ms ease-in 1 forwards',
-        'zoom':'zoom 100ms ease-in 1'
+        'zoom-fade-in':'zoom-fade-in 100ms ease-in 1',
+        'zood-fade-out':'zoom-fade-out 100ms ease-in 1 forwards',
       },
       keyframes:{
         'appear':{
@@ -51,7 +52,7 @@ module.exports = {
             opacity:"0",
           }
         },
-        'zoom':{
+        'zoom-fade-in':{
           from:{
             transform:"scale(0)",
             opacity:"0",
@@ -60,6 +61,16 @@ module.exports = {
             transform:"scale(1)",
             opacity:"1",
           }
+        },
+        'zoom-fade-out':{
+          from:{
+            transform:"scale(1)",
+            opacity:"1",
+          },
+          to:{
+            transform:"scale(0)",
+            opacity:"0",
+          },
         }
       },
       maxHeight:{

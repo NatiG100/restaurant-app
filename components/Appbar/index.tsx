@@ -13,6 +13,7 @@ import { RootState } from "../../Context/store";
 import { useOutsideClickListner } from "../../hooks/useOutsideClickListner";
 import IconButton from "../UIElements/IconButton";
 import {FaEdit as EditIcon,FaSignOutAlt as LogoutIcon} from 'react-icons/fa'
+import useAnimateOnWillUnmout from "../../hooks/useAnimateOnWillUnmout";
 
 interface AppbarInterface {
     component?: ReactElement,
@@ -31,6 +32,7 @@ export default function Appbar({component} : AppbarInterface){
     const avatarRef = useRef(null);
     const imageRef = useRef(null);
     const clickedOutside = useOutsideClickListner(avatarRef,[imageRef]);
+    const {onAnimationEnd,shouldRender,show} = useAnimateOnWillUnmout(false,!clickedOutside);
 
     return(
         <div className="h-20 bg-white w-full border-b border-slate-300 flex justify-between items-center px-8">
@@ -44,11 +46,11 @@ export default function Appbar({component} : AppbarInterface){
                         src={avatar} 
                         className="absolute t-0 l-0 h-full w-full rounded-full object-cover cursor-pointer"
                     />
-                    {!clickedOutside&&<div className="
-                        absolute top-full right-0
+                    {shouldRender&&<div onAnimationEnd={onAnimationEnd} className=
+                        {`absolute top-full right-0
                         bg-gray-50 rounded-lg shadow-sm p-3 py-4
-                        z-50 border border-gray-300 animate-zoom
-                    ">
+                        z-50 border border-gray-300 ${show?'animate-zoom-fade-in':'animate-zood-fade-out'}`}
+                    >
                         <div className="bg-gray-100 rounded-md p-2 px-3 mb-2 border border-gray-2000">
                             <p className="
                                 text-gray-600 font-semibold
