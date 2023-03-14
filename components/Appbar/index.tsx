@@ -47,15 +47,15 @@ export default function Appbar({component} : AppbarInterface){
                     {!clickedOutside&&<div className="
                         absolute top-full right-0
                         bg-gray-50 rounded-lg shadow-sm p-3 py-4
-                        z-50 border border-gray-300
+                        z-50 border border-gray-300 animate-zoom
                     ">
                         <div className="bg-gray-100 rounded-md p-2 px-3 mb-2 border border-gray-2000">
                             <p className="
                                 text-gray-600 font-semibold
-                            ">{user.fullName}</p>
+                            ">{user?.fullName}</p>
                             <p className="1
                                 text-gray-600
-                            ">{user.email}</p>
+                            ">{user?.email}</p>
                         </div>
                         <IconButton
                             size="smd"

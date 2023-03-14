@@ -27,11 +27,22 @@ module.exports = {
       },
       animation:{
         'appear':'appear 200ms ease-in 1',
+        'zoom':'zoom 100ms ease-in 1'
       },
       keyframes:{
         'appear':{
           from:{
             transform:"scale(1.5)",
+            opacity:"0",
+          },
+          to:{
+            transform:"scale(1)",
+            opacity:"1",
+          }
+        },
+        'zoom':{
+          from:{
+            transform:"scale(0)",
             opacity:"0",
           },
           to:{
