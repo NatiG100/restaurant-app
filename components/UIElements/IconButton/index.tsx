@@ -28,6 +28,7 @@ export default function IconButton({
         <button 
             {...buttonProps}
             className={`
+                focus:shadow-md
                 ${disabled&&"opacity-70"} ${disabled&&"pointer-events-none"}
                 flex gap-2 items-center justify-center
                 rounded-md transition-all ${className}
