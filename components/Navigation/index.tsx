@@ -16,14 +16,18 @@ export default function Navigation() {
   return (
     <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-5 ">
 
-      <div className="h-20 w-full flex items-center justify-start sticky top-0 left-0 bg-white shadow-md shadow-white">
-      <Image 
-          src={logo} 
-          alt="Logo" 
-          height={60}
-          width={60}
-          className="fill-transparent ml-2"
-      />
+      <div className="h-20 gap-2 w-full flex items-center justify-start sticky top-0 left-0 bg-white shadow-md shadow-white">
+        <Image 
+            src={logo} 
+            alt="Logo" 
+            height={60}
+            width={60}
+            className="fill-transparent ml-2"
+        />
+        <div className="flex flex-col justify-center gap-0">
+          <p className="text-lg text-indigo-600 font-semibold">Muni</p>
+          <p className="text-gray-600">Cafe & Restaurant</p>
+        </div>
       </div>
 
       <div className="h-full w-full flex flex-col gap-6 pt-10 pb-4">

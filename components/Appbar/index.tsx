@@ -14,6 +14,7 @@ import { useOutsideClickListner } from "../../hooks/useOutsideClickListner";
 import IconButton from "../UIElements/IconButton";
 import {FaEdit as EditIcon,FaSignOutAlt as LogoutIcon} from 'react-icons/fa'
 import useAnimateOnWillUnmout from "../../hooks/useAnimateOnWillUnmout";
+import baseURL from "../../constants/BASE_URL";
 
 interface AppbarInterface {
     component?: ReactElement,
@@ -43,7 +44,9 @@ export default function Appbar({component} : AppbarInterface){
                     <Image
                         ref={imageRef}
                         alt="avater" 
-                        src={avatar} 
+                        src={user?.img?baseURL+user.img:""}
+                        width={400}
+                        height={400}
                         className="absolute t-0 l-0 h-full w-full rounded-full object-cover cursor-pointer"
                     />
                     {shouldRender&&<div onAnimationEnd={onAnimationEnd} className=
@@ -53,7 +56,7 @@ export default function Appbar({component} : AppbarInterface){
                     >
                         <div className="bg-gray-100 rounded-md p-2 px-3 mb-2 border border-gray-2000">
                             <p className="
-                                text-gray-600 font-semibold
+                                text-gray-600 font-semibold text-lg
                             ">{user?.fullName}</p>
                             <p className="1
                                 text-gray-600
