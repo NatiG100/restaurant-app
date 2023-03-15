@@ -15,6 +15,8 @@ import IconButton from "../UIElements/IconButton";
 import {FaEdit as EditIcon,FaSignOutAlt as LogoutIcon} from 'react-icons/fa'
 import useAnimateOnWillUnmout from "../../hooks/useAnimateOnWillUnmout";
 import baseURL from "../../constants/BASE_URL";
+import Backdrop from "../Backdrop";
+import ConfirmationBox from "../DialogBox/ConfirmationBox";
 
 interface AppbarInterface {
     component?: ReactElement,
@@ -34,11 +36,31 @@ export default function Appbar({component} : AppbarInterface){
     const imageRef = useRef(null);
     const clickedOutside = useOutsideClickListner(avatarRef,[imageRef]);
     const {onAnimationEnd,shouldRender,show} = useAnimateOnWillUnmout(false,!clickedOutside);
-
+    const [openLogoutDialogB, setOpenLogoutDialogB] = useState(false);
+    const handleOpen = ()=>{
+        setOpenLogoutDialogB(true);
+    }
+    const handleClose = ()=>{
+        setOpenLogoutDialogB(false);
+    }
+    const handleConfirm = (confirmed:boolean)=>{
+        if(confirmed){
+            requestLogout();
+        }else{
+            handleClose();
+        }
+    }
     return(
         <div className="h-20 bg-white w-full border-b border-slate-300 flex justify-between items-center px-8">
             {component}
             <div className="flex items-center justify-between gap-6">
+                {openLogoutDialogB&&<Backdrop onClick={handleClose}>
+                    <ConfirmationBox
+                        title="Confirm Logout"
+                        prompt="Are you sure you want to logout?"
+                        callBack={handleConfirm}
+                    />
+                </Backdrop>}
                 <NotificationIcon className="text-2xl text-indigo-500"/>
                 <div className="h-14 w-14 relative" ref={avatarRef} >
                     <Image
@@ -76,9 +98,7 @@ export default function Appbar({component} : AppbarInterface){
                             type="fill"
                             color="error"
                             className="rounded-sm w-full"
-                            onClick={()=>{
-                                requestLogout();
-                            }}
+                            onClick={handleOpen}
                             iconStart={<LogoutIcon/>}
                         >
                             Logout
