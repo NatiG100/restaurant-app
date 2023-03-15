@@ -72,7 +72,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
             className:"w-36",
             color:"warning",
             disabled:isLoading,
-            butonProps:{
+            buttonProps:{
                 form:"updateUser"
             }
         }

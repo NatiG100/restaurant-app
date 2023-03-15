@@ -51,7 +51,7 @@ export default function CreateDrinkCategoryModal({onClose}:TypeCreateDrinkCatego
                 onClick:()=>{},
                 iconEnd:<PlusIcon/>,
                 disabled:isLoading,
-                butonProps:{
+                buttonProps:{
                     form:"addDrinkCategory"
                 }
             }]}

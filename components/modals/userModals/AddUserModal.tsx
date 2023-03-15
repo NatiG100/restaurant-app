@@ -66,7 +66,7 @@ export default function AddUserModal({onClose}:TypeAddUserModal){
                 type:"outline",
                 iconEnd:<PlusIcon/>,
                 disabled:isLoading,
-                butonProps:{
+                buttonProps:{
                     form:"addUserForm"
                 }
             }]}

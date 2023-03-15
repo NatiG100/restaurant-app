@@ -69,7 +69,7 @@ export default function CreateDrinkModal({onClose,categoryId}:TypeCreateDrinkMod
                 disabled:isLoading,
                 iconEnd:<PlusIcon/>,
                 onClick:()=>{},
-                butonProps:{form:"addDrink"},
+                buttonProps:{form:"addDrink"},
             }]}
             headerSection={
                 <p className="text-xl font-bold text-indigo-700">Create Drink</p>

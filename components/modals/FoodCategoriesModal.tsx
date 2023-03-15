@@ -85,7 +85,7 @@ export default function FoodCategoriesModal({category,onClose,changeStatus,isSta
             className:"w-36",
             color:"warning",
             disabled:isLoading,
-            butonProps:{
+            buttonProps:{
                 form:"updateFoodCategory"
             }
         }

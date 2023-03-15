@@ -16,13 +16,14 @@ export default function(props:ConfirmationBoxProps){
                     children:"Yes",
                     type:"fill",
                     color:"error",
-                    onClick:()=>{props.callBack(true)}
+                    onClick:()=>{props.callBack(true)},
                 },
                 {
                     children:"No",
                     type:"outline",
                     color:"warning",
-                    onClick:()=>{props.callBack(true)}
+                    onClick:()=>{props.callBack(true)},
+                    className:"w-24",
                 }
             ]}
         />

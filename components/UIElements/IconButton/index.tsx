@@ -9,7 +9,7 @@ export interface TypeIconButton{
     iconEnd?:React.ReactNode,
     disabled?:boolean,
     onClick?:()=>void,
-    butonProps?:React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>,HTMLButtonElement>
+    buttonProps?:React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>,HTMLButtonElement>
 }
 
 export default function IconButton({
@@ -22,11 +22,11 @@ export default function IconButton({
     iconEnd,
     disabled=false,
     onClick=()=>{},
-    butonProps={}
+    buttonProps={}
 }: TypeIconButton){
     return (
         <button 
-            {...butonProps}
+            {...buttonProps}
             className={`
                 ${disabled&&"opacity-70"} ${disabled&&"pointer-events-none"}
                 flex gap-2 items-center justify-center

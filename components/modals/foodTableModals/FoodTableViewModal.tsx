@@ -67,7 +67,7 @@ export default function FoodTableViewModal({onClose, food, changeStatus,isStatus
             color:"warning",
             disabled:isLoading,
             onClick:()=>{},
-            butonProps:{
+            buttonProps:{
                 form:"updateFood"
             }
         }

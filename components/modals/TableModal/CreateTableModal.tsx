@@ -64,7 +64,7 @@ export default function ({onClose}:TypeCreateTableModal){
                 disabled:isLoading,
                 iconEnd:<PlusIcon/>,
                 onClick:()=>{},
-                butonProps:{form:"addTable"},
+                buttonProps:{form:"addTable"},
             }]}
             headerSection={
                 <p className="text-xl font-bold text-indigo-700">Create Table</p>

@@ -67,7 +67,7 @@ export default function DrinkTableViewModal({onClose, drink,changeStatus,isStatu
             color:"warning",
             disabled:isLoading,
             onClick:()=>{},
-            butonProps:{
+            buttonProps:{
                 form:"updateDrink"
             }
         }

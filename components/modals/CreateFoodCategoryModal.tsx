@@ -49,7 +49,7 @@ export default function CreateFoodCategoryModal({onClose}:TypeCreateFoodCategory
                 onClick:()=>{},
                 iconEnd:<PlusIcon/>,
                 disabled:isLoading,
-                butonProps:{
+                buttonProps:{
                     form:"addFoodCategory"
                 }
             }]}

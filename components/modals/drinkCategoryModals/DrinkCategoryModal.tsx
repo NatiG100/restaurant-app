@@ -85,7 +85,7 @@ export default function DrinkCategoriesModal({category,onClose,changeStatus,isSt
             className:"w-36",
             color:"warning",
             disabled:isLoading,
-            butonProps:{
+            buttonProps:{
                 form:"updateDrinkCategory"
             }
         }

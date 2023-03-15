@@ -82,7 +82,7 @@ export default function Setting(){
                   color="success"
                   className="w-full m-0 mt-8"
                   iconStart={<EditIcon/>}
-                  butonProps={{disabled:isUpdateLoading}}
+                  buttonProps={{disabled:isUpdateLoading}}
                 >Edit Setting</IconButton>
               </form>
             </div>

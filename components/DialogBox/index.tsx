@@ -1,10 +1,9 @@
-import { TypeButton } from "../UIElements/Button";
-import IconButton from '../UIElements/IconButton';
+import IconButton,{TypeIconButton} from '../UIElements/IconButton';
 
 export interface DialogBoxProps{
     title:string,
     body:React.ReactNode,
-    actions:TypeButton[],
+    actions:TypeIconButton[],
     actionClassName?:string,
     titleClassName?:string,
     className?:string,
@@ -13,7 +12,7 @@ export interface DialogBoxProps{
 
 export default function DialogBox(props:DialogBoxProps){
     return (
-        <div className={`grid grid-cols-3 p-4 rounded-lg ${props.className}`}>
+        <div className={`grid grid-rows-3 p-4 rounded-lg bg-white ${props.className}`}>
             <p>{props.title}</p>
             <div className="w-full h-max">{props.body}</div>
             <div className={`flex gap-2 items-center justify-end py-2 ${props.actionClassName}`}>

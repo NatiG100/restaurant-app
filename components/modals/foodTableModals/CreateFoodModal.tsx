@@ -70,7 +70,7 @@ export default function ({onClose,categoryId}:TypeCreateFoodModal){
                 disabled:isLoading,
                 iconEnd:<PlusIcon/>,
                 onClick:()=>{},
-                butonProps:{form:"addFood"},
+                buttonProps:{form:"addFood"},
             }]}
             headerSection={
                 <p className="text-xl font-bold text-indigo-700">Create Food</p>
