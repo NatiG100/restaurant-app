@@ -56,7 +56,7 @@ export default function Appbar({component} : AppbarInterface){
                     >
                         <div className="bg-gray-100 rounded-md p-2 px-3 mb-2 border border-gray-2000">
                             <p className="
-                                text-gray-600 font-semibold text-lg
+                                text-gray-600 font-semibold text-lg whitespace-nowrap
                             ">{user?.fullName}</p>
                             <p className="1
                                 text-gray-600
