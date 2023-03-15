@@ -10,8 +10,8 @@ export default function TopSalesView(props:{items:SalesItemInterface[],title:str
             bg-white shadow-sm pt-4 p-6
         ">
             <div className="pb-2 flex items-center justify-start gap-3">
-                <CircleIcon className="text-indigo-200 text-md"/>
-                <p className="text-lg font-bold text-indigo-900">{props.title}</p>
+                <CircleIcon className="text-gray-200 text-md"/>
+                <p className="font-semibold text-gray-700">{props.title}</p>
             </div>
             <div className="
                 w-full h-full flex justify-start 

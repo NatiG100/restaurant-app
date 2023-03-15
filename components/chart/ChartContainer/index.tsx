@@ -22,8 +22,8 @@ export default function ChartContainer(props:ChartContainerInterface){
         `}>
             <div className="w-full flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-indigo-200"></div>
-                    <p className="text-indigo-800 font-bold text-lg">{props.title}</p>
+                    <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-gray-200"></div>
+                    <p className="text-gray-700 font-semibold">{props.title}</p>
                 </div>
                 <select 
                     className="
