@@ -54,7 +54,7 @@ export default function Appbar({component} : AppbarInterface){
         <div className="h-20 bg-white w-full border-b border-slate-300 flex justify-between items-center px-8">
             {component}
             <div className="flex items-center justify-between gap-6">
-                {openLogoutDialogB&&<Backdrop onClick={handleClose}>
+                {openLogoutDialogB&&<Backdrop>
                     <ConfirmationBox
                         color="error"
                         title="Confirm Logout"

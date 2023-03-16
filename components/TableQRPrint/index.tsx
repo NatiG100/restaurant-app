@@ -55,13 +55,13 @@ export const TableQRPrint = React.forwardRef((props:TableQRPrintProps,ref:React.
 function SingleQR(table:TypeTable,domain:string){
     return(
         <div className="
-            h-[370px] w-[370px] border-2 border-black flex flex-col 
-            items-center justify-center gap-4 p-6 m-4
+            h-[314px] w-[350px] border-2 border-black flex flex-col 
+            items-center justify-center gap-4 p-4 m-4
         ">
-            <p className="text-4xl font-bold text-gray-800">{table.tableNumber}</p>
+            <p className="text-3xl font-bold">{table.tableNumber}</p>
             <QRCode 
                 value={domain+"/client/foods?tableNumber="+table.id||""}
-                className="h-[300px] w-[300px]"
+                className="h-[200px] w-[200px] m-4 p-6 border-2 border-dashed rounded-lg border-gray-400"
             />
         </div>
     )
