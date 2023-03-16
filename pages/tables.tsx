@@ -14,6 +14,8 @@ import Divider from "../components/UIElements/Divider";
 import {GoPlus as PlusIcon} from 'react-icons/go';
 import Backdrop from "../components/Backdrop";
 import CreateTableModal from "../components/modals/TableModal/CreateTableModal";
+import { useReactToPrint } from "react-to-print";
+import { TableQRPrint } from "../components/TableQRPrint";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -30,16 +32,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const handleOpenCreateModal = ()=>{
         setOpenCreateModal(true);
     }
-    const handlePrint = useCallback(()=>{
-        if(tableRef.current){
-            const api = gridRef.current!.api!;
-            api.setDomLayout("print");
-            setTimeout(function(){
-                print();
-                api.setDomLayout();
-            }, 2000)
-        }
-    },[tableRef])
+    // const handlePrint = useCallback(()=>{
+    //     if(tableRef.current){
+    //         const api = gridRef.current!.api!;
+    //         api.setDomLayout("print");
+    //         setTimeout(function(){
+    //             print();
+    //             api.setDomLayout();
+    //         }, 2000)
+    //     }
+    // },[tableRef])
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
@@ -88,7 +90,10 @@ export default function DrinkCategories({setAppBarComponent}:any){
         }
     },[error,response]);
 
-    
+    const tableQrsRef = useRef(null);
+    const handlePrint = useReactToPrint({
+        content:()=>tableQrsRef.current
+    })
 
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
@@ -100,6 +105,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         />
                     </Backdrop>
                 }
+                <Backdrop>
+                    <TableQRPrint tables={response?.data as TypeTable[]} handlePrint={handlePrint} ref={tableQrsRef}/>
+                </Backdrop>
                 <AgGridReact
                     context={{
                         refetch

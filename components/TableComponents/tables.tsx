@@ -97,7 +97,7 @@ const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
         }else{
             setFrontendWebDomain(localStorage.getItem("frontendWebDomain"));
         }
-    },[])
+    },[]);
     return(
         <div className="bg-white h-20 w-20 my-2">
             <QRCode 
