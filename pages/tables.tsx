@@ -32,16 +32,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const handleOpenCreateModal = ()=>{
         setOpenCreateModal(true);
     }
-    // const handlePrint = useCallback(()=>{
-    //     if(tableRef.current){
-    //         const api = gridRef.current!.api!;
-    //         api.setDomLayout("print");
-    //         setTimeout(function(){
-    //             print();
-    //             api.setDomLayout();
-    //         }, 2000)
-    //     }
-    // },[tableRef])
+    const showPreview = useCallback(()=>{
+        setOpenPrint(true);
+    },[tableRef]);
     useEffect(()=>{
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
@@ -49,7 +42,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 className="w-28 py-2" 
                 size="lg" 
                 iconStart={<AiOutlinePrinter className="text-xl"/>}
-                onClick={handlePrint}
+                onClick={showPreview}
                 >Print</IconButton>
             <div className="h-7">
                 <Divider orientation="v"/>
@@ -93,7 +86,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const tableQrsRef = useRef(null);
     const handlePrint = useReactToPrint({
         content:()=>tableQrsRef.current
-    })
+    });
+    const [openPrint, setOpenPrint] = useState(false);
 
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
@@ -105,9 +99,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         />
                     </Backdrop>
                 }
-                <Backdrop>
-                    <TableQRPrint tables={response?.data as TypeTable[]} handlePrint={handlePrint} ref={tableQrsRef}/>
-                </Backdrop>
+                {
+                    openPrint&&
+                    <Backdrop onClick={()=>{setOpenPrint(false)}}>
+                        <TableQRPrint 
+                            tables={response?.data as TypeTable[]} 
+                            handlePrint={handlePrint} 
+                            ref={tableQrsRef}
+                        />
+                    </Backdrop>
+                }
                 <AgGridReact
                     context={{
                         refetch

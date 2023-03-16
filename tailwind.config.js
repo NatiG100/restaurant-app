@@ -12,7 +12,7 @@ module.exports = {
         'mx1fr':'max-content 1fr',
         'autoCol':'auto',
         'orders':"repeat(5, minmax(150px, 1fr))",
-        'qr':"repeat(3,1fr)"
+        'qr':"repeat(2,1fr)"
       },
       gridTemplateRows:{
         'header':'max-content 1fr',

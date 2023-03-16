@@ -20,25 +20,48 @@ export const TableQRPrint = React.forwardRef((props:TableQRPrintProps,ref:React.
     },[]);
     if(!props.tables) return (<Loading type="full"/>)
     return(
-        <div className="w-[2600px] h-full overflow-auto flex justify-center pt-2 bg-gray-50 relative">
-            <div ref={ref} className="grid grid-cols-qr grid-rows-qr gap-x-[160px] gap-y-[127px] bg-white">
+        <div 
+            onClick={(event)=>{event.stopPropagation()}} 
+            className="
+                bg-gray-50 w-[1000px] h-full overflow-auto flex justify-center 
+                pt-6 pb-6  relative mb-4 mt-4
+            "
+        >
+            <div 
+                ref={ref} 
+                className="
+                    grid grid-cols-qr grid-rows-qr
+                    bg-white h-max w-full justify-center items-center p-4
+                "
+            >
                 {frontendWebDomai&&
                     props.tables.map((table)=><SingleQR {...table} key={table.id}/>)
                 }
             </div>
-            <div className="absolute bottom-4 right-4">
-                <IconButton iconStart={<BiPrinter/>} onClick={props.handlePrint}>Print</IconButton>
+            <div className="fixed bottom-4 right-4">
+                <IconButton 
+                    iconStart={<BiPrinter/>} 
+                    onClick={props.handlePrint} 
+                    className="w-32 shadow-xl shadow-black/50"
+                    color="success"
+                    size="lg"
+                >
+                    Print
+                </IconButton>
             </div>
         </div>
     );
 });
 function SingleQR(table:TypeTable,domain:string){
     return(
-        <div className="h-[1000px] w-[1000px] border-2 border-black flex items-center justify-center">
-            <p className="text-2xl font-bold text-gray-800">{table.tableNumber}</p>
+        <div className="
+            h-[370px] w-[370px] border-2 border-black flex flex-col 
+            items-center justify-center gap-4 p-6 m-4
+        ">
+            <p className="text-4xl font-bold text-gray-800">{table.tableNumber}</p>
             <QRCode 
                 value={domain+"/client/foods?tableNumber="+table.id||""}
-                className="h-[500px] w-[500px]"
+                className="h-[300px] w-[300px]"
             />
         </div>
     )
