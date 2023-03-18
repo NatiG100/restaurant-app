@@ -40,12 +40,12 @@ export default function Setting(){
       TypeUpdateSetting
     >(updateSetting);
     useEffect(()=>{
+      refetch();
       if(updateError){
         toast(updateError.message,{type:"error"});
       }
-      else if(data){
+      else if(updateData){
         toast(updateData?.message,{type:"success"});
-        refetch();
       }
     },[updateError,updateData]);
     const onSubmit = (data:TypeUpdateSetting)=>{

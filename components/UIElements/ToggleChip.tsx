@@ -22,14 +22,14 @@ export default function ToggleChip({
     return(
         <div 
             className={`
-                ${colorClass} border-2 rounded-full p-2 px-3
+                ${colorClass} border rounded-full p-3 py-1
                 h-max cursor-pointer transition-all
                 hover:shadow-md
             `}
             title={on?`Deselect ${children}`:`Select ${children}`}
             onClick={handleClick}
         >
-            <p className="text-lg">{children}</p>
+            <p className="">{children}</p>
         </div>
     );
 }

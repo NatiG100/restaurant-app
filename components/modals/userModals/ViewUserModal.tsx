@@ -139,21 +139,21 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                     </div>
                 </div>
                 <div className={classes.container + " pt-4"}>
-                <p className={classes.headerText}>Permissions</p>
-                <div className="w-full pt-4 flex flex-wrap gap-2">
-                    {
-                        allPermissions.map((permission)=>(
-                            <ToggleChip
-                                key={permission}
-                                on={isPermissionOn(permission)}
-                                onToggle={toogglePermission(permission)}
-                            >
-                                {permission}
-                            </ToggleChip>
-                        ))
-                    }
+                    <p className={classes.headerText}>Permissions</p>
+                    <div className="w-full pt-4 flex flex-wrap gap-2">
+                        {
+                            allPermissions.map((permission)=>(
+                                <ToggleChip
+                                    key={permission}
+                                    on={isPermissionOn(permission)}
+                                    onToggle={toogglePermission(permission)}
+                                >
+                                    {permission}
+                                </ToggleChip>
+                            ))
+                        }
+                    </div>
                 </div>
-            </div>
                 <Divider className='w-full my-4'/>
                 <div className='w-full flex flex-col gap-3 pt-3'>
                     <SingleImageUpload
