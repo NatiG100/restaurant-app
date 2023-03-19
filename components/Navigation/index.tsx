@@ -11,6 +11,7 @@ import {AiOutlineSetting as SettingIcon} from 'react-icons/ai';
 import {IoMdStats as StatIcon} from 'react-icons/io'
 import logo from '../../assets/svg/Logo.svg'
 import Image from "next/image";
+import Auth from "../hoc/Auth";
 
 export default function Navigation() {
   return (
@@ -53,23 +54,29 @@ export default function Navigation() {
         <hr className="border-indigo-100"/>
 
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/users">
-            <UsersIcon size={"22"}/>
-            Users
-          </NavigationMenu>
-          <NavigationMenu route="/tables">
-            <TableIcon size={"22"}/>
-            Tables
-          </NavigationMenu>
+          <Auth requiredPrevilage="View Users">
+            <NavigationMenu route="/users">
+              <UsersIcon size={"22"}/>
+              Users
+            </NavigationMenu>
+          </Auth>
+          <Auth requiredPrevilage="View Tables">
+            <NavigationMenu route="/tables">
+              <TableIcon size={"22"}/>
+              Tables
+            </NavigationMenu>
+          </Auth>
         </div>
 
         <hr className="border-indigo-100"/>
 
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/stats">
-            <StatIcon size="22"/>
-            Stats
-          </NavigationMenu>
+          <Auth requiredPrevilage="View Info">
+            <NavigationMenu route="/stats">
+              <StatIcon size="22"/>
+              Stats
+            </NavigationMenu>
+          </Auth>
           <NavigationMenu route="/setting">
             <SettingIcon size="22"/>
             Setting
