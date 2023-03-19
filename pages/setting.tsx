@@ -9,6 +9,7 @@ import Loading from "../components/UIElements/Loading";
 import {useEffect} from 'react'
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import Auth from "../components/hoc/Auth";
 
 export default function Setting(){
     const {data,error,isLoading,refetch} = useQuery<
@@ -77,13 +78,15 @@ export default function Setting(){
                   }}
                   error={errors.frontendWebDomain?.message}
                 />
-                <IconButton
-                  size="lg"
-                  color="success"
-                  className="w-full m-0 mt-8"
-                  iconStart={<EditIcon/>}
-                  buttonProps={{disabled:isUpdateLoading}}
-                >Edit Setting</IconButton>
+                <Auth requiredPrevilage="Setting">
+                  <IconButton
+                    size="lg"
+                    color="success"
+                    className="w-full m-0 mt-8"
+                    iconStart={<EditIcon/>}
+                    buttonProps={{disabled:isUpdateLoading}}
+                  >Edit Setting</IconButton>
+                </Auth>
               </form>
             </div>
           </div>

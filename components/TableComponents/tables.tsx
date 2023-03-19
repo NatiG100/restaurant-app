@@ -8,6 +8,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/typ
 import { changeTableStatus, deleteTable } from "../../services/TableService";
 import { useCallback, useEffect,useState } from "react";
 import { toast } from "react-toastify";
+import Auth from "../hoc/Auth";
 
 export interface TypeTable{
     id:string,
@@ -60,31 +61,33 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
 
     return(
         <div className="flex gap-4 font-semibold w-max">
-            {
-                params.data?.status==="Active"?
-                <Button 
+            <Auth requiredPrevilage="Manage Tables">
+                {
+                    params.data?.status==="Active"?
+                    <Button 
+                        type="outline" 
+                        color="warning" 
+                        className="w-24"
+                        disabled={statusLoading}
+                        onClick={()=>{changeStatus({id,status:"Suspended"})}}
+                    >Suspend</Button>:
+                    <Button 
+                        type="outline" 
+                        color="success" 
+                        className="w-24"
+                        disabled={statusLoading}
+                        onClick={()=>{changeStatus({id,status:"Active"})}}
+                    >Activate</Button>
+                }
+                <IconButton 
                     type="outline" 
-                    color="warning" 
-                    className="w-24"
-                    disabled={statusLoading}
-                    onClick={()=>{changeStatus({id,status:"Suspended"})}}
-                >Suspend</Button>:
-                <Button 
-                    type="outline" 
-                    color="success" 
-                    className="w-24"
-                    disabled={statusLoading}
-                    onClick={()=>{changeStatus({id,status:"Active"})}}
-                >Activate</Button>
-            }
-            <IconButton 
-                type="outline" 
-                className="w-24 h-11"
-                color='error'
-                iconEnd={<DeleteIcon className="text-xl"/>}
-                disabled={isLoading}
-                onClick={handleDelete}
-            >Delete</IconButton>
+                    className="w-24 h-11"
+                    color='error'
+                    iconEnd={<DeleteIcon className="text-xl"/>}
+                    disabled={isLoading}
+                    onClick={handleDelete}
+                >Delete</IconButton>
+            </Auth>
         </div>
     );
 }

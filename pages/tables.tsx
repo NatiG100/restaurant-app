@@ -16,6 +16,7 @@ import Backdrop from "../components/Backdrop";
 import CreateTableModal from "../components/modals/TableModal/CreateTableModal";
 import { useReactToPrint } from "react-to-print";
 import { TableQRPrint } from "../components/TableQRPrint";
+import Auth from "../components/hoc/Auth";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -44,17 +45,19 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 iconStart={<AiOutlinePrinter className="text-xl"/>}
                 onClick={showPreview}
                 >Print</IconButton>
-            <div className="h-7">
-                <Divider orientation="v"/>
-            </div>
-            <IconButton 
-                className="w-46 py-2" 
-                size="lg" 
-                type="outline"
-                color="success"
-                iconEnd={<PlusIcon className="text-xl"/>}
-                onClick={handleOpenCreateModal}
-                >Add New Table</IconButton>
+            <Auth requiredPrevilage="Manage Tables">
+                <div className="h-7">
+                    <Divider orientation="v"/>
+                </div>
+                <IconButton 
+                    className="w-46 py-2" 
+                    size="lg" 
+                    type="outline"
+                    color="success"
+                    iconEnd={<PlusIcon className="text-xl"/>}
+                    onClick={handleOpenCreateModal}
+                    >Add New Table</IconButton>
+            </Auth>
           </div>
           
           );

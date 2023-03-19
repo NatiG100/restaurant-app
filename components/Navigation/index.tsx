@@ -37,10 +37,12 @@ export default function Navigation() {
             <DashboardIcon size={"22"}/>
             Dashboard
           </NavigationMenu>
-          <NavigationMenu route="/orders">
-            <OrderIcon size={"22"}/>
-            Orders
-          </NavigationMenu>
+          <Auth requiredPrevilage="View Orders">
+            <NavigationMenu route="/orders">
+              <OrderIcon size={"22"}/>
+              Orders
+            </NavigationMenu>
+          </Auth>
           <NavigationMenu route="/foods" defaultRoute="/categories">
             <FoodIcon size={"22"}/>
             Foods
