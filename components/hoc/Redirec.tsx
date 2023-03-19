@@ -11,18 +11,14 @@ export default function Redirect({children}:{children:React.ReactElement}){
     const [loading, setLoading]= useState(true);
     useEffect(()=>{
         if(user){
-            if(user.previlages.includes("View Info")){
+            if(router.pathname==='/login'){
                 router.replace('/').then(()=>{
                     setTimeout(()=>{
                         setLoading(false);
                     },500);
                 });
-            }else if(router.pathname!=="/foods/categories"){
-                router.replace('/foods/categories').then(()=>{
-                    setTimeout(()=>{
-                        setLoading(false);
-                    },500);
-                });  
+            }else{
+                setLoading(false);
             }
         }else if(!user){
             router.replace('/login').then(()=>{
