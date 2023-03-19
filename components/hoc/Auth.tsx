@@ -10,6 +10,6 @@ export interface AuthProps{
 }
 export default function Auth({requiredPrevilage,children}:AuthProps){
     const user:TypeUser = useSelector<RootState>((state)=>(state?.auth.user)) as TypeUser;
-    if(user.previlages.includes(requiredPrevilage))return children
-    return null;
+    if(user?.previlages.includes(requiredPrevilage))return <>{children}</>
+    return <></>;
 }
