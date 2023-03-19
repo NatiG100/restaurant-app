@@ -11,6 +11,8 @@ import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import { changeOrderStatus, fetchAllOrders, TypeChangeOrderStatus } from "../services/OrderService";
 import { toast } from "react-toastify";
+import usePageRedirect from "../components/hoc/usePageRedirect";
+import Loading from "../components/UIElements/Loading";
 
 
 export default function Orders({setAppBarComponent}:any){
@@ -109,6 +111,10 @@ export default function Orders({setAppBarComponent}:any){
     const handleOrderModalClose = ()=>{
         setSelectedOrder(null);
     }
+
+    //redirect page
+    const finished = usePageRedirect("View Orders");
+    if(!finished) return <Loading type="full"/>
     return (
         <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
             {selectedOrder?<Backdrop onClick={handleOrderModalClose}>

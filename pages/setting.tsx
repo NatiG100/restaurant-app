@@ -52,6 +52,7 @@ export default function Setting(){
     const onSubmit = (data:TypeUpdateSetting)=>{
       mutate(data);
     }
+    
     if(isLoading) return <Loading type="full"/>
     return (
         <Body title="Setting">

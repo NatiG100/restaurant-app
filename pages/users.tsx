@@ -13,6 +13,8 @@ import { useMutation, useQuery } from "react-query";
 import { changeUserStatus, fetchAllUsers } from "../services/UsersService";
 import { toast } from "react-toastify";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
+import usePageRedirect from "../components/hoc/usePageRedirect";
+import Loading from "../components/UIElements/Loading";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -114,6 +116,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
         setSelecteduser(null);
         refetch();
     }
+    //redirect page
+    const finished = usePageRedirect("View Users");
+    if(!finished) return <Loading type="full"/>
     return (
         <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
             {

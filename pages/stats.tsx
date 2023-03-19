@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import Body from "../components/Body";
+import usePageRedirect from "../components/hoc/usePageRedirect";
 import StatGroup from "../components/stats/StatGroup";
 import StatItem from "../components/stats/StatItem";
 import Button from "../components/UIElements/Button";
 import Input from "../components/UIElements/Input";
 import LabledInput from "../components/UIElements/LabledInput";
+import Loading from "../components/UIElements/Loading";
 import useFromTo from "../hooks/useFromTo";
 import { formatDate } from "../utils/date";
 
@@ -59,6 +61,9 @@ export default function Stats({setAppBarComponent}:any){
       value:12,
     },
   ]
+    //redirect page
+    const finished = usePageRedirect("View Info");
+    if(!finished) return <Loading type="full"/>
     return (
     <Body title="Stats">
       <div className="

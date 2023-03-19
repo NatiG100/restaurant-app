@@ -33,10 +33,12 @@ export default function Navigation() {
 
       <div className="h-full w-full flex flex-col gap-6 pt-10 pb-4">
         <div className="w-full px-2 flex flex-col gap-4">
-          <NavigationMenu route="/" only>
-            <DashboardIcon size={"22"}/>
-            Dashboard
-          </NavigationMenu>
+          <Auth requiredPrevilage="View Info">
+            <NavigationMenu route="/" only>
+              <DashboardIcon size={"22"}/>
+              Dashboard
+            </NavigationMenu>
+          </Auth>
           <Auth requiredPrevilage="View Orders">
             <NavigationMenu route="/orders">
               <OrderIcon size={"22"}/>

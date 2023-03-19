@@ -17,6 +17,8 @@ import CreateTableModal from "../components/modals/TableModal/CreateTableModal";
 import { useReactToPrint } from "react-to-print";
 import { TableQRPrint } from "../components/TableQRPrint";
 import Auth from "../components/hoc/Auth";
+import usePageRedirect from "../components/hoc/usePageRedirect";
+import Loading from "../components/UIElements/Loading";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -91,7 +93,9 @@ export default function DrinkCategories({setAppBarComponent}:any){
         content:()=>tableQrsRef.current
     });
     const [openPrint, setOpenPrint] = useState(false);
-
+    //redirect page
+    const finished = usePageRedirect("View Tables");
+    if(!finished) return <Loading type="full"/>
     return (
             <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
                 {
