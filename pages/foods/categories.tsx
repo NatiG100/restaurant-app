@@ -15,6 +15,7 @@ import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
 import { changeFoodCategoryStatus, fetchAllFoodCategories, TypeChangeFoodCategoryStatus } from "../../services/FoodCategoryService";
 import {toast} from 'react-toastify';
+import Auth from "../../components/hoc/Auth";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -37,17 +38,19 @@ export default function DrinkCategories({setAppBarComponent}:any){
         setAppBarComponent(
           <div className="h-full flex gap-4 items-center">
             <p className="text-2xl text-indigo-600 font-semibold">Categories</p>
-            <div className="h-7">
-                <Divider orientation="v"/>
-            </div>
-            <IconButton 
-                className="w-46 py-2" 
-                size="lg" 
-                type="outline"
-                color="success"
-                iconEnd={<PlusIcon className="text-xl"/>}
-                onClick={handleCreateModalOpen}
-            >Create New Category</IconButton>
+            <Auth requiredPrevilage="Manage Items">
+                <div className="h-7">
+                    <Divider orientation="v"/>
+                </div>
+                <IconButton 
+                    className="w-46 py-2" 
+                    size="lg" 
+                    type="outline"
+                    color="success"
+                    iconEnd={<PlusIcon className="text-xl"/>}
+                    onClick={handleCreateModalOpen}
+                >Create New Category</IconButton>
+            </Auth>
           </div>
           
         );
@@ -133,14 +136,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         />
                     </Backdrop>
                 }
-                {
-                    openModal&&
-                    <Backdrop onClick={handleCreateModalClose}>
-                        <CreateFoodCategoryModal
-                            onClose={handleCreateModalClose}
-                        />
-                    </Backdrop>
-                }
+                <Auth requiredPrevilage="Manage Items">
+                    {
+                        openModal&&
+                        <Backdrop onClick={handleCreateModalClose}>
+                            <CreateFoodCategoryModal
+                                onClose={handleCreateModalClose}
+                            />
+                        </Backdrop>
+                    }
+                </Auth>
                 <AgGridReact
                     context={{
                         setSelectedFoodCategory,

@@ -15,6 +15,7 @@ import { useMutation, useQuery } from "react-query";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/types";
 import { changeFoodStatus, fetchAllFoods, TypeChangeFoodStatus } from "../../services/FoodService";
 import { toast } from "react-toastify";
+import Auth from "../../components/hoc/Auth";
 
 
 
@@ -43,17 +44,19 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 <Button type="text" className="w-28" size="lg" onClick={handleCategoriesClicked}>Categories</Button>
                 <p className="text-2xl text-indigo-600 font-semibold">/ {router.query.name}</p>
             </div>
-            <div className="h-7">
-                <Divider orientation="v"/>
-            </div>
-            <IconButton 
-                className="w-46 py-2" 
-                size="lg" 
-                type="outline"
-                color="success"
-                iconEnd={<PlusIcon className="text-xl"/>}
-                onClick={handleOpenCreateModal}
-            >Create New Food</IconButton>
+            <Auth requiredPrevilage="Manage Items">
+                <div className="h-7">
+                    <Divider orientation="v"/>
+                </div>
+                <IconButton 
+                    className="w-46 py-2" 
+                    size="lg" 
+                    type="outline"
+                    color="success"
+                    iconEnd={<PlusIcon className="text-xl"/>}
+                    onClick={handleOpenCreateModal}
+                >Create New Food</IconButton>
+            </Auth>
           </div>
           
         );
@@ -127,15 +130,17 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         />
                     </Backdrop>
                 }
-                {
-                    openCreateModal&&
-                    <Backdrop onClick={handleCloseCreateModal}>
-                        <CreateFoodModal
-                            onClose={handleCloseCreateModal}
-                            categoryId={id as string}
-                        />
-                    </Backdrop>
-                }
+                <Auth requiredPrevilage="Manage Items">
+                    {
+                        openCreateModal&&
+                        <Backdrop onClick={handleCloseCreateModal}>
+                            <CreateFoodModal
+                                onClose={handleCloseCreateModal}
+                                categoryId={id as string}
+                            />
+                        </Backdrop>
+                    }
+                </Auth>
                 <AgGridReact
                     ref={gridRef}
                     rowData={data?.data}

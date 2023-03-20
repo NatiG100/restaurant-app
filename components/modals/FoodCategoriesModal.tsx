@@ -4,6 +4,7 @@ import {BiSave as SaveIcon} from 'react-icons/bi'
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import baseURL from '../../constants/BASE_URL';
+import useRequireauthorize from '../../hooks/useRequireAuthorization';
 import { TypeChangeFoodCategoryStatus, TypeUpdateFoodCategory, updateFoodCategory } from '../../services/FoodCategoryService';
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../types/types';
 import SingleImageUpload from '../SingleImageUpload';
@@ -77,38 +78,46 @@ export default function FoodCategoriesModal({category,onClose,changeStatus,isSta
         }
     },[error,data])
 
-    const actionButtons:TypeIconButton[] = [
-        {
-            type:"outline",
-            children:"Save Changes",
-            iconEnd:<SaveIcon/>,
-            className:"w-36",
-            color:"warning",
-            disabled:isLoading,
-            buttonProps:{
-                form:"updateFoodCategory"
+    const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Items"});
+    const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
+    useEffect(()=>{
+        let authorizedActions:TypeIconButton[] =[]; 
+        if(isAuthorized){
+            authorizedActions = [
+                {
+                    type:"outline",
+                    children:"Save Changes",
+                    iconEnd:<SaveIcon/>,
+                    className:"w-36",
+                    color:"warning",
+                    disabled:isLoading,
+                    buttonProps:{
+                        form:"updateFoodCategory"
+                    }
+                }
+            ];
+            if(category.status==='Active'){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Deactivate",
+                    color: "error",
+                    className:"w-24",
+                    onClick:()=>changeStatus({id:category.id,status:"Suspended"}),
+                    disabled:isStatusChangeLoading
+                });
+            } else if(category.status==="Suspended"){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Activate",
+                    color: "success",
+                    className:"w-24",
+                    onClick:()=>changeStatus({id:category.id,status:"Active"}),
+                    disabled:isStatusChangeLoading
+                });
             }
+            setActionButtons(authorizedActions);
         }
-    ];
-    if(category.status==='Active'){
-        actionButtons.push({
-            type:"outline",
-            children:"Deactivate",
-            color: "error",
-            className:"w-24",
-            onClick:()=>changeStatus({id:category.id,status:"Suspended"}),
-            disabled:isStatusChangeLoading
-        });
-    } else if(category.status==="Suspended"){
-        actionButtons.push({
-            type:"outline",
-            children:"Activate",
-            color: "success",
-            className:"w-24",
-            onClick:()=>changeStatus({id:category.id,status:"Active"}),
-            disabled:isStatusChangeLoading
-        });
-    }
+    },[isAuthorized,category])
     return(
         <BaseModal
             headerSection={
@@ -153,7 +162,8 @@ export default function FoodCategoriesModal({category,onClose,changeStatus,isSta
                         <LabledInput
                             inputProps={{
                                 ...register("name",{required:"Category name is required"}),
-                                placeholder:"Name"
+                                placeholder:"Name",
+                                disabled:!isAuthorized
                             }}
                             label="Name"
                             fullWidth
@@ -162,7 +172,8 @@ export default function FoodCategoriesModal({category,onClose,changeStatus,isSta
                         <LabledTextarea
                             inputProps={{
                                 ...register("description"),
-                                rows:4,style:{resize:"none"}
+                                rows:4,style:{resize:"none"},
+                                disabled:!isAuthorized
                             }}
                             label="Description"
                             fullWidth

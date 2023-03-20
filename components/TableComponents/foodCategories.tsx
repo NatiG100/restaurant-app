@@ -2,6 +2,7 @@ import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community"
 import Image from "next/image";
 import React from "react";
 import baseURL from "../../constants/BASE_URL";
+import Auth from "../hoc/Auth";
 import Button from "../UIElements/Button";
 
 export interface TypeFoodCategory{
@@ -24,29 +25,31 @@ const FoodCategoriesActionCell = (params:ICellRendererParams<TypeFoodCategory>)=
     const changeStatus = params.context.requestStatusUpdate;
     return(
         <div className="flex gap-4 font-semibold w-max">
-                    <Button 
-                        type="outline" 
-                        className="w-24" 
-                        onClick={handleViewClicked}
-                    >View</Button>
-            {
-                params.data?.status==="Active"?
-                    <Button 
-                        type="outline" 
-                        color="error" 
-                        className="w-24"
-                        disabled={loading}
-                        onClick={()=>changeStatus({id:params.data?.id,status:"Suspended"})}
-                    >Deactivate</Button>:
-                    <Button 
-                        type="outline" 
-                        color="success" 
-                        className="w-24"
-                        disabled={loading}
-                        onClick={()=>changeStatus({id:params.data?.id,status:"Active"})}
+            <Button 
+                type="outline" 
+                className="w-24" 
+                onClick={handleViewClicked}
+            >View</Button>
+            <Auth requiredPrevilage="Manage Items">
+                {
+                    params.data?.status==="Active"?
+                        <Button 
+                            type="outline" 
+                            color="error" 
+                            className="w-24"
+                            disabled={loading}
+                            onClick={()=>changeStatus({id:params.data?.id,status:"Suspended"})}
+                        >Deactivate</Button>:
+                        <Button 
+                            type="outline" 
+                            color="success" 
+                            className="w-24"
+                            disabled={loading}
+                            onClick={()=>changeStatus({id:params.data?.id,status:"Active"})}
 
-                    >Activate</Button>
-            }
+                        >Activate</Button>
+                }
+            </Auth>
         </div>
     );
 }

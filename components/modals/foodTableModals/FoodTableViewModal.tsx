@@ -13,6 +13,7 @@ import { useMutation } from 'react-query';
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/types';
 import { TypeChangeFoodStatus, TypeUpdateFood, updateFood } from '../../../services/FoodService';
 import { toast } from 'react-toastify';
+import useRequireauthorize from '../../../hooks/useRequireAuthorization';
 
 export interface TypeFoodTableViewModal{
     food:TypeFood,
@@ -57,40 +58,49 @@ export default function FoodTableViewModal({onClose, food, changeStatus,isStatus
             toast(data?.message,{type:"success"});
             onClose();
         }
-    },[error,data])
-    const actionButtons:TypeIconButton[] = [
-        {
-            type:"outline",
-            children:"Save Changes",
-            iconEnd:<SaveIcon/>,
-            className:"w-36",
-            color:"warning",
-            disabled:isLoading,
-            onClick:()=>{},
-            buttonProps:{
-                form:"updateFood"
+    },[error,data]);
+
+    const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Items"});
+    const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
+    useEffect(()=>{
+        let authorizedActions:TypeIconButton[] =[]; 
+        if(isAuthorized){
+            authorizedActions= [
+                {
+                    type:"outline",
+                    children:"Save Changes",
+                    iconEnd:<SaveIcon/>,
+                    className:"w-36",
+                    color:"warning",
+                    disabled:isLoading,
+                    onClick:()=>{},
+                    buttonProps:{
+                        form:"updateFood"
+                    }
+                }
+            ];
+            if(food.status==='Active'){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Deactivate",
+                    color: "error",
+                    className:"w-24",
+                    disabled:isStatusChangeLoading,
+                    onClick:()=>{changeStatus({status:"Suspended",id:food.id})}
+                });
+            } else if(food.status==="Suspended"){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Activate",
+                    color: "success",
+                    className:"w-24",
+                    disabled:isStatusChangeLoading,
+                    onClick:()=>{changeStatus({status:"Active",id:food.id})}
+                });
             }
+            setActionButtons(authorizedActions);
         }
-    ];
-    if(food.status==='Active'){
-        actionButtons.push({
-            type:"outline",
-            children:"Deactivate",
-            color: "error",
-            className:"w-24",
-            disabled:isStatusChangeLoading,
-            onClick:()=>{changeStatus({status:"Suspended",id:food.id})}
-        });
-    } else if(food.status==="Suspended"){
-        actionButtons.push({
-            type:"outline",
-            children:"Activate",
-            color: "success",
-            className:"w-24",
-            disabled:isStatusChangeLoading,
-            onClick:()=>{changeStatus({status:"Active",id:food.id})}
-        });
-    }
+    },[food,isAuthorized])
 
     const classes = {
         headerText:"text-lg font-bold text-gray-700",
@@ -149,7 +159,8 @@ export default function FoodTableViewModal({onClose, food, changeStatus,isStatus
                         <LabledInput
                             inputProps={{
                                 ...register('name',{required:"Cost is required"}),
-                                placeholder:"Name"
+                                placeholder:"Name",
+                                disabled:!isAuthorized
                             }}
                             label="Name"
                             fullWidth
@@ -160,6 +171,7 @@ export default function FoodTableViewModal({onClose, food, changeStatus,isStatus
                                 ...register('cost',{required:"Cost is required"}),
                                 placeholder:"Cost",
                                 type:"number",
+                                disabled:!isAuthorized
                             }}
                             label="Cost"
                             fullWidth
@@ -169,7 +181,8 @@ export default function FoodTableViewModal({onClose, food, changeStatus,isStatus
                             inputProps={{
                                 ...register('description'),
                                 placeholder:"Description", 
-                                rows:4,style:{resize:"none"}
+                                rows:4,style:{resize:"none"},
+                                disabled:!isAuthorized
                             }}
                             label="Description"
                             fullWidth
