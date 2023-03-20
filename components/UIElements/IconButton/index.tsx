@@ -32,7 +32,7 @@ export default function IconButton({
                 ${disabled&&"opacity-70"} ${disabled&&"pointer-events-none"}
                 flex gap-2 items-center justify-center
                 rounded-md transition-all ${className}
-                 m-1 py-2 font-semibold
+                 m-1 py-2 
                 ${size==="sm"?"text-xs p-1":size==="smd"?"text-sm p-2":size==="lg"&&"text-lg p-2"}
                 ${
                     type==="outline"?`border 
