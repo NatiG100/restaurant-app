@@ -68,9 +68,9 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
     const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
     const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Users"});
     useEffect(()=>{
-        let addedActionButtons:TypeIconButton[] = [];
+        let authorizedActions:TypeIconButton[] = [];
         if(isAuthorized){
-            addedActionButtons = [{
+            authorizedActions = [{
                 type:"outline",
                 children:"Save Changes",
                 iconEnd:<SaveIcon/>,
@@ -82,7 +82,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                 }
             }];
             if(user.status==='Active'){
-                addedActionButtons.push({
+                authorizedActions.push({
                     type:"outline",
                     children:"Suspend",
                     color: "error",
@@ -91,7 +91,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                     disabled:isStatusChangeLoading
                 });
             } else if(user.status==="Suspended"){
-                addedActionButtons.push({
+                authorizedActions.push({
                     type:"outline",
                     children:"Activate",
                     color: "success",
@@ -100,7 +100,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                     disabled:isStatusChangeLoading
                 });
             }
-            setActionButtons(addedActionButtons);
+            setActionButtons(authorizedActions);
         }
     },[isAuthorized,user]) 
 

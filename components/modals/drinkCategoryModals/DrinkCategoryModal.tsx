@@ -14,6 +14,7 @@ import LabledTextarea from '../../UIElements/LabledTextArea';
 import BaseModal from "./../BaseModal";
 import {useEffect} from 'react'
 import { toast } from 'react-toastify';
+import useRequireauthorize from '../../../hooks/useRequireAuthorization';
 
 export interface TypeDrinkCatagoriesModal{
     category:TypeDrinkCategory,
@@ -77,38 +78,46 @@ export default function DrinkCategoriesModal({category,onClose,changeStatus,isSt
         }
     },[error,data]);
 
-    const actionButtons:TypeIconButton[] = [
-        {
-            type:"outline",
-            children:"Save Changes",
-            iconEnd:<SaveIcon/>,
-            className:"w-36",
-            color:"warning",
-            disabled:isLoading,
-            buttonProps:{
-                form:"updateDrinkCategory"
+    const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Items"});
+    const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
+    useEffect(()=>{
+        let authorizedActions:TypeIconButton[] =[]; 
+        if(isAuthorized){
+            authorizedActions = [
+                {
+                    type:"outline",
+                    children:"Save Changes",
+                    iconEnd:<SaveIcon/>,
+                    className:"w-36",
+                    color:"warning",
+                    disabled:isLoading,
+                    buttonProps:{
+                        form:"updateDrinkCategory"
+                    }
+                }
+            ];
+            if(category.status==='Active'){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Deactivate",
+                    color: "error",
+                    className:"w-24",
+                    onClick:()=>changeStatus({id:category.id,status:"Suspended"}),
+                    disabled:isStatusChangeLoading
+                });
+            } else if(category.status==="Suspended"){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Activate",
+                    color: "success",
+                    className:"w-24",
+                    onClick:()=>changeStatus({id:category.id,status:"Active"}),
+                    disabled:isStatusChangeLoading
+                });
             }
+            setActionButtons(authorizedActions);
         }
-    ];
-    if(category.status==='Active'){
-        actionButtons.push({
-            type:"outline",
-            children:"Deactivate",
-            color: "error",
-            className:"w-24",
-            onClick:()=>changeStatus({id:category.id,status:"Suspended"}),
-            disabled:isStatusChangeLoading
-        });
-    } else if(category.status==="Suspended"){
-        actionButtons.push({
-            type:"outline",
-            children:"Activate",
-            color: "success",
-            className:"w-24",
-            onClick:()=>changeStatus({id:category.id,status:"Active"}),
-            disabled:isStatusChangeLoading
-        });
-    }
+    },[isAuthorized,category])
     return(
         <BaseModal
             headerSection={
@@ -153,7 +162,8 @@ export default function DrinkCategoriesModal({category,onClose,changeStatus,isSt
                         <LabledInput
                             inputProps={{
                                 ...register("name",{required:"Category name is required"}),
-                                placeholder:"Name"
+                                placeholder:"Name",
+                                disabled:!isAuthorized
                             }}
                             label="Name"
                             fullWidth
@@ -162,7 +172,8 @@ export default function DrinkCategoriesModal({category,onClose,changeStatus,isSt
                         <LabledTextarea
                             inputProps={{
                                 ...register("description"),
-                                rows:4,style:{resize:"none"}
+                                rows:4,style:{resize:"none"},
+                                disabled:!isAuthorized
                             }}
                             label="Description"
                             fullWidth

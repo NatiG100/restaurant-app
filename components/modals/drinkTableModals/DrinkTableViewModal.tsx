@@ -14,6 +14,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from '../../../types/
 import { TypeChangeDrinkStatus, TypeUpdateDrink, updateDrink } from '../../../services/DrinkService';
 import {useEffect} from 'react'
 import { toast } from 'react-toastify';
+import useRequireauthorize from '../../../hooks/useRequireAuthorization';
 
 export interface TypeDrinkTableViewModal{
     drink:TypeDrink,
@@ -58,39 +59,48 @@ export default function DrinkTableViewModal({onClose, drink,changeStatus,isStatu
             onClose();
         }
     },[error,data]);
-    const actionButtons:TypeIconButton[] = [
-        {
-            type:"outline",
-            children:"Save Changes",
-            iconEnd:<SaveIcon/>,
-            className:"w-36",
-            color:"warning",
-            disabled:isLoading,
-            onClick:()=>{},
-            buttonProps:{
-                form:"updateDrink"
+
+    const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Items"});
+    const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
+    useEffect(()=>{
+        let authorizedActions:TypeIconButton[] =[]; 
+        if(isAuthorized){
+            authorizedActions = [
+                {
+                    type:"outline",
+                    children:"Save Changes",
+                    iconEnd:<SaveIcon/>,
+                    className:"w-36",
+                    color:"warning",
+                    disabled:isLoading,
+                    onClick:()=>{},
+                    buttonProps:{
+                        form:"updateDrink"
+                    }
+                }
+            ];
+            if(drink.status==='Active'){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Deactivate",
+                    color: "error",
+                    className:"w-24",
+                    disabled:isStatusChangeLoading,
+                    onClick:()=>{changeStatus({status:"Suspended",id:drink.id})}
+                });
+            } else if(drink.status==="Suspended"){
+                authorizedActions.push({
+                    type:"outline",
+                    children:"Activate",
+                    color: "success",
+                    className:"w-24",
+                    disabled:isStatusChangeLoading,
+                    onClick:()=>{changeStatus({status:"Active",id:drink.id})}
+                });
             }
+            setActionButtons(authorizedActions);
         }
-    ];
-    if(drink.status==='Active'){
-        actionButtons.push({
-            type:"outline",
-            children:"Deactivate",
-            color: "error",
-            className:"w-24",
-            disabled:isStatusChangeLoading,
-            onClick:()=>{changeStatus({status:"Suspended",id:drink.id})}
-        });
-    } else if(drink.status==="Suspended"){
-        actionButtons.push({
-            type:"outline",
-            children:"Activate",
-            color: "success",
-            className:"w-24",
-            disabled:isStatusChangeLoading,
-            onClick:()=>{changeStatus({status:"Active",id:drink.id})}
-        });
-    }
+    },[isAuthorized,drink])
 
     const classes = {
         headerText:"text-lg font-bold text-gray-700",
@@ -149,7 +159,8 @@ export default function DrinkTableViewModal({onClose, drink,changeStatus,isStatu
                         <LabledInput
                             inputProps={{
                                 ...register('name',{required:"Cost is required"}),
-                                placeholder:"Name"
+                                placeholder:"Name",
+                                disabled:!isAuthorized,
                             }}
                             label="Name"
                             fullWidth
@@ -160,6 +171,7 @@ export default function DrinkTableViewModal({onClose, drink,changeStatus,isStatu
                                 ...register('cost',{required:"Cost is required"}),
                                 placeholder:"Cost",
                                 type:"number",
+                                disabled:!isAuthorized,
                             }}
                             label="Cost"
                             fullWidth
@@ -169,7 +181,8 @@ export default function DrinkTableViewModal({onClose, drink,changeStatus,isStatu
                             inputProps={{
                                 ...register('description'),
                                 placeholder:"Description", 
-                                rows:4,style:{resize:"none"}
+                                rows:4,style:{resize:"none"},
+                                disabled:!isAuthorized,
                             }}
                             label="Description"
                             fullWidth
