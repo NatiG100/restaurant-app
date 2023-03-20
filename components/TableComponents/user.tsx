@@ -2,6 +2,7 @@ import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community"
 import Image from "next/image";
 import { TypePermission } from "../../assets/permissions";
 import baseURL from "../../constants/BASE_URL";
+import Auth from "../hoc/Auth";
 import Button from "../UIElements/Button";
 
 export interface TypeUser{
@@ -23,23 +24,25 @@ const UserActionCell = (params:ICellRendererParams<TypeUser>)=>{
                     params.context?.setSelecteduser(params.data);
                 }}
             >View</Button>
-            {
-                params.data?.status==="Active"?
-                <Button 
-                        type="outline" 
-                        color="error" 
-                        className="w-24"
-                        onClick={()=>params.context?.requestStatusUpdate({status:"Suspended",id:params.data?.id})}
-                        disabled={params.context?.isStatusUpdateLoading}
-                    >Suspend</Button>:
+            <Auth requiredPrevilage="Manage Users">
+                {
+                    params.data?.status==="Active"?
                     <Button 
-                        type="outline" 
-                        color="success" 
-                        className="w-24"
-                        onClick={()=>params.context?.requestStatusUpdate({status:"Active",id:params.data?.id})}
-                        disabled={params.context?.isStatusUpdateLoading}
-                    >Activate</Button>
-            }
+                            type="outline" 
+                            color="error" 
+                            className="w-24"
+                            onClick={()=>params.context?.requestStatusUpdate({status:"Suspended",id:params.data?.id})}
+                            disabled={params.context?.isStatusUpdateLoading}
+                        >Suspend</Button>:
+                        <Button 
+                            type="outline" 
+                            color="success" 
+                            className="w-24"
+                            onClick={()=>params.context?.requestStatusUpdate({status:"Active",id:params.data?.id})}
+                            disabled={params.context?.isStatusUpdateLoading}
+                        >Activate</Button>
+                }
+            </Auth>
         </div>
     );
 }

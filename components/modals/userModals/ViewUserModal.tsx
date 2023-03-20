@@ -16,6 +16,7 @@ import { changeUserStatus, TypeAddUser, updateUser } from "../../../services/Use
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../../types/types";
+import useRequireauthorize from "../../../hooks/useRequireAuthorization";
 
 
 export interface TypeViewUserModal{
@@ -64,38 +65,45 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
     },[error,data])
 
     //action buttons
-    const actionButtons:TypeIconButton[] = [
-        {
-            type:"outline",
-            children:"Save Changes",
-            iconEnd:<SaveIcon/>,
-            className:"w-36",
-            color:"warning",
-            disabled:isLoading,
-            buttonProps:{
-                form:"updateUser"
+    const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
+    const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Users"});
+    useEffect(()=>{
+        const addedActionButtons:TypeIconButton[] = [];
+        if(isAuthorized){
+            addedActionButtons.push({
+                type:"outline",
+                children:"Save Changes",
+                iconEnd:<SaveIcon/>,
+                className:"w-36",
+                color:"warning",
+                disabled:isLoading,
+                buttonProps:{
+                    form:"updateUser"
+                }
+            });
+            if(user.status==='Active'){
+                addedActionButtons.push({
+                    type:"outline",
+                    children:"Suspend",
+                    color: "error",
+                    className:"w-24",
+                    onClick:()=>changeUserStatus({status:'Suspended',id:user.id}),
+                    disabled:isStatusChangeLoading
+                });
+            } else if(user.status==="Suspended"){
+                addedActionButtons.push({
+                    type:"outline",
+                    children:"Activate",
+                    color: "success",
+                    className:"w-24",
+                    onClick:()=>changeUserStatus({status:'Active',id:user.id}),
+                    disabled:isStatusChangeLoading
+                });
             }
+            setActionButtons((prev)=>([...prev,...addedActionButtons]));
         }
-    ];
-    if(user.status==='Active'){
-        actionButtons.push({
-            type:"outline",
-            children:"Suspend",
-            color: "error",
-            className:"w-24",
-            onClick:()=>changeUserStatus({status:'Suspended',id:user.id}),
-            disabled:isStatusChangeLoading
-        });
-    } else if(user.status==="Suspended"){
-        actionButtons.push({
-            type:"outline",
-            children:"Activate",
-            color: "success",
-            className:"w-24",
-            onClick:()=>changeUserStatus({status:'Active',id:user.id}),
-            disabled:isStatusChangeLoading
-        });
-    }
+    },[isAuthorized]) 
+
 
     //permission editor
     const {

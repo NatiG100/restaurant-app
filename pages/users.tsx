@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types";
 import usePageRedirect from "../components/hoc/usePageRedirect";
 import Loading from "../components/UIElements/Loading";
+import Auth from "../components/hoc/Auth";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -42,14 +43,16 @@ export default function DrinkCategories({setAppBarComponent}:any){
             <div className="h-7">
                 <Divider orientation="v"/>
             </div>
-            <IconButton 
-                className="w-46 py-2" 
-                size="lg" 
-                type="outline"
-                color="success"
-                iconEnd={<PlusIcon className="text-xl"/>}
-                onClick={handleAddModalOpen}
-            >Add New User</IconButton>
+            <Auth requiredPrevilage="Manage Users">
+                <IconButton 
+                    className="w-46 py-2" 
+                    size="lg" 
+                    type="outline"
+                    color="success"
+                    iconEnd={<PlusIcon className="text-xl"/>}
+                    onClick={handleAddModalOpen}
+                >Add New User</IconButton>
+            </Auth>
           </div>
           
         );
@@ -132,12 +135,14 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     />
                 </Backdrop>
             }
-            {
-                openAddModal&&
-                <Backdrop onClick={handleAddModalClose}>
-                    <AddUserModal onClose={handleAddModalClose}/>
-                </Backdrop>
-            }
+            <Auth requiredPrevilage="Manage Users">
+                {
+                    openAddModal&&
+                    <Backdrop onClick={handleAddModalClose}>
+                        <AddUserModal onClose={handleAddModalClose}/>
+                    </Backdrop>
+                }
+            </Auth>
             <AgGridReact
                 context={{
                     setSelecteduser,
