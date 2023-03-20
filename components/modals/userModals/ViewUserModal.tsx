@@ -68,9 +68,9 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
     const [actionButtons,setActionButtons] = useState<TypeIconButton[]>([]);
     const isAuthorized = useRequireauthorize({requiredPrevilage:"Manage Users"});
     useEffect(()=>{
-        const addedActionButtons:TypeIconButton[] = [];
+        let addedActionButtons:TypeIconButton[] = [];
         if(isAuthorized){
-            addedActionButtons.push({
+            addedActionButtons = [{
                 type:"outline",
                 children:"Save Changes",
                 iconEnd:<SaveIcon/>,
@@ -80,7 +80,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                 buttonProps:{
                     form:"updateUser"
                 }
-            });
+            }];
             if(user.status==='Active'){
                 addedActionButtons.push({
                     type:"outline",
@@ -100,9 +100,9 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                     disabled:isStatusChangeLoading
                 });
             }
-            setActionButtons((prev)=>([...prev,...addedActionButtons]));
+            setActionButtons(addedActionButtons);
         }
-    },[isAuthorized]) 
+    },[isAuthorized,user]) 
 
 
     //permission editor
@@ -171,7 +171,11 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                     />
                     <form id="updateUser" onSubmit={handleSubmit(onSubmit)}>
                         <LabledInput
-                            inputProps={{...register('fullName',{required:"Full name is required"}), placeholder:"Full Name"}}
+                            inputProps={{
+                                ...register('fullName',{required:"Full name is required"}), 
+                                placeholder:"Full Name",
+                                disabled:!isAuthorized,
+                            }}
                             label="Full Name"
                             fullWidth
                             error={errors.fullName?.message}
@@ -180,6 +184,7 @@ export default function ViewUserModal({user,onClose,changeUserStatus,isStatusCha
                             inputProps={{
                                 ...register('email',{required:"Email is required"}), 
                                 placeholder:"Email",
+                                disabled:!isAuthorized,
                             }}
                             label="Email"
                             fullWidth
