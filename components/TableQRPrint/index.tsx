@@ -2,6 +2,7 @@ import React,{useEffect, useState} from "react";
 import {BiPrinter} from 'react-icons/bi'
 import QRCode from "react-qr-code";
 import { toast } from "react-toastify";
+import baseURL from "../../constants/BASE_URL";
 import { TypeTable } from "../TableComponents/tables";
 import IconButton from "../UIElements/IconButton";
 import Loading from "../UIElements/Loading";
@@ -35,7 +36,7 @@ export const TableQRPrint = React.forwardRef((props:TableQRPrintProps,ref:React.
                 "
             >
                 {frontendWebDomai&&
-                    props.tables.map((table)=><SingleQR {...table} key={table.id}/>)
+                    props.tables.map((table)=><SingleQR table={table} domain={frontendWebDomai} key={table.id}/>)
                 }
             </div>
             <div className="fixed bottom-4 right-4">
@@ -52,7 +53,7 @@ export const TableQRPrint = React.forwardRef((props:TableQRPrintProps,ref:React.
         </div>
     );
 });
-function SingleQR(table:TypeTable,domain:string){
+function SingleQR({table,domain}:{table:TypeTable,domain:string}){
     return(
         <div className="
             h-[314px] w-[350px] border-2 border-black flex flex-col 
