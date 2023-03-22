@@ -5,7 +5,7 @@ import avatar from '../../public/Haile_Selassie_in_full_dress_(cropped).jpg'
 import {IoNotificationsSharp as NotificationIcon} from 'react-icons/io5';
 import {RiMessage2Fill as MessageIcon} from 'react-icons/ri';
 import Button from "../UIElements/Button";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { logout } from "../../services/AuthService";
 import {logout as dispatchLogout} from '../../Context/AuthSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,8 @@ import useAnimateOnWillUnmout from "../../hooks/useAnimateOnWillUnmout";
 import baseURL from "../../constants/BASE_URL";
 import Backdrop from "../Backdrop";
 import ConfirmationBox from "../DialogBox/ConfirmationBox";
+import { socket } from "../../utils/socket";
+import { test } from "../../services/test";
 
 interface AppbarInterface {
     component?: ReactElement,
@@ -49,7 +51,23 @@ export default function Appbar({component} : AppbarInterface){
         }else{
             handleClose();
         }
-    }
+    };
+
+    useEffect(()=>{
+        function onEvent(data:any){
+            console.log(data);
+        }
+        function onConnect(){
+            console.log("connected")
+        }
+        socket.on('event',onEvent);
+        socket.on('connect',onConnect)
+        return()=>{
+            socket.off("event",onEvent);
+            socket.off("event",onConnect)
+        }
+    },[]);
+    const {data:tes,mutate} = useMutation(test);
     return(
         <div className="h-20 bg-white w-full border-b border-slate-300 flex justify-between items-center px-8">
             {component}
@@ -63,6 +81,7 @@ export default function Appbar({component} : AppbarInterface){
                     />
                 </Backdrop>}
                 <NotificationIcon className="text-2xl text-indigo-500"/>
+                <button onClick={()=>{mutate()}}>test</button>
                 <div className="h-14 w-14 relative" ref={avatarRef} >
                     <Image
                         ref={imageRef}
