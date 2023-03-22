@@ -60,10 +60,10 @@ export default function Appbar({component} : AppbarInterface){
         function onConnect(){
             console.log("connected")
         }
-        socket.on('event',onEvent);
+        socket.on('notification',onEvent);
         socket.on('connect',onConnect)
         return()=>{
-            socket.off("event",onEvent);
+            socket.off("notification",onEvent);
             socket.off("event",onConnect)
         }
     },[]);
