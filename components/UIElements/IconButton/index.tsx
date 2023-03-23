@@ -12,21 +12,22 @@ export interface TypeIconButton{
     buttonProps?:React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>,HTMLButtonElement>
 }
 
-export default function IconButton({
-    children,
-    size="md",
-    type="fill",
-    color="primary",
-    className,
-    iconStart,
-    iconEnd,
-    disabled=false,
-    onClick=()=>{},
-    buttonProps={}
-}: TypeIconButton){
+const IconButton =  React.forwardRef(({
+        children,
+        size="md",
+        type="fill",
+        color="primary",
+        className,
+        iconStart,
+        iconEnd,
+        disabled=false,
+        onClick=()=>{},
+        buttonProps={}
+    }: TypeIconButton,ref:React.LegacyRef<HTMLButtonElement>)=>{
     return (
         <button 
             {...buttonProps}
+            ref={ref}
             className={`
                 focus:shadow-md
                 ${disabled&&"opacity-70"} ${disabled&&"pointer-events-none"}
@@ -71,4 +72,6 @@ export default function IconButton({
             </>
         </button>
     );
-}
+});
+
+export default IconButton;

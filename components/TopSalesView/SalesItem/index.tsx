@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {StaticImageData} from 'next/image';
 import React, { useEffect, useState } from "react";
-import useAnimateOnWillUnmout from "../../../hooks/useAnimateOnWillUnmout";
+import useAnimateOnWillUnmount from "../../../hooks/useAnimateOnWillUnmount";
 
 export interface SalesItemInterface {
     img:string | StaticImageData,
@@ -9,7 +9,7 @@ export interface SalesItemInterface {
     amount:number
 }
 export default function SalesItem(props:SalesItemInterface){
-    const {show,shouldRender,onAnimationEnd,triggerRemove,triggerRender} = useAnimateOnWillUnmout(false);
+    const {show,shouldRender,onAnimationEnd,triggerRemove,triggerRender} = useAnimateOnWillUnmount(false);
     return(
         <div 
             className="w-28 h-28 rounded-xl p-4 relative overflow-hidden cursor-pointer shrink-0"
