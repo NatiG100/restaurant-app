@@ -48,7 +48,7 @@ const IconButton =  React.forwardRef(({
                         ${
                             color==="primary"?`bg-indigo-500 text-indigo-50 hover:bg-indigo-700 hover:text-indigo-50`:
                             color==="warning"?"bg-yellow-600 text-yellow-50 hover:bg-yellow-700 hover:text-yellow-50":
-                            color==="error"?"bg-red-500 text-red-50 hover:bg-red-700 hover:text-red-50":
+                            color==="error"?"bg-red-400 text-red-50 hover:bg-red-700 hover:text-red-50":
                             color==="success"?"bg-green-800 text-green-50 hover:bg-green-700 hover:text-green-50":
                                 "bg-gray-800 text-gray-50 hover:bg-gray-700 hover:text-gray-50"
                         }

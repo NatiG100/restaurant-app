@@ -7,6 +7,8 @@ import { socket } from "../../utils/socket";
 import { useMutation, useQuery } from "react-query";
 import { fetchAllNotifications, FetchNotificationError, FetchNotificationsSuccess, seeAllNotifications } from "../../services/NotificationServices";
 import Loading from "../UIElements/Loading";
+import { toast } from "react-toastify";
+import notificationIcon from '../../assets/svg/Logo.svg';
 
 type TypeNotification = {
     title:string,
@@ -38,13 +40,37 @@ export default function Notification (){
     //subscribe to order notification on componentDidMount
     useEffect(()=>{
         function onEvent(data:any){
-            //when a new notification arrifes set seen false
+            //when a new notification arrives set seen false
             setSeen(false);
-            console.log(data);
+            refetchNotifications();
+            if(!("Notification" in window)){
+                toast("your browser doesn't support notification",{type:"warning"})
+            }else if(window.Notification.permission==="granted"){
+                const notification = new window.Notification(data.title as string,{
+                    body:data.description,
+                    icon:notificationIcon,
+                });
+                setTimeout(() => {
+                    notification.close();
+                }, 25 * 1000);
+            }else{
+                
+                window.Notification.requestPermission().then((permission)=>{
+                    if(permission==="granted"){
+                        const notification = new window.Notification(data.title as string,{
+                            body:data.description,
+                            icon:notificationIcon
+                        });
+                        setTimeout(() => {
+                            notification.close();
+                        }, 25 * 1000);
+                    }
+                })
+            }
         }
         socket.on('notification',onEvent);
         return()=>{socket.off("notification",onEvent);}
-    },[]);
+    },[refetchNotifications]);
 
     //make all notifications seen when the user opens the notification list
     const {mutate} = useMutation(seeAllNotifications);
@@ -70,7 +96,7 @@ export default function Notification (){
 
     return(
         <div className="relative" ref={notificationRef}>
-            {!seen&&<div className="absolute top-2 right-2 h-2 w-2 bg-red-400 rounded-full"></div>}
+            {!seen&&<div className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full"></div>}
             <IconButton
                 iconStart={<NotificationIcon className="text-2xl text-indigo-500"/>}
                 type="text"
@@ -84,7 +110,8 @@ export default function Notification (){
                     max-h-80 overflow-x-auto scrollbar-hide flex flex-col shadow-lg
                 `}
             >
-                {notificationsLoading?<Loading type="contained"/>:
+                {notificationsLoading?
+                    <Loading type="contained"/>:
                     notifications?.data.map((notification)=>(
                         <SingleNotification 
                             title={notification.title}
@@ -93,6 +120,9 @@ export default function Notification (){
                             key={notification._id}
                         />
                     ))
+                }
+                {
+                    (notifications?.data.length as number ===0)&&<p className="text-sm text-gray-400 w-48">No notifications to display</p>
                 }
                 {
                     notificationError&&<p className="text-red-500 text-sm w-40">Error while trying to load notifications</p>
