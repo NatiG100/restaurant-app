@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef,useState } from "react";
 import useAnimateOnWillUnmount from "../../hooks/useAnimateOnWillUnmount";
 import { useOutsideClickListner } from "../../hooks/useOutsideClickListner";
 import IconButton from "../UIElements/IconButton";
@@ -15,8 +15,14 @@ export default function Notification (){
         shouldRender:shouldRenderNotifications
         ,show:showNotification
     } = useAnimateOnWillUnmount(false,!clickedOutsideNotificationButton);
+
+    //state to track whether there are new notifications or not
+    const [seen,setSeen] = useState(false);
+    //subscribe to order notification on componentDidMount
     useEffect(()=>{
         function onEvent(data:any){
+            //when a new notification arrifes set seen false
+            setSeen(false);
             console.log(data);
         }
         function onConnect(){
@@ -29,8 +35,15 @@ export default function Notification (){
             socket.off("event",onConnect)
         }
     },[]);
+    useEffect(()=>{
+        if(shouldRenderNotifications){
+            setSeen(true);
+        }
+    },[shouldRenderNotifications])
+
     return(
         <div className="relative" ref={notificationRef}>
+            {!seen&&<div className="absolute top-2 right-2 h-2 w-2 bg-red-400 rounded-full"></div>}
             <IconButton
                 iconStart={<NotificationIcon className="text-2xl text-indigo-500"/>}
                 type="text"
