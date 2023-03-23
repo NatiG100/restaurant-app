@@ -39,7 +39,7 @@ export default function Notification (){
             > </IconButton>
             {shouldRenderNotifications&&<div onAnimationEnd={onNotificationAnimationEnd} className=
                 {`absolute top-full right-0
-                bg-gray-50 rounded-lg shadow-sm p-3 py-4
+                bg-gray-50 rounded-lg shadow-sm p-3 py-4 gap-4
                 z-40 border border-gray-300 ${showNotification?'animate-zoom-fade-in':'animate-zood-fade-out'}`}
             >
                 <SingleNotification title="New Order" description="a new order has arrived from a client" seen={false}/>
@@ -57,16 +57,17 @@ export interface SingleNotificationProps{
 }
 function SingleNotification({title,description,seen}:SingleNotificationProps){
     return(
-        <div className="
-            grid grid-cols-mx1fr
-        ">
+        <div className={`
+            grid grid-cols-mx1fr  p-2 py-1 cursor-default
+            gap-7 items-center rounded-sm ${!seen&&"bg-indigo-400/5"}
+        `}>
             <div className="
-                w-40 flex flex-col
+                w-48 flex flex-col
             ">
-                <p>{title}</p>
-                <p>{description}</p>
+                <p className="font-semibold text-sm text-gray-800">{title}</p>
+                <p className="text-sm text-gray-600">{description}</p>
             </div>
-            {!seen&&<div className="h-4 w-4 rounded-full bg-red-600"></div>}
+            {!seen&&<div className="h-2 w-2 rounded-full bg-red-300"></div>}
         </div>
     );
 }
