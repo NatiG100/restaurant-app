@@ -11,6 +11,8 @@ import TopItemsChart from "../components/chart/TopItemsChart";
 import Orders from "../components/chart/charts/Orders";
 import usePageRedirect from "../components/hoc/usePageRedirect";
 import Loading from "../components/UIElements/Loading";
+import { useQuery } from "react-query";
+import { getGeneralStat } from "../services/StatService";
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -30,38 +32,41 @@ function Home({setAppBarComponent} : any) {
     }
   },[searchQuery]);
 
+  //fetch general stat
+  const {data:generalStat,isLoading} = useQuery('fetchGeneralStat',getGeneralStat);
   //redirect page
   const finished = usePageRedirect("View Info");
   if(!finished) return <Loading type="full"/>
+
   return (
     <Body title="Dashboard">
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-2 gap-y-8 gap-x-8 items-stretch">
         <div className=" flex flex-wrap gap-4 col-span-2">
-          <Stat 
+          {isLoading?<Loading type="contained"/>:generalStat&&<><Stat 
             delta={40} 
             notation={notation.K} 
             precision={1} 
             title="Weekly Sales" 
-            value={98500} 
+            value={generalStat.data.weeklySales} 
             postfix="ETB"
             icon={<DollarIcon size={36} className="text-white stroke-2"/>}
           />
           <Stat 
-            delta={-5} 
+            delta={generalStat.data.weeklyDrinkIncrease} 
             notation={notation.none} 
             precision={0} 
             title="Total Drinks" 
-            value={300} 
+            value={generalStat.data.drinkCount} 
             icon={<DrinkIcon size={36} className="text-white"/>}
           />
           <Stat 
-            delta={40} 
+            delta={generalStat.data.weeklyFoodIncrease} 
             notation={notation.none} 
             precision={0} 
             title="Total foods" 
-            value={150} 
+            value={generalStat.data.foodCount} 
             icon={<FoodIcon size={36} className="text-white"/>}
-          />
+          /></>}
         </div>
         <TopItemsChart/>
         <SalesChart/>

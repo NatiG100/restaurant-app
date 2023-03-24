@@ -9,3 +9,6 @@ export interface TypeSingleDataResponse{
     message:string,
     data:any,
 }
+export interface ErrorResponse{
+    message:string,
+}
