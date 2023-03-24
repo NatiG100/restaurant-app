@@ -9,6 +9,7 @@ import { fetchAllNotifications, FetchNotificationError, FetchNotificationsSucces
 import Loading from "../UIElements/Loading";
 import { toast } from "react-toastify";
 import notificationIcon from '../../assets/svg/Logo.svg';
+import audio from '../../assets/audio/notification.wav';
 
 type TypeNotification = {
     title:string,
@@ -67,6 +68,7 @@ export default function Notification (){
                     }
                 })
             }
+            new Audio(audio).play();
         }
         socket.on('notification',onEvent);
         return()=>{socket.off("notification",onEvent);}
