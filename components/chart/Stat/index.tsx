@@ -8,7 +8,7 @@ export const enum notation {
 }
 interface statInterface {
     title:string,
-    delta: number,
+    delta: number|"-",
     icon: React.ReactNode,
     value: number,
     postfix?: string,
@@ -38,8 +38,8 @@ export default function Stat (props:statInterface) {
                         <AiOutlineArrowDown className='text-red-600'/>
                     :null
                 }
-                <p className={`text-base  ${props.delta<0?"text-red-600":"text-green-600"}`}>
-                    {props.delta<0?-1*props.delta:props.delta}%
+                <p className={`text-base  ${props.delta==="-"?"text-yellow-600":props.delta<0?"text-red-600":"text-green-600"}`}>
+                    {props.delta!=="-"?props.delta<0?-1*props.delta:props.delta:"-"}%
                 </p>
             </div>
         </div>

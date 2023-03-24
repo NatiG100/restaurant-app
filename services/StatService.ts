@@ -6,8 +6,8 @@ export interface GeneralStat{
         foodCount:number,
         drinkCount:number,
         weeklySales:number,
-        weeklyDrinkIncrease:number,
-        weeklyFoodIncrease:number,
+        weeklyDrinkIncrease:number|"-",
+        weeklyFoodIncrease:number|"-",
     }
 }
 export const getGeneralStat = async ()=>{
