@@ -43,7 +43,7 @@ function Home({setAppBarComponent} : any) {
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-dashboard pt-2 gap-y-8 gap-x-8 items-stretch">
         <div className=" flex flex-wrap gap-4 col-span-2">
           {isLoading?<Loading type="contained"/>:generalStat&&<><Stat 
-            delta={40} 
+            delta={generalStat.data.salesDelta} 
             notation={notation.K} 
             precision={1} 
             title="Weekly Sales" 

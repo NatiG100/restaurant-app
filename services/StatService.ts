@@ -5,6 +5,7 @@ export interface GeneralStat{
     data:{
         foodCount:number,
         drinkCount:number,
+        salesDelta:number|'-',
         weeklySales:number,
         weeklyDrinkIncrease:number|"-",
         weeklyFoodIncrease:number|"-",
