@@ -14,3 +14,25 @@ export interface GeneralStat{
 export const getGeneralStat = async ()=>{
     return instance.get<ErrorResponse,GeneralStat>('/stats/general',{withCredentials:true});
 }
+
+export interface TypeTopItems{
+    data:{
+        topFoods:{
+            _id:string,
+            total:number,
+            amount:number,
+            img:string,
+            name:string,
+        }[],
+        topDrinks:{
+            _id:string,
+            total:number,
+            amount:number,
+            img:string,
+            name:string,
+        }[]
+    }
+}
+export const getTopItems = async ()=>{
+    return instance.get<ErrorResponse,TypeTopItems>('/stats/top-items?howMany=3',{withCredentials:true});
+}

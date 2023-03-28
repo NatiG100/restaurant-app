@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {StaticImageData} from 'next/image';
 import React, { useEffect, useState } from "react";
+import baseURL from "../../../constants/BASE_URL";
 import useAnimateOnWillUnmount from "../../../hooks/useAnimateOnWillUnmount";
 
 export interface SalesItemInterface {
@@ -17,7 +18,9 @@ export default function SalesItem(props:SalesItemInterface){
             onMouseLeave={triggerRemove}
         >
             <Image 
-                src={props.img} 
+                height={500}
+                width={500}
+                src={baseURL+props.img} 
                 alt={props.name}
                 className="absolute top-0 left-0 h-full w-full object-cover"
             />
