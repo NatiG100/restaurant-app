@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import { getSalesChartData, TypeSalesChart } from "../../../services/chartServices/SalesChartService";
 import { ErrorResponse } from "../../../types/types";
 import Loading from "../../UIElements/Loading";
-import chartType from "../../../constants/constants";
+import chartType, { MOtY } from "../../../constants/constants";
 import {useEffect} from 'react'
 
 export default function SalesChart(){
@@ -21,9 +21,6 @@ export default function SalesChart(){
         TypeSalesChart,
         ErrorResponse
     >(['fetchSalesChartData',selectedOption],()=>getSalesChartData(chartType[selectedOption]));
-
-    if(isLoading) return <Loading type="contained"/>
-    if(isError) return <p className="text-red-50">Error</p>
     return(
         <ChartContainer
           hasFilter={true}
@@ -36,17 +33,30 @@ export default function SalesChart(){
           title="Sales"
           selected={selectedOption}
           onChange={onSelectChange}
-          loading={false}
+          loading={isLoading}
           span={1}
-        >
+          >
+            {isError&&
+                <p className="text-red-50">Error</p>
+            }
+            {data&&
             <ResponsiveVictoryChart
                 padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
                 domainPadding={30}
-            >
+                >
                 <VictoryAxis 
                     style={{
                         tickLabels:{fill:"rgb(99 102 241)"},
                         axis:{stroke:"rgb(99 102 241)"},
+                    }}
+                    tickFormat={(x:string) => {
+                        if(selectedOption===2||selectedOption===4){
+                            return x;
+                        }else if(selectedOption===1){
+                            return x;
+                        }else{
+                            return MOtY[parseInt(x)-1];
+                        }
                     }}
                     />
                 <VictoryAxis 
@@ -58,10 +68,11 @@ export default function SalesChart(){
                         axis:{stroke:"rgb(99 102 241)"},
                         axisLabel:{fill:"rgb(99 102 241)",fontWeight:"600"},
                     }}
+                    
                     fixLabelOverlap={true}
                     axisLabelComponent={<VictoryLabel dy={-28}/>}
                 />
-                {data&&<VictoryBar
+                <VictoryBar
                     style={{
                         data:{
                             fill:"rgb(74 222 128)",
@@ -75,8 +86,8 @@ export default function SalesChart(){
                     y="total"
                     labels={({ datum }) => datum.total}
                     labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
-                />}
-            </ResponsiveVictoryChart>
+                />
+            </ResponsiveVictoryChart>}
         </ChartContainer>   
     );
 }
