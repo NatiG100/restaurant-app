@@ -5,7 +5,7 @@ import loading from './../../../assets/svg/Loading.svg';
 interface ChartContainerInterface {
     title: string,
     hasFilter: boolean,
-    filterItems: {key:number, text:string}[],
+    filterItems: {key:number, text:string, field?:string}[],
     children: React.ReactNode,
     selected: number
     onChange(event:ChangeEvent<HTMLSelectElement>):void,

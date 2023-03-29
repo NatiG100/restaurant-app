@@ -4,6 +4,12 @@ import { VictoryChart } from "victory-chart";
 import {VictoryBar,VictoryAxis,VictoryLabel} from 'victory'
 import { VictoryTheme } from "victory-core";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
+import { useQuery } from "react-query";
+import { getSalesChartData, TypeSalesChart } from "../../../services/chartServices/SalesChartService";
+import { ErrorResponse } from "../../../types/types";
+import Loading from "../../UIElements/Loading";
+import chartType from "../../../constants/constants";
+import {useEffect} from 'react'
 
 export default function SalesChart(){
     const [selectedOption, setSelectedOption] = useState<number>(1);
@@ -11,22 +17,21 @@ export default function SalesChart(){
         setSelectedOption(Number.parseInt(event.target.value));
     }
 
-    const data = [
-        {day:"Mon", value:1200},
-        {day:"Tue", value:1430},
-        {day:"Wed", value:980},
-        {day:"Thr", value:11000},
-        {day:"Fri", value:12000},
-        {day:"Sat", value:13000},
-        {day:"Sun", value:12500},
-    ]
+    const {data,isLoading,isError,refetch} = useQuery<
+        TypeSalesChart,
+        ErrorResponse
+    >(['fetchSalesChartData',selectedOption],()=>getSalesChartData(chartType[selectedOption]));
+
+    if(isLoading) return <Loading type="contained"/>
+    if(isError) return <p className="text-red-50">Error</p>
     return(
         <ChartContainer
           hasFilter={true}
           filterItems={[
-            {key:1,text:"Last 7 days"},
-            {key:2,text:"Last Month"},
+            {key:1,text:"This Week"},
+            {key:2,text:"This Month"},
             {key:3,text:"This Year"},
+            {key:4, text:"All"}
           ]}
           title="Sales"
           selected={selectedOption}
@@ -56,19 +61,21 @@ export default function SalesChart(){
                     fixLabelOverlap={true}
                     axisLabelComponent={<VictoryLabel dy={-28}/>}
                 />
-                <VictoryBar
-                    barRatio={0.7}
+                {data&&<VictoryBar
                     style={{
                         data:{
-                            fill:"rgb(74 222 128)"
-                        }
+                            fill:"rgb(74 222 128)",
+                            width:"20",
+                            opacity:"0.7"
+                        },
                     }}
-                    data={data}
-                    x="day"
-                    y="value"
-                    labels={({ datum }) => datum.value}
+                    
+                    data={data?.data}
+                    x="_id"
+                    y="total"
+                    labels={({ datum }) => datum.total}
                     labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
-                />
+                />}
             </ResponsiveVictoryChart>
         </ChartContainer>   
     );

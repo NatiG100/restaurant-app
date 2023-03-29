@@ -26,6 +26,7 @@ export default function TopSalesView(props:{items:SalesItemInterface[],title:str
                             img={item.img}
                             name={item.name}
                             key={item.name}
+                            total={item.total}
                         />
                     ))
                 }
