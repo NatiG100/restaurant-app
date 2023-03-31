@@ -46,7 +46,7 @@ export default function SalesChart(){
                 >
                 <VictoryAxis 
                     style={{
-                        tickLabels:{fill:"rgb(99 102 241)"},
+                        tickLabels:{fill:"rgb(99 102 241)",fontSize:"12px"},
                         axis:{stroke:"rgb(99 102 241)"},
                     }}
                     tickFormat={(x:string) => {
@@ -64,9 +64,14 @@ export default function SalesChart(){
                     dependentAxis
                     label={"Sales(ETB)"}
                     style={{
-                        tickLabels:{fill:"rgb(99 102 241)"},
+                        tickLabels:{fill:"rgb(99 102 241)",fontSize:"12px"},
                         axis:{stroke:"rgb(99 102 241)"},
                         axisLabel:{fill:"rgb(99 102 241)",fontWeight:"600"},
+                        grid:{
+                            stroke:"rgb(99 102 241)",
+                            opacity:"0.07",
+                            strokeWidth:"2"
+                        }
                     }}
                     
                     fixLabelOverlap={true}
@@ -76,8 +81,9 @@ export default function SalesChart(){
                     style={{
                         data:{
                             fill:"rgb(74 222 128)",
-                            width:"20",
-                            opacity:"0.7"
+                            minHeight:"10px",
+                            width:selectedOption===2?"11":"17",
+                            opacity:"0.8",
                         },
                     }}
                     
