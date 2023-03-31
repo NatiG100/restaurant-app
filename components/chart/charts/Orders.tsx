@@ -48,8 +48,8 @@ export default function Orders(){
             >
                 <VictoryAxis
                     style={{
-                        tickLabels:{fill:"rgb(99 102 241)"},
-                        axis:{stroke:"rgb(99 102 241)"},
+                        tickLabels:{fill:"rgb(55 65 81)"},
+                        axis:{stroke:"rgb(55 65 81)"},
                     }}
                 />
 
@@ -57,11 +57,11 @@ export default function Orders(){
                     dependentAxis
                     label={"Orders"}
                     style={{
-                        tickLabels:{fill:"rgb(99 102 241)"},
-                        axis:{stroke:"rgb(99 102 241)"},
-                        axisLabel:{fill:"rgb(99 102 241)",fontWeight:"600"},
+                        tickLabels:{fill:"rgb(55 65 81)"},
+                        axis:{stroke:"rgb(55 65 81)"},
+                        axisLabel:{fill:"rgb(55 65 81)",fontWeight:"600"},
                         grid:{
-                            stroke:"rgb(99 102 241)",
+                            stroke:"rgb(55 65 81)",
                             opacity:"0.07",
                             strokeWidth:"2"
                         }

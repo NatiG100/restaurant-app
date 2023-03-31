@@ -46,8 +46,8 @@ export default function SalesChart(){
                 >
                 <VictoryAxis 
                     style={{
-                        tickLabels:{fill:"rgb(99 102 241)",fontSize:"12px"},
-                        axis:{stroke:"rgb(99 102 241)"},
+                        tickLabels:{fill:"rgb(55 65 81)",fontSize:"12px"},
+                        axis:{stroke:"rgb(55 65 81)"},
                     }}
                     tickFormat={(x:string,index:number) => {
                         if(selectedOption===2||selectedOption===4){
@@ -65,11 +65,11 @@ export default function SalesChart(){
                     dependentAxis
                     label={"Sales(ETB)"}
                     style={{
-                        tickLabels:{fill:"rgb(99 102 241)",fontSize:"12px"},
-                        axis:{stroke:"rgb(99 102 241)"},
-                        axisLabel:{fill:"rgb(99 102 241)",fontWeight:"600"},
+                        tickLabels:{fill:"rgb(55 65 81)",fontSize:"12px"},
+                        axis:{stroke:"rgb(55 65 81)"},
+                        axisLabel:{fill:"rgb(55 65 81)",fontWeight:"600"},
                         grid:{
-                            stroke:"rgb(99 102 241)",
+                            stroke:"rgb(55 65 81)",
                             opacity:"0.07",
                             strokeWidth:"2"
                         }
