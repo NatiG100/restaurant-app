@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import { getSalesChartData, TypeSalesChart } from "../../../services/chartServices/SalesChartService";
 import { ErrorResponse } from "../../../types/types";
 import Loading from "../../UIElements/Loading";
-import chartType, { MOtY } from "../../../constants/constants";
+import chartType, { DOtW, MOtY } from "../../../constants/constants";
 import {useEffect} from 'react'
 
 export default function SalesChart(){
@@ -49,11 +49,12 @@ export default function SalesChart(){
                         tickLabels:{fill:"rgb(99 102 241)",fontSize:"12px"},
                         axis:{stroke:"rgb(99 102 241)"},
                     }}
-                    tickFormat={(x:string) => {
+                    tickFormat={(x:string,index:number) => {
                         if(selectedOption===2||selectedOption===4){
                             return x;
                         }else if(selectedOption===1){
-                            return x;
+                            const dates = data.data.map((d)=>(d._id));
+                            return DOtW[dates.indexOf(x)]
                         }else{
                             return MOtY[parseInt(x)-1];
                         }
