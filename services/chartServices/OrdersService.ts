@@ -12,6 +12,6 @@ export interface OrderChartDataRes {
 
 }
 
-export const FetchOrdersChartData = async(chartType:string)=>{
-    return instance.get<ErrorResponse,OrderChartDataRes>(`/stats/orders?type=${chartType}`);
+export const FetchOrdersChartData = async(chartType:string,selectedType:string)=>{
+    return instance.get<ErrorResponse,OrderChartDataRes>(`/stats/orders?type=${chartType}&itemType=${selectedType}`);
 }

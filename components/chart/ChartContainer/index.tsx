@@ -26,8 +26,8 @@ export default function ChartContainer(props:ChartContainerInterface){
                     <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-gray-200"></div>
                     <p className="text-gray-700 font-semibold">{props.title}</p>
                 </div>
-                <div>
-
+                <div className="flex gap-3 itemc-center">
+                {props.additionalComponent}
                 <select 
                     className="
                         focus:outline-none border border-indigo-400 p-2 bg-indigo-50

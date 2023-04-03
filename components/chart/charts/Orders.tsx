@@ -13,33 +13,37 @@ import CustomLineChart from "../CustomLineChart";
 
 export default function Orders(){
     const [selectedOption, setSelectedOption] = useState<number>(1);
+    const [selectedType,setSelectedType] = useState<"food"|"drink"|"all">("all");
     const onSelectCchange = (event:React.ChangeEvent<HTMLSelectElement>)=>{
         setSelectedOption(Number.parseInt(event.target.value));
     }
     const {data,isLoading,isError} = useQuery<
         OrderChartDataRes,
         ErrorResponse
-    >(['fetchOrderChartData',selectedOption],()=>FetchOrdersChartData(chartType[selectedOption]));
+    >(['fetchOrderChartData',selectedOption,selectedType],()=>FetchOrdersChartData(chartType[selectedOption],selectedType));
+    if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>;
 
-    const foods = [
-        {day:"Mon", value:12},
-        {day:"Tue", value:30},
-        {day:"Wed", value:10},
-        {day:"Thr", value:11},
-        {day:"Fri", value:12},
-        {day:"Sat", value:16},
-        {day:"Sun", value:25},
-    ];
-    const drinks = [
-        {day:"Mon", value:22},
-        {day:"Tue", value:12},
-        {day:"Wed", value:14},
-        {day:"Thr", value:11},
-        {day:"Fri", value:17},
-        {day:"Sat", value:11},
-        {day:"Sun", value:16},
-    ];
-    if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>
+    const typeSelector = <select 
+            className="focus:outline-none border p-2 rounded-md text-gray-800" 
+            value={selectedType}
+            onChange={(event)=>{setSelectedType(event.target.value as "all"|"food"|"drink")}}
+        >
+            <option 
+                value={"all"}
+            >
+                All
+            </option>
+            <option 
+                value={"food"}
+            >
+                Foods
+            </option>
+            <option 
+                value={"drink"}
+            >
+                Drinks
+            </option>
+        </select>
     return(
         <ChartContainer
             loading={isLoading}
@@ -52,6 +56,7 @@ export default function Orders(){
                 {key:3,text:"This Year"},
                 {key:4, text:"All"}
             ]}
+            additionalComponent={typeSelector}
             hasFilter={true}
             span={2}
         >
