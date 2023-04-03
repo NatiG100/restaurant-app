@@ -1,14 +1,26 @@
 import { TooltipComponent } from "ag-grid-community/dist/lib/components/framework/componentTypes";
+import { error } from "console";
 import React, { useState } from "react";
+import { useQueries, useQuery } from "react-query";
 import { VictoryAxis, VictoryContainer, VictoryLabel, VictoryLegend, VictoryLine, VictoryScatter, VictoryTooltip } from "victory";
+import chartType, { DOtW, MOtY } from "../../../constants/constants";
+import { FetchOrdersChartData, OrderChartDataRes } from "../../../services/chartServices/OrdersService";
+import { ErrorResponse } from "../../../types/types";
 import ResponsiveVictoryChart from "../../ResponsiveVictoryChart";
+import Loading from "../../UIElements/Loading";
 import ChartContainer from "../ChartContainer";
+import CustomLineChart from "../CustomLineChart";
 
 export default function Orders(){
     const [selectedOption, setSelectedOption] = useState<number>(1);
     const onSelectCchange = (event:React.ChangeEvent<HTMLSelectElement>)=>{
         setSelectedOption(Number.parseInt(event.target.value));
     }
+    const {data,isLoading,isError} = useQuery<
+        OrderChartDataRes,
+        ErrorResponse
+    >(['fetchOrderChartData',selectedOption],()=>FetchOrdersChartData(chartType[selectedOption]));
+
     const foods = [
         {day:"Mon", value:12},
         {day:"Tue", value:30},
@@ -27,176 +39,42 @@ export default function Orders(){
         {day:"Sat", value:11},
         {day:"Sun", value:16},
     ];
+    if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>
     return(
         <ChartContainer
-            loading={false}
+            loading={isLoading}
             title="Orders"
             selected={selectedOption}
             onChange={onSelectCchange}
             filterItems={[
-                {key:1,text:"Last 7 days"},
-                {key:2,text:"Last Month"},
+                {key:1,text:"This Week"},
+                {key:2,text:"This Month"},
                 {key:3,text:"This Year"},
+                {key:4, text:"All"}
             ]}
             hasFilter={true}
             span={2}
         >
-            <ResponsiveVictoryChart
-                padding={{ top: 0, bottom: 20, right: 50, left: 70 }}
-                domainPadding={30}
-                
-            >
-                <VictoryAxis
-                    style={{
-                        tickLabels:{fill:"rgb(55 65 81)"},
-                        axis:{stroke:"rgb(55 65 81)"},
-                    }}
-                />
-
-                <VictoryAxis     
-                    dependentAxis
-                    label={"Orders"}
-                    style={{
-                        tickLabels:{fill:"rgb(55 65 81)"},
-                        axis:{stroke:"rgb(55 65 81)"},
-                        axisLabel:{fill:"rgb(55 65 81)",fontWeight:"600"},
-                        grid:{
-                            stroke:"rgb(55 65 81)",
-                            opacity:"0.07",
-                            strokeWidth:"2"
-                        }
-                    }}
-                    fixLabelOverlap={true}
-                    axisLabelComponent={
-                        <VictoryLabel dy={-28} />
+            {data&&
+                <CustomLineChart 
+                    datas={[
+                        data?.data.filter((data)=>(data._id==="Cancelled"))[0]?.data||[],
+                        data?.data.filter((data)=>(data._id==="Pending"))[0]?.data||[],
+                        data?.data.filter((data)=>(data._id==="Started"))[0]?.data||[],
+                        data?.data.filter((data)=>(data._id==="Served"))[0]?.data||[],
+                    ]}
+                    colors={["#b91c1c","#eab308","#4f46e5","#16a34a",]}
+                    selectedOption={selectedOption}
+                    legend={
+                        [
+                            {name:"Served",symbol:{fill:"#16a34a77"}},
+                            {name:"Pending",symbol:{fill:"#eab30877"}},
+                            {name:"Started",symbol:{fill:"#4f46e577"}},
+                            {name:"Cancelled",symbol:{fill:"#b91c1c77"}},
+                        ]
                     }
                 />
-
-                {/* ////////  Line chart for food orders and shadows  ///////// */}
-                <VictoryLine
-                    data={foods}
-                    x="day"
-                    y="value"
-                    style={{
-                        data:{
-                            stroke:"#C026D322",
-                            strokeLinecap:"round",
-                            strokeWidth:"8px"
-                        },
-                        labels:{
-                            fill:"rgb(192 38 211)",
-                            fontSize:"15px",
-                            fontWeight:"600"
-                        }
-                    }}
-                />
-                <VictoryLine
-                    data={foods}
-                    x="day"
-                    y="value"
-                    style={{
-                        data:{
-                            stroke:"rgb(192 38 211)",
-                        },
-                    }}
-                />
-
-                {/* ////////  Line chart for drinks orders and shadows  ///////// */}
-                <VictoryLine
-                    data={drinks}
-                    x="day"
-                    y="value"
-                    style={{
-                        data:{
-                            stroke:"#0284C722",
-                            strokeLinecap:"round",
-                            strokeWidth:"8px",
-                        },
-                        labels:{
-                            fill:"rgb(2 132 199)",
-                            fontSize:"15px",
-                            fontWeight:"600"
-                        }
-                    }}
-                />
-                <VictoryLine
-                    data={drinks}
-                    x="day"
-                    y="value"
-                    style={{
-                        data:{
-                            stroke:"rgb(2 132 199)",
-                        },
-                    }}
-                />
-                <VictoryScatter
-                    labels={({datum})=>datum.value}
-                    labelComponent={
-                        <VictoryTooltip
-                            
-                          flyoutWidth={95}
-                          flyoutHeight={35}
-                          cornerRadius={5}
-                          pointerLength={40}
-                          flyoutStyle={{
-                            stroke: "rgb(192 38 211)",
-                            strokeWidth: 2,
-                            fill: "#FFFFFF"
-                          }}
-                          style={{
-                            fill: "rgb(192 38 211)",
-                            fontSize: 14,
-                            fontWeight: 500,
-                            textAnchor: "middle"
-                          }}
-                        />
-                    }
-                    data={foods}
-                    x="day"
-                    y="value"
-                    size={5}
-                    style={{
-                        data:{
-                            fill:"#C026D3",
-                        }
-                    }}
-                    
-                />
-                <VictoryScatter
-                    labels={({datum})=>datum.value}
-                    labelComponent={
-                        <VictoryTooltip
-                          flyoutWidth={95}
-                          flyoutHeight={35}
-                          cornerRadius={5}
-                          pointerLength={40}
-                          flyoutStyle={{
-                            stroke: "rgb(2 132 199)",
-                            strokeWidth: 2,
-                            fill: "#FFFFFF"
-                          }}
-                          style={{
-                            fill: "rgb(2 132 199)",
-                            fontSize: 14,
-                            fontWeight: 500,
-                            textAnchor: "middle"
-                          }}
-                        />
-                    }
-                    data={drinks}
-                    x="day"
-                    y="value"
-                    size={5}
-                    style={{
-                        data:{
-                            fill:"#0284C7",
-                        }
-                    }}
-                    
-                />
-
-            </ResponsiveVictoryChart>
-
+            }
         </ChartContainer>
     );
 }

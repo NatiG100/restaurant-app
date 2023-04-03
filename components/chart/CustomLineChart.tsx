@@ -1,14 +1,25 @@
 import { useEffect,Fragment } from "react";
-import { VictoryAxis, VictoryLabel, VictoryLine, VictoryScatter, VictoryTooltip } from "victory";
+import { VictoryAxis, VictoryLabel, VictoryLegend, VictoryLine, VictoryScatter, VictoryTooltip } from "victory";
 import { DOtW, MOtY } from "../../constants/constants";
 import ResponsiveVictoryChart from "../ResponsiveVictoryChart";
 
-export default function CustomLineChart ({datas,colors,selectedOption}:{datas:{amount:number,date:string}[][],colors:string[],selectedOption:number}){
+export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
+    legend?:{name:string,symbol:{fill:string}}[],
+    datas:{amount:number,date:string}[][],
+    colors:string[],
+    selectedOption:number
+}){
     return(
     <ResponsiveVictoryChart
         padding={{ top: 0, bottom: 20, right: 50, left: 70 }}
         domainPadding={30} 
-    >
+    >{legend&&
+        <VictoryLegend x={125} y={-20}
+            orientation="horizontal"
+            symbolSpacer={5}
+            gutter={20}
+            data={legend}
+        />}
         <VictoryAxis
             style={{
                 tickLabels:{fill:"rgb(55 65 81)"},
@@ -53,7 +64,7 @@ export default function CustomLineChart ({datas,colors,selectedOption}:{datas:{a
                     y="amount"
                     style={{
                         data:{
-                            stroke:color+"22",
+                            stroke:color+"37",
                             strokeLinecap:"round",
                             strokeWidth:"8px"
                         },
@@ -85,24 +96,23 @@ export default function CustomLineChart ({datas,colors,selectedOption}:{datas:{a
             let color = colors[index];
             return(
                 <VictoryScatter
-                    labels={({datum})=>datum.value}
+                    labels={({datum})=>datum.amount}
                     labelComponent={
                         <VictoryTooltip
-                            
                             flyoutWidth={95}
                             flyoutHeight={35}
                             cornerRadius={5}
                             pointerLength={40}
                             flyoutStyle={{
-                            stroke: color,
-                            strokeWidth: 2,
-                            fill: "#FFFFFF"
+                                stroke: color,
+                                strokeWidth: 2,
+                                fill: "#FFFFFF"
                             }}
                             style={{
-                            fill: color,
-                            fontSize: 14,
-                            fontWeight: 500,
-                            textAnchor: "middle"
+                                fill: "color",
+                                fontSize: 14,
+                                fontWeight: 500,
+                                textAnchor: "middle"
                             }}
                         />
                     }

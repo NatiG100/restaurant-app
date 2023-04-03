@@ -7,6 +7,7 @@ interface ChartContainerInterface {
     hasFilter: boolean,
     filterItems: {key:number, text:string, field?:string}[],
     children: React.ReactNode,
+    additionalComponent?:React.ReactNode,
     selected: number
     onChange(event:ChangeEvent<HTMLSelectElement>):void,
     loading: boolean,
@@ -25,6 +26,8 @@ export default function ChartContainer(props:ChartContainerInterface){
                     <div className="rounded-tl-md rounded-bl-md w-4 h-8 bg-gray-200"></div>
                     <p className="text-gray-700 font-semibold">{props.title}</p>
                 </div>
+                <div>
+
                 <select 
                     className="
                         focus:outline-none border border-indigo-400 p-2 bg-indigo-50
@@ -44,6 +47,7 @@ export default function ChartContainer(props:ChartContainerInterface){
                         ))
                     }
                 </select>
+                </div>
             </div>
             <div className="h-full w-full">
                 {props.children}
