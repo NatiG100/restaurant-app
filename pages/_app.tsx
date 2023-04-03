@@ -87,7 +87,7 @@ function AppContent({ Component, pageProps }: AppProps){
   )
   return (
     <Redirect>
-      <div className="grid grid-cols-main h-screen">
+      <div className="grid grid-cols-[75px,1fr] md:grid-cols-main h-screen">
         <div className=" bg-white border-slate-300 border-r">
           <Navigation/>
         </div>

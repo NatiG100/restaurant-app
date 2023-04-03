@@ -15,7 +15,7 @@ import Auth from "../hoc/Auth";
 
 export default function Navigation() {
   return (
-    <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-5 ">
+    <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-0 md:px-5 ">
 
       <div className="h-20 gap-2 w-full flex items-center justify-start sticky top-0 left-0 bg-white shadow-md shadow-white">
         <Image 
@@ -36,22 +36,22 @@ export default function Navigation() {
           <Auth requiredPrevilage="View Info">
             <NavigationMenu route="/" only>
               <DashboardIcon size={"22"}/>
-              Dashboard
+              <p className="hidden md:block">Dashboard</p>
             </NavigationMenu>
           </Auth>
           <Auth requiredPrevilage="View Orders">
             <NavigationMenu route="/orders">
               <OrderIcon size={"22"}/>
-              Orders
+              <p className="hidden md:block">Orders</p>
             </NavigationMenu>
           </Auth>
           <NavigationMenu route="/foods" defaultRoute="/categories">
             <FoodIcon size={"22"}/>
-            Foods
+            <p className="hidden md:block">Foods</p>
           </NavigationMenu>
           <NavigationMenu route="/drinks" defaultRoute="/categories">
             <DrinkIcon size="22"/>
-            Drinks
+            <p className="hidden md:block">Drinks</p>
           </NavigationMenu>
         </div>
 
@@ -61,13 +61,13 @@ export default function Navigation() {
           <Auth requiredPrevilage="View Users">
             <NavigationMenu route="/users">
               <UsersIcon size={"22"}/>
-              Users
+              <p className="hidden md:block">Users</p>
             </NavigationMenu>
           </Auth>
           <Auth requiredPrevilage="View Tables">
             <NavigationMenu route="/tables">
               <TableIcon size={"22"}/>
-              Tables
+              <p className="hidden md:block">Tables</p>
             </NavigationMenu>
           </Auth>
         </div>
@@ -78,12 +78,12 @@ export default function Navigation() {
           <Auth requiredPrevilage="View Info">
             <NavigationMenu route="/stats">
               <StatIcon size="22"/>
-              Stats
+              <p className="hidden md:block">Stats</p>
             </NavigationMenu>
           </Auth>
           <NavigationMenu route="/setting">
             <SettingIcon size="22"/>
-            Setting
+            <p className="hidden md:block">Setting</p>
           </NavigationMenu>
         </div>
       </div>
