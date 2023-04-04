@@ -12,6 +12,7 @@ interface ChartContainerInterface {
     onChange(event:ChangeEvent<HTMLSelectElement>):void,
     loading: boolean,
     span: number,
+    hideChartTypeFilter?:boolean
 }
 
 export default function ChartContainer(props:ChartContainerInterface){
@@ -28,7 +29,7 @@ export default function ChartContainer(props:ChartContainerInterface){
                 </div>
                 <div className="flex gap-3 itemc-center">
                 {props.additionalComponent}
-                <select 
+                {!props.hideChartTypeFilter?<select 
                     className="
                         focus:outline-none border border-indigo-400 p-2 bg-indigo-50
                         rounded-md text-indigo-600 focus:ring-1 ring-indigo-500
@@ -46,7 +47,7 @@ export default function ChartContainer(props:ChartContainerInterface){
                             </option>
                         ))
                     }
-                </select>
+                </select>:<span></span>}
                 </div>
             </div>
             <div className="h-full w-full">

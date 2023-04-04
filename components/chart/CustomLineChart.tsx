@@ -26,10 +26,13 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
                 axis:{stroke:"rgb(55 65 81)"},
             }}
             tickFormat={(x:string,index:number) => {
-                if(selectedOption===2||selectedOption===4){
+                if(selectedOption===4){
                     return x;
-                }else if(selectedOption===1){
-                    const dates = datas[1].map((d)=>(d.date));
+                }else if(selectedOption===2){
+                    return new Date(x)
+                }
+                else if(selectedOption===1){
+                    const dates = datas[0].map((d)=>(d.date));
                     return DOtW[dates.indexOf(x)]
                 }else{
                     return MOtY[parseInt(x)-1];
@@ -59,6 +62,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
             let color = colors[index];
             return(
                 <VictoryLine
+                interpolation={"linear"}
                     data={data}
                     x="date"
                     y="amount"
@@ -81,6 +85,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
             let color = colors[index];
             return(
                 <VictoryLine
+                interpolation={"linear"}
                     data={data}
                     x="date"
                     y="amount"

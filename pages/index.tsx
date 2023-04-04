@@ -13,6 +13,7 @@ import usePageRedirect from "../components/hoc/usePageRedirect";
 import Loading from "../components/UIElements/Loading";
 import { useQuery } from "react-query";
 import { getGeneralStat } from "../services/StatService";
+import AllSales from "../components/chart/charts/AllSales";
 
 function Home({setAppBarComponent} : any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -77,7 +78,7 @@ function Home({setAppBarComponent} : any) {
         </div>
         <div className="h-[1000px] w-full flex flex-col col-span-2 gap-10">
           <Orders/>
-          <Orders/>
+          <AllSales/>
         </div>
       </div>
     </Body>

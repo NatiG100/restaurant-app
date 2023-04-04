@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import {  useQuery } from "react-query";
 import chartType from "../../../constants/constants";
+import { getAllsales, TypeAllSalesChart } from "../../../services/chartServices/AllSalesService";
 import { FetchOrdersChartData, OrderChartDataRes } from "../../../services/chartServices/OrdersService";
 import { ErrorResponse } from "../../../types/types";
 import ChartContainer from "../ChartContainer";
 import CustomLineChart from "../CustomLineChart";
 
-export default function Orders(){
-    const [selectedOption, setSelectedOption] = useState<number>(1);
+export default function AllSales(){
+    const [selectedOption, setSelectedOption] = useState<number>(2);
     const [selectedType,setSelectedType] = useState<"food"|"drink"|"all">("all");
     const onSelectCchange = (event:React.ChangeEvent<HTMLSelectElement>)=>{
         setSelectedOption(Number.parseInt(event.target.value));
     }
     const {data,isLoading,isError} = useQuery<
-        OrderChartDataRes,
+        TypeAllSalesChart,
         ErrorResponse
-    >(['fetchOrderChartData',selectedOption,selectedType],()=>FetchOrdersChartData(chartType[selectedOption],selectedType));
+    >(['fetchOrderChartData',selectedOption,selectedType],()=>getAllsales(selectedType));
     if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>;
 
     const typeSelector = <select 
@@ -42,7 +43,7 @@ export default function Orders(){
     return(
         <ChartContainer
             loading={isLoading}
-            title="Orders"
+            title="Sales (all)"
             selected={selectedOption}
             onChange={onSelectCchange}
             filterItems={[
@@ -54,23 +55,17 @@ export default function Orders(){
             additionalComponent={typeSelector}
             hasFilter={true}
             span={2}
+            hideChartTypeFilter={true}
         >
             {data&&
                 <CustomLineChart 
                     datas={[
-                        data?.data.filter((data)=>(data._id==="Cancelled"))[0]?.data||[],
-                        data?.data.filter((data)=>(data._id==="Pending"))[0]?.data||[],
-                        data?.data.filter((data)=>(data._id==="Started"))[0]?.data||[],
-                        data?.data.filter((data)=>(data._id==="Served"))[0]?.data||[],
+                        data.data.map((d)=>({date:d._id,amount:d.total}))
                     ]}
-                    colors={["#b91c1c","#eab308","#4f46e5","#16a34a",]}
+                    colors={["#16a34a",]}
                     selectedOption={selectedOption}
                     legend={
                         [
-                            {name:"Served",symbol:{fill:"#16a34a77"}},
-                            {name:"Pending",symbol:{fill:"#eab30877"}},
-                            {name:"Started",symbol:{fill:"#4f46e577"}},
-                            {name:"Cancelled",symbol:{fill:"#b91c1c77"}},
                         ]
                     }
                 />
