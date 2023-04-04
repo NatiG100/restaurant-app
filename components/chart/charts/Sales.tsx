@@ -12,6 +12,7 @@ import chartType, { DOtW, MOtY } from "../../../constants/constants";
 import {useEffect} from 'react'
 
 export default function SalesChart(){
+    const [selectedType,setSelectedType] = useState<"food"|"drink"|"all">("all");
     const [selectedOption, setSelectedOption] = useState<number>(1);
     const onSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) =>{
         setSelectedOption(Number.parseInt(event.target.value));
@@ -20,7 +21,29 @@ export default function SalesChart(){
     const {data,isLoading,isError,refetch} = useQuery<
         TypeSalesChart,
         ErrorResponse
-    >(['fetchSalesChartData',selectedOption],()=>getSalesChartData(chartType[selectedOption]));
+    >(['fetchSalesChartData',selectedOption,selectedType],()=>getSalesChartData(chartType[selectedOption],selectedType));
+    const typeSelector = 
+        <select 
+            className="focus:outline-none border p-2 rounded-md text-gray-800" 
+            value={selectedType}
+            onChange={(event)=>{setSelectedType(event.target.value as "all"|"food"|"drink")}}
+        >
+            <option 
+                value={"all"}
+            >
+                All
+            </option>
+            <option 
+                value={"food"}
+            >
+                Foods
+            </option>
+            <option 
+                value={"drink"}
+            >
+                Drinks
+            </option>
+        </select>
     return(
         <ChartContainer
           hasFilter={true}
@@ -30,6 +53,7 @@ export default function SalesChart(){
             {key:3,text:"This Year"},
             {key:4, text:"All"}
           ]}
+          additionalComponent={typeSelector}
           title="Sales"
           selected={selectedOption}
           onChange={onSelectChange}

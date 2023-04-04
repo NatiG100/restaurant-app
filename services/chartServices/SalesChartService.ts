@@ -8,6 +8,6 @@ export interface TypeSalesChart{
     }[]
 }
 
-export const getSalesChartData = async (chartType:string)=>{
-    return instance.get<ErrorResponse,TypeSalesChart>(`/stats/sales?type=${chartType}`);
+export const getSalesChartData = async (chartType:string,itemType:"food"|"drink"|"all")=>{
+    return instance.get<ErrorResponse,TypeSalesChart>(`/stats/sales?type=${chartType}&itemType=${itemType}`);
 }
