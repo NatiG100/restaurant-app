@@ -29,7 +29,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
                 if(selectedOption===4){
                     return x;
                 }else if(selectedOption===2){
-                    return new Date(x)
+                    return x
                 }
                 else if(selectedOption===1){
                     const dates = datas[0].map((d)=>(d.date));
