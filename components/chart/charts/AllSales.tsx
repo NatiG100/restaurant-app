@@ -60,7 +60,10 @@ export default function AllSales(){
             {data&&
                 <CustomLineChart 
                     datas={[
-                        data.data.map((d)=>({date:d._id,amount:d.total}))
+                        {
+                            _id:"Cancelled",
+                            data:data.data.map((d)=>({amount:d.total,date:d._id}))
+                        }
                     ]}
                     colors={["#16a34a",]}
                     selectedOption={selectedOption}

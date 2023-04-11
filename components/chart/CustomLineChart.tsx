@@ -5,11 +5,12 @@ import ResponsiveVictoryChart from "../ResponsiveVictoryChart";
 
 export default function CustomLineChart ({datas,colors,selectedOption,legend,drawPoints=true}:{
     legend?:{name:string,symbol:{fill:string}}[],
-    datas:{amount:number,date:string}[][],
+    datas:{_id:string,data:{amount:number,date:string}[]}[],
     colors:string[],
     selectedOption:number,
     drawPoints?:boolean,
 }){
+    console.log(datas[0])
     return(
     <ResponsiveVictoryChart
         padding={{ top: 0, bottom: 20, right: 50, left: 70 }}
@@ -33,7 +34,8 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
                     return x
                 }
                 else if(selectedOption===1){
-                    const dates = datas[0].map((d)=>(d.date));
+                    const dates = datas[0].data.map((d)=>(d.date));
+                    // console.log(datas[0])
                     return DOtW[dates.indexOf(x)]
                 }else{
                     return MOtY[parseInt(x)-1];
@@ -63,8 +65,9 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
             let color = colors[index];
             return(
                 <VictoryLine
-                interpolation={"linear"}
-                    data={data}
+                    key={data._id}
+                    interpolation={"basis"}
+                    data={data.data}
                     x="date"
                     y="amount"
                     style={{
@@ -86,8 +89,9 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
             let color = colors[index];
             return(
                 <VictoryLine
-                interpolation={"linear"}
-                    data={data}
+                    key={data._id}
+                    interpolation={"basis"}
+                    data={data.data}
                     x="date"
                     y="amount"
                     style={{
@@ -98,7 +102,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
                 />       
             )
         })}
-        {drawPoints&&datas.map((data,index)=>{
+        {drawPoints?datas.map((data,index)=>{
             let color = colors[index];
             return(
                 <VictoryScatter
@@ -122,7 +126,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
                             }}
                         />
                     }
-                    data={data}
+                    data={data.data}
                     x="date"
                     y="amount"
                     size={5}
@@ -134,7 +138,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
                     
                 />
             );
-        })}
+        }):<></>}
     </ResponsiveVictoryChart>
     );
 }

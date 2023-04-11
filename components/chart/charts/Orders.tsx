@@ -57,12 +57,7 @@ export default function Orders(){
         >
             {data&&
                 <CustomLineChart 
-                    datas={[
-                        data?.data.filter((data)=>(data._id==="Cancelled"))[0]?.data||[],
-                        data?.data.filter((data)=>(data._id==="Pending"))[0]?.data||[],
-                        data?.data.filter((data)=>(data._id==="Started"))[0]?.data||[],
-                        data?.data.filter((data)=>(data._id==="Served"))[0]?.data||[],
-                    ]}
+                    datas={data.data}
                     colors={["#b91c1c","#eab308","#4f46e5","#16a34a",]}
                     selectedOption={selectedOption}
                     legend={
