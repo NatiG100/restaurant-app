@@ -3,11 +3,12 @@ import { VictoryAxis, VictoryLabel, VictoryLegend, VictoryLine, VictoryScatter, 
 import { DOtW, MOtY } from "../../constants/constants";
 import ResponsiveVictoryChart from "../ResponsiveVictoryChart";
 
-export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
+export default function CustomLineChart ({datas,colors,selectedOption,legend,drawPoints=true}:{
     legend?:{name:string,symbol:{fill:string}}[],
     datas:{amount:number,date:string}[][],
     colors:string[],
-    selectedOption:number
+    selectedOption:number,
+    drawPoints:boolean,
 }){
     return(
     <ResponsiveVictoryChart
@@ -97,7 +98,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend}:{
                 />       
             )
         })}
-        {datas.map((data,index)=>{
+        {drawPoints&&datas.map((data,index)=>{
             let color = colors[index];
             return(
                 <VictoryScatter
