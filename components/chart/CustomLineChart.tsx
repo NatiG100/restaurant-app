@@ -8,7 +8,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
     datas:{amount:number,date:string}[][],
     colors:string[],
     selectedOption:number,
-    drawPoints:boolean,
+    drawPoints?:boolean,
 }){
     return(
     <ResponsiveVictoryChart

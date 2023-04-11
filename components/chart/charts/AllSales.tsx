@@ -68,6 +68,7 @@ export default function AllSales(){
                         [
                         ]
                     }
+                    drawPoints={false}
                 />
             }
         </ChartContainer>
