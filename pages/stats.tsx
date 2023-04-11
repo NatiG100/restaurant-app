@@ -15,8 +15,7 @@ import { formatDate } from "../utils/date";
 export default function Stats({setAppBarComponent}:any){
   const {from,to,error,onFromChange,onToChange} = useFromTo();
   useEffect(()=>{
-    console.log(from)
-    console.log(to)
+    
     setAppBarComponent(
       <div className="h-full flex gap-4 items-center">
         <p className="text-lg font-semibold text-gray-600">From</p>

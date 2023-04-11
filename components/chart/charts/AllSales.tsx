@@ -16,7 +16,7 @@ export default function AllSales(){
     const {data,isLoading,isError} = useQuery<
         TypeAllSalesChart,
         ErrorResponse
-    >(['fetchOrderChartData',selectedOption,selectedType],()=>getAllsales(selectedType));
+    >(['fetchAllSales',selectedOption,selectedType],()=>getAllsales(selectedType));
     if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>;
 
     const typeSelector = <select 

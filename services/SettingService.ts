@@ -15,7 +15,6 @@ export interface TypeUpdateSetting{
     frontendWebDomain:string,
 }
 export const updateSetting = async(data:TypeUpdateSetting)=>{
-    console.log(data);
     return instance.patch<
         TypeCustomeErrorResponse,
         TypeMultiDataResponse

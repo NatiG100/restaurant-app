@@ -10,7 +10,6 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
     selectedOption:number,
     drawPoints?:boolean,
 }){
-    console.log(datas[0])
     return(
     <ResponsiveVictoryChart
         padding={{ top: 0, bottom: 20, right: 50, left: 70 }}
@@ -35,7 +34,6 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
                 }
                 else if(selectedOption===1){
                     const dates = datas[0].data.map((d)=>(d.date));
-                    // console.log(datas[0])
                     return DOtW[dates.indexOf(x)]
                 }else{
                     return MOtY[parseInt(x)-1];

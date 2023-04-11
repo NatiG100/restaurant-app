@@ -58,7 +58,9 @@ export default function Orders(){
             {data&&
                 <CustomLineChart 
                     datas={data.data}
-                    colors={["#b91c1c","#eab308","#4f46e5","#16a34a",]}
+                    colors={data.data.map((d)=>(
+                        d._id==="Cancelled"?"#b91c1c":d._id==="Served"?"#16a34a":d._id==="Pending"?"#eab308":d._id==="Started"?"#4f46e5":"#000"
+                    ))}
                     selectedOption={selectedOption}
                     legend={
                         [
