@@ -6,8 +6,10 @@ import { FetchOrdersChartData, OrderChartDataRes } from "../../../services/chart
 import { ErrorResponse } from "../../../types/types";
 import ChartContainer from "../ChartContainer";
 import CustomLineChart from "../CustomLineChart";
+import ToggleBtn from "../../UIElements/ToggleBtn";
 
 export default function AllSales(){
+    const [enableInterpolation,setEnableInterpolation] = useState<boolean>(true);
     const [selectedOption, setSelectedOption] = useState<number>(2);
     const [selectedType,setSelectedType] = useState<"food"|"drink"|"all">("all");
     const onSelectCchange = (event:React.ChangeEvent<HTMLSelectElement>)=>{
@@ -19,7 +21,9 @@ export default function AllSales(){
     >(['fetchAllSales',selectedOption,selectedType],()=>getAllsales(selectedType));
     if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>;
 
-    const typeSelector = <select 
+    const typeSelector = <>
+        <ToggleBtn setIsOn={setEnableInterpolation} isOn={enableInterpolation}/>
+        <select 
             className="focus:outline-none border p-2 rounded-md text-gray-800" 
             value={selectedType}
             onChange={(event)=>{setSelectedType(event.target.value as "all"|"food"|"drink")}}
@@ -40,6 +44,7 @@ export default function AllSales(){
                 Drinks
             </option>
         </select>
+    </>
     return(
         <ChartContainer
             loading={isLoading}
