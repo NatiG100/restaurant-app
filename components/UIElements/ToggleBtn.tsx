@@ -20,7 +20,9 @@ export default function ToggleBtn({disabled=false,isOn=false,setIsOn}:ToggleBtnP
             cursor-pointer ${disabled&&"opacity-60"} self-center mr-3
         `}>
             <div className={`
-                absolute ${isOn?"right-0 top-[-1px]":"left-0 top-[-2px]"}  h-[18px] w-[18px] rounded-full ${isOn?"border-indigo-300":"border-slate-300"} bg-white shadow-sm
+                absolute ${isOn?"right-0 top-[-1px]":"left-0 top-[-2px]"}  
+                h-[18px] w-[18px] rounded-full ${isOn?"border-indigo-300":"border-slate-300"} 
+                bg-white shadow
                 border border-slate-300
             `}></div>
         </div>
