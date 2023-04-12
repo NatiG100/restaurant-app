@@ -58,7 +58,8 @@ export default function AllSales(){
             hideChartTypeFilter={true}
         >
             {data&&
-                <CustomLineChart 
+                <CustomLineChart
+                    zoomable={true}
                     datas={[
                         {
                             _id:"Cancelled",

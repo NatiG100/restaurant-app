@@ -1,19 +1,26 @@
-import { useEffect,Fragment } from "react";
-import { VictoryAxis, VictoryLabel, VictoryLegend, VictoryLine, VictoryScatter, VictoryTooltip } from "victory";
+import { useEffect,Fragment, useState } from "react";
+import { VictoryAxis, VictoryBrushContainer, VictoryCursorContainer, VictoryLabel, VictoryLegend, VictoryLine, VictoryScatter, VictoryTooltip, VictoryZoomContainer } from "victory";
 import { DOtW, MOtY } from "../../constants/constants";
 import ResponsiveVictoryChart from "../ResponsiveVictoryChart";
 
-export default function CustomLineChart ({datas,colors,selectedOption,legend,drawPoints=true}:{
+export default function CustomLineChart ({datas,colors,selectedOption,legend,drawPoints=true,zoomable=false}:{
     legend?:{name:string,symbol:{fill:string}}[],
     datas:{_id:string,data:{amount:number,date:string}[]}[],
     colors:string[],
     selectedOption:number,
     drawPoints?:boolean,
+    zoomable?:boolean
 }){
+    const [props,setProps] = useState<any>()
+    useEffect(()=>{
+        if(zoomable)setProps({containerComponent:<VictoryZoomContainer zoomDimension="x"/>});
+        else setProps({});
+    },[zoomable])
     return(
     <ResponsiveVictoryChart
         padding={{ top: 0, bottom: 20, right: 50, left: 70 }}
-        domainPadding={30} 
+        domainPadding={30}
+        {...props}
     >{legend&&
         <VictoryLegend x={125} y={-20}
             orientation="horizontal"
