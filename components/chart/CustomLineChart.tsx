@@ -3,13 +3,14 @@ import { VictoryAxis, VictoryBrushContainer, VictoryCursorContainer, VictoryLabe
 import { DOtW, MOtY } from "../../constants/constants";
 import ResponsiveVictoryChart from "../ResponsiveVictoryChart";
 
-export default function CustomLineChart ({datas,colors,selectedOption,legend,drawPoints=true,zoomable=false}:{
+export default function CustomLineChart ({datas,colors,selectedOption,legend,drawPoints=true,zoomable=false,interpolate=false}:{
     legend?:{name:string,symbol:{fill:string}}[],
     datas:{_id:string,data:{amount:number,date:string}[]}[],
     colors:string[],
     selectedOption:number,
     drawPoints?:boolean,
-    zoomable?:boolean
+    zoomable?:boolean,
+    interpolate?:boolean
 }){
     const [props,setProps] = useState<any>()
     useEffect(()=>{
@@ -71,7 +72,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
             return(
                 <VictoryLine
                     key={data._id}
-                    interpolation={"basis"}
+                    interpolation={interpolate?"basis":"linear"}
                     data={data.data}
                     x="date"
                     y="amount"
@@ -95,7 +96,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
             return(
                 <VictoryLine
                     key={data._id}
-                    interpolation={"basis"}
+                    interpolation={interpolate?"basis":"linear"}
                     data={data.data}
                     x="date"
                     y="amount"

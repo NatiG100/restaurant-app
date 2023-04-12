@@ -5,8 +5,11 @@ import { FetchOrdersChartData, OrderChartDataRes } from "../../../services/chart
 import { ErrorResponse } from "../../../types/types";
 import ChartContainer from "../ChartContainer";
 import CustomLineChart from "../CustomLineChart";
+import ToggleBtn from "../../UIElements/ToggleBtn";
 
 export default function Orders(){
+    const [interpolate,setInterpolate] = useState<boolean>(true);
+
     const [selectedOption, setSelectedOption] = useState<number>(1);
     const [selectedType,setSelectedType] = useState<"food"|"drink"|"all">("all");
     const onSelectCchange = (event:React.ChangeEvent<HTMLSelectElement>)=>{
@@ -18,7 +21,9 @@ export default function Orders(){
     >(['fetchOrderChartData',selectedOption,selectedType],()=>FetchOrdersChartData(chartType[selectedOption],selectedType));
     if(isError) return <p className="text-red-600">Some error occured while fetching chart data</p>;
 
-    const typeSelector = <select 
+    const typeSelector = <>
+        <ToggleBtn setIsOn={setInterpolate} isOn={interpolate}/>
+        <select 
             className="focus:outline-none border p-2 rounded-md text-gray-800" 
             value={selectedType}
             onChange={(event)=>{setSelectedType(event.target.value as "all"|"food"|"drink")}}
@@ -39,6 +44,7 @@ export default function Orders(){
                 Drinks
             </option>
         </select>
+    </>
     return(
         <ChartContainer
             loading={isLoading}
@@ -56,7 +62,8 @@ export default function Orders(){
             span={2}
         >
             {data&&
-                <CustomLineChart 
+                <CustomLineChart
+                    interpolate={interpolate} 
                     datas={data.data}
                     colors={data.data.map((d)=>(
                         d._id==="Cancelled"?"#b91c1c":d._id==="Served"?"#16a34a":d._id==="Pending"?"#eab308":d._id==="Started"?"#4f46e5":"#000"
