@@ -33,6 +33,6 @@ export interface TypeTopItems{
         }[]
     }
 }
-export const getTopItems = async ()=>{
-    return instance.get<ErrorResponse,TypeTopItems>('/stats/top-items?howMany=3',{withCredentials:true});
+export const getTopItems = async (howMany=5)=>{
+    return instance.get<ErrorResponse,TypeTopItems>(`/stats/top-items?howMany=${howMany}`,{withCredentials:true});
 }

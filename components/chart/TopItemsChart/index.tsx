@@ -4,10 +4,12 @@ import { useQuery } from 'react-query';
 import { getTopItems, TypeTopItems } from '../../../services/StatService';
 import Loading from '../../UIElements/Loading';
 import { ErrorResponse } from '../../../types/types';
+import { useState } from 'react';
 
 
 export default function TopItemsChart(){
-    const {data,isLoading,isError} = useQuery<TypeTopItems,ErrorResponse>('fetchTopItems',getTopItems);
+    const [nOfItems,setNOfItems] = useState<3|5|10>(3);
+    const {data,isLoading,isError} = useQuery<TypeTopItems,ErrorResponse>(['fetchTopItems',nOfItems],()=>getTopItems(nOfItems));
     if(isLoading) return <Loading type="contained"/>
     return(
         <div className={`
@@ -17,8 +19,18 @@ export default function TopItemsChart(){
         `}>
             { data?.data&&
                 <>
-                    <TopSalesView items={data.data.topFoods} title="Top 3 Foods"/>
-                    <TopSalesView items={data.data.topDrinks} title="Top 3 Drinks"/>
+                    <TopSalesView 
+                        items={data.data.topFoods} 
+                        title=" Foods"
+                        value={nOfItems}
+                        setOption={setNOfItems}
+                    />
+                    <TopSalesView 
+                        items={data.data.topDrinks} 
+                        title=" Drinks"
+                        value={nOfItems}
+                        setOption={setNOfItems}   
+                    />
                 </>
             }
         </div>

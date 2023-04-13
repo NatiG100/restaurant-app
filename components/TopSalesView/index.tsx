@@ -6,9 +6,12 @@ import useScroll from '../../hooks/useScroll';
 import {useRef} from 'react'
 
 
-export default function TopSalesView(props:{items:SalesItemInterface[],title:string}){
+export default function TopSalesView(props:{items:SalesItemInterface[],title:string,setOption:(howMany:3|5|10)=>void,value:3|5|10}){
     const ref = useRef(null);
-    const {end,start,moveLeft,moveRight} = useScroll({ref:ref})
+    const {end,start,moveLeft,moveRight} = useScroll({ref:ref,amount:props.value&&100})
+    const onSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) =>{
+        props.setOption(Number.parseInt(event.target.value) as 3|5|10);
+    }
     return(
         <div className="
             w-full h-full grid grid-rows-header
@@ -16,6 +19,28 @@ export default function TopSalesView(props:{items:SalesItemInterface[],title:str
         ">
             <div className="pb-2 flex items-center justify-start gap-3">
                 <CircleIcon className="text-gray-200 text-md"/>
+                <p className="font-semibold text-gray-700">Top</p> 
+                <select 
+                    className="focus:outline-none border p-1 rounded-md text-gray-800" 
+                    value={props.value}
+                    onChange={onSelectChange}
+                >
+                    <option 
+                        value={3}
+                    >
+                        3
+                    </option>
+                    <option 
+                        value={5}
+                    >
+                        5
+                    </option>
+                    <option 
+                        value={10}
+                    >
+                        10
+                    </option>
+                </select>
                 <p className="font-semibold text-gray-700">{props.title}</p>
             </div>
             <div className="
@@ -50,7 +75,7 @@ function ScrollerButton({direction,onClick=()=>{}}:{direction:"left"|"right",onC
         <div 
             className={`
                 ${direction==="left"?"bg-gradient-to-r":"bg-gradient-to-l"} from-white via-white to-transparent from-90% to-10%
-                 z-40 absolute opacity-90 hover:opacity-100
+                 z-40 absolute text-gray-500 hover:text-gray-900
                 h-full px-4 flex items-center w-max 
                 ${direction==="left"?"left-0":"right-0"} cursor-pointer
             `} 
