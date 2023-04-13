@@ -49,13 +49,14 @@ function ScrollerButton({direction,onClick=()=>{}}:{direction:"left"|"right",onC
     return(
         <div 
             className={`
-                opacity-70 hover:opacity-100 z-40 absolute 
-                h-full px-3 flex items-center bg-black w-max 
+                ${direction==="left"?"bg-gradient-to-r":"bg-gradient-to-l"} from-white via-white to-transparent from-90% to-10%
+                 z-40 absolute opacity-90 hover:opacity-100
+                h-full px-4 flex items-center w-max 
                 ${direction==="left"?"left-0":"right-0"} cursor-pointer
             `} 
             onClick={onClick}
         >
-            {direction==="left"?<FaChevronLeft />:<FaChevronRight/>}
+            {direction==="left"?<FaChevronLeft />:<FaChevronRight />}
         </div>
     )
 }
