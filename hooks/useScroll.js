@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const useScroll = ({ref=null,amount=100})=>{
+const useScroll = ({ref,amount=100})=>{
     const [start,setStart] = useState(false);
     const [end,setEnd] = useState(false);
     const updateSliderState=useCallback(()=>{
