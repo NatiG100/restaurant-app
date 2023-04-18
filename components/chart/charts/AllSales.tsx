@@ -68,8 +68,8 @@ export default function AllSales(){
                     zoomable={true}
                     datas={[
                         {
-                            _id:"Cancelled",
-                            data:data.data.map((d)=>({amount:d.total,date:d._id}))
+                            _id:"Served",
+                            data:data.data.map((d)=>({amount:d.total,date:d._id}))||[]
                         }
                     ]}
                     colors={["#16a34a",]}

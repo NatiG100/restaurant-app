@@ -41,7 +41,7 @@ export default function CustomLineChart ({datas,colors,selectedOption,legend,dra
                     return x
                 }
                 else if(selectedOption===1){
-                    const dates = datas[0].data.map((d)=>(d.date));
+                    const dates = datas[0]?.data.map((d)=>(d.date))||[];
                     return DOtW[dates.indexOf(x)]
                 }else{
                     return MOtY[parseInt(x)-1];

@@ -64,7 +64,7 @@ export default function Orders(){
             {data&&
                 <CustomLineChart
                     interpolate={interpolate} 
-                    datas={data.data}
+                    datas={data.data||[]}
                     colors={data.data.map((d)=>(
                         d._id==="Cancelled"?"#b91c1c":d._id==="Served"?"#16a34a":d._id==="Pending"?"#eab308":d._id==="Started"?"#4f46e5":"#000"
                     ))}
