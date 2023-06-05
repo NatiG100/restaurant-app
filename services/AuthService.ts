@@ -5,6 +5,7 @@ export const login = async (data:{email:string,password:string})=>{
     return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(
         'auth/login',
         data,
+        {withCredentials:true}
     );
 };
 
