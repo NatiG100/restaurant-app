@@ -1,2 +1,2 @@
-const baseURL = 'http://172.20.101.37:4000';
+const baseURL = 'https://restaurant-app-api-kkdj.onrender.com';
 export default baseURL;
