@@ -5,7 +5,8 @@ export const fetchAllOrders = async ()=>{
     return instance.get<
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
-    >(`/orders`)
+    >(`/orders`,
+    {withCredentials:true})
 };
 
 export interface TypeChangeOrderStatus{
@@ -16,5 +17,6 @@ export const changeOrderStatus = async(data:TypeChangeOrderStatus)=>{
     return instance.patch<
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
-    >(`/orders/${data.id}/change-status`,{status:data.status});
+    >(`/orders/${data.id}/change-status`,{status:data.status},
+    {withCredentials:true});
 };

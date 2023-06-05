@@ -11,12 +11,14 @@ export const login = async (data:{email:string,password:string})=>{
 
 export const logout = async ()=>{
     return instance.post(
-        'auth/logout'
+        'auth/logout',
+        {withCredentials:true}
     );
 };
 
 export const who_am_i = async()=>{
     return instance.get(
-        'auth/who-am-i'
+        'auth/who-am-i',
+        {withCredentials:true}
     );
 };

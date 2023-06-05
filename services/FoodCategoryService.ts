@@ -19,7 +19,8 @@ export const addFoodCategory = async(data:TypeAddFoodCategory)=>{
     return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>('/food-categories',formData,{
         headers:{
             "Content-Type": "multipart/form-data",
-        }
+        },
+        withCredentials:true,
     })
 }
 
@@ -37,7 +38,8 @@ export const updateFoodCategory = async({data,id}:TypeUpdateFoodCategory)=>{
     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food-categories/${id}/update`,formData,{
         headers:{
             "Content-Type": "multipart/form-data",
-        }
+        },
+        withCredentials:true,
     })
 }
 
@@ -47,5 +49,6 @@ export interface TypeChangeFoodCategoryStatus{
     id:string
 }
 export const changeFoodCategoryStatus = async(data:TypeChangeFoodCategoryStatus)=>{
-    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food-categories/${data.id}/change-status`,{status:data.status});
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/food-categories/${data.id}/change-status`,{status:data.status},
+    {withCredentials:true});
 }

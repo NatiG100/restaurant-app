@@ -17,5 +17,6 @@ export interface TypeGenerateStatRes{
 }
 
 export const GenerateReport = async (from:string,to:string)=>{
-    return instance.get<ErrorResponse,TypeGenerateStatRes>(`/stats/generate?from=${from}&to=${to}`);
+    return instance.get<ErrorResponse,TypeGenerateStatRes>(`/stats/generate?from=${from}&to=${to}`,
+    {withCredentials:true});
 }

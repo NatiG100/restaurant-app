@@ -24,7 +24,8 @@ export const addUser = async(data:TypeAddUser)=>{
     return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>('/users/register',formData,{
         headers:{
             "Content-Type": "multipart/form-data",
-        }
+        },
+        withCredentials:true,
     })
 }
 
@@ -41,11 +42,13 @@ export const updateUser = async({data,id}:{data:TypeAddUser,id:string})=>{
     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${id}/update`,formData,{
         headers:{
             "Content-Type": "multipart/form-data",
-        }
+        },
+        withCredentials:true,
     })
 }
 
 //change usuer status service
 export const changeUserStatus = async(data:{status:"Active"|"Suspended",id:string})=>{
-    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${data.id}/change-status`,{status:data.status});
+    return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${data.id}/change-status`,{status:data.status},
+    {withCredentials:true});
 }

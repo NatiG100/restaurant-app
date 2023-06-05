@@ -8,7 +8,8 @@ export const fetchSetting = async ()=>{
     return instance.get<
         TypeCustomeErrorResponse,
         TypeFetchSettingResponse
-    >(`/setting`)
+    >(`/setting`,
+    {withCredentials:true})
 }
 export interface TypeUpdateSetting{
     taxRate:number,
@@ -18,5 +19,6 @@ export const updateSetting = async(data:TypeUpdateSetting)=>{
     return instance.patch<
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
-    >(`/setting`,data);
+    >(`/setting`,data,
+    {withCredentials:true});
 }

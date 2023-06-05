@@ -7,9 +7,10 @@ export interface FetchNotificationError{
     message:string,
 }
 export const fetchAllNotifications = async()=>{
-    return instance.get<FetchNotificationError,FetchNotificationsSuccess>('/notifications');
+    return instance.get<FetchNotificationError,FetchNotificationsSuccess>('/notifications',{withCredentials:true});
 }
 
 export const seeAllNotifications = async()=>{
-    return instance.post<{message:string},{message:string}>('/notifications/see');
+    return instance.post<{message:string},{message:string}>('/notifications/see',
+    {withCredentials:true});
 }
