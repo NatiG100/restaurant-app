@@ -5,7 +5,7 @@ export const login = async (data:{email:string,password:string})=>{
     return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(
         'auth/login',
         data,
-        {withCredentials:true,headers:{"access-control-allow-origin":"restaurant-app-api-kkdj.onrender.com"}}
+        {withCredentials:true,headers:{"access-control-allow-origin":"restaurant-app-api-kkdj.onrender.com"}},
     );
 };
 
