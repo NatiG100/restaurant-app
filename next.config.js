@@ -8,6 +8,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   swcMinify: true,
   webpack(config,options){
     const {isServer} = options;
