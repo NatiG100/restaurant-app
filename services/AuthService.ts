@@ -12,13 +12,13 @@ export const login = async (data:{email:string,password:string})=>{
 export const logout = async ()=>{
     return instance.post(
         'auth/logout',
-        {withCredentials:true}
+        {withCredentials:true,headers:{"access-control-allow-origin":"restaurant-app-api-kkdj.onrender.com"}}
     );
 };
 
 export const who_am_i = async()=>{
     return instance.get(
         'auth/who-am-i',
-        {withCredentials:true}
+        {withCredentials:true,headers:{"access-control-allow-origin":"restaurant-app-api-kkdj.onrender.com"}}
     );
 };
