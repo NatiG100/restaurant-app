@@ -5,19 +5,19 @@ export const login = async (data:{email:string,password:string})=>{
     return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(
         'auth/login',
         data,
-        {withCredentials:true,headers:{"access-control-allow-origin":".onrender.com"}},
+        {withCredentials:true,headers:{"Access-Control-Allow-Origin":"https://restaurant-app-api-kkdj.onrender.com"}},
     );
 };
 
 export const logout = async ()=>{
     return instance.post(
         'auth/logout',
-        {withCredentials:true,headers:{"access-control-allow-origin":".onrender.com"},}
+        {withCredentials:true,}
     );
 };
 export const who_am_i = async()=>{
     return instance.get(
         'auth/who-am-i',
-        {withCredentials:true,headers:{"access-control-allow-origin":".onrender.com"}}
+        {withCredentials:true}
     );
 };
