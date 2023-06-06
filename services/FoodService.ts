@@ -23,7 +23,6 @@ export const addFood = async(data:TypeAddFood)=>{
         headers:{
             "Content-Type": "multipart/form-data",
         },
-        withCredentials:true,
     })
 }
 
@@ -46,7 +45,6 @@ export const updateFood = async({name,description,cost,img,id}:TypeUpdateFood)=>
         headers:{
             "Content-Type": "multipart/form-data",
         },
-        withCredentials:true,
     })
 }
 
@@ -57,5 +55,5 @@ export interface TypeChangeFoodStatus{
 }
 export const changeFoodStatus = async(data:TypeChangeFoodStatus)=>{
     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/foods/${data.id}/change-status`,{status:data.status},
-    {withCredentials:true});
+    );
 }

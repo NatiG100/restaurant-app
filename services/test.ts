@@ -7,5 +7,5 @@ export const test = async ()=>{
     return instance.post<
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
-    >(`/test`,{},{withCredentials:true});
+    >(`/test`,{},);
 }

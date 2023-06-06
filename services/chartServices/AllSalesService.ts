@@ -10,5 +10,5 @@ export interface TypeAllSalesChart{
 
 export const getAllsales = async (itemType:"food"|"drink"|"all")=>{
     return instance.get<ErrorResponse,TypeAllSalesChart>(`/stats/sales-all?&itemType=${itemType}`,
-    {withCredentials:true});
+    );
 }

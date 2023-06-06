@@ -12,7 +12,7 @@ export interface GeneralStat{
     }
 }
 export const getGeneralStat = async ()=>{
-    return instance.get<ErrorResponse,GeneralStat>('/stats/general',{withCredentials:true});
+    return instance.get<ErrorResponse,GeneralStat>('/stats/general',);
 }
 
 export interface TypeTopItems{
@@ -34,5 +34,5 @@ export interface TypeTopItems{
     }
 }
 export const getTopItems = async (howMany=5)=>{
-    return instance.get<ErrorResponse,TypeTopItems>(`/stats/top-items?howMany=${howMany}`,{withCredentials:true});
+    return instance.get<ErrorResponse,TypeTopItems>(`/stats/top-items?howMany=${howMany}`,);
 }

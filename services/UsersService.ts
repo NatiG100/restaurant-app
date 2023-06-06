@@ -25,7 +25,7 @@ export const addUser = async(data:TypeAddUser)=>{
         headers:{
             "Content-Type": "multipart/form-data",
         },
-        withCredentials:true,
+        
     })
 }
 
@@ -43,12 +43,12 @@ export const updateUser = async({data,id}:{data:TypeAddUser,id:string})=>{
         headers:{
             "Content-Type": "multipart/form-data",
         },
-        withCredentials:true,
+        
     })
 }
 
 //change usuer status service
 export const changeUserStatus = async(data:{status:"Active"|"Suspended",id:string})=>{
     return instance.patch<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/users/${data.id}/change-status`,{status:data.status},
-    {withCredentials:true});
+    );
 }

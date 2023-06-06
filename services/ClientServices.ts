@@ -26,6 +26,5 @@ export interface TypeRequestOrder{
     }[]
 }
 export const requestOrder = async(data:TypeRequestOrder)=>{
-    return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/orders`,data,
-    {withCredentials:true})
+    return instance.post<TypeCustomeErrorResponse,TypeMultiDataResponse>(`/orders`,data)
 }

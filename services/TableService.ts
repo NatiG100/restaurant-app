@@ -6,7 +6,7 @@ export const fetchAllTables = async ()=>{
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`/tables`,
-    {withCredentials:true})
+    )
 }
 
 export interface TypeAddTable{
@@ -17,7 +17,7 @@ export const addTable = async(data:TypeAddTable)=>{
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`/tables`,data,
-    {withCredentials:true});
+    );
 }
 
 //update food category service
@@ -30,7 +30,7 @@ export const updateTable = async(data:TypeUpdateTable)=>{
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`/tables/${data.id}/update`,data,
-    {withCredentials:true});
+    );
 }
 
 //change food status service
@@ -43,7 +43,7 @@ export const changeTableStatus = async(data:TypeChangeTableStatus)=>{
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`/tables/${data.id}/change-status`,{status:data.status},
-    {withCredentials:true});
+    );
 };
 
 export const deleteTable = async(data:{id:string})=>{
@@ -51,5 +51,5 @@ export const deleteTable = async(data:{id:string})=>{
         TypeCustomeErrorResponse,
         TypeMultiDataResponse
     >(`tables/${data.id}`,
-    {withCredentials:true});
+    );
 }
