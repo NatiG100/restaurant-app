@@ -50,7 +50,7 @@ const UserActionCell = (params:ICellRendererParams<TypeUser>)=>{
 const UserAvatarCell = (params:ICellRendererParams<TypeUser>)=>{
     return(
         <div className="flex justify-center items-center py-2 my-auto">
-            <Image
+            <img
                 height={200}
                 width={200}
                 src={baseURL+(params.data?.img||"")}

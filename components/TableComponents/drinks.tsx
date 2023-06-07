@@ -55,7 +55,7 @@ const DrinksActionCell = (params:ICellRendererParams<TypeDrink>)=>{
 const DrinksAvatarCell = (params:ICellRendererParams<TypeDrink>)=>{
     return(
         <div className="flex justify-center items-center py-2 my-auto">
-            <Image
+            <img
                 height={200}
                 width={200}
                 src={baseURL+params.data?.img||""}

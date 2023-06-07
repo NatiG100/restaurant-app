@@ -18,7 +18,7 @@ export default function SalesItem(props:SalesItemInterface){
             onMouseEnter={triggerRender}
             onMouseLeave={triggerRemove}
         >
-            <Image 
+            <img 
                 height={500}
                 width={500}
                 src={baseURL+props.img} 

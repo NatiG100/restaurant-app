@@ -20,7 +20,7 @@ export default function Category({img,title,description,numberOfItems,id,type="f
             "
             href={type=="food"?`/client/foods/${id}?name=${title}`:`/client/drinks/${id}?name=${title}`}
         >
-            <Image
+            <img
                 src={img}
                 alt={"title"}
                 height={60}

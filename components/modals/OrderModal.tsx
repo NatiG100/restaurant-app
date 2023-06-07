@@ -107,7 +107,7 @@ function OrderItem(props:TypeItem){
             hover:bg-gray-200 transition-all
         ">
             <div className="flex justify-start items-center gap-6">
-                <Image 
+                <img 
                     src={baseURL+props.img} 
                     alt={props.name} 
                     width={70} 

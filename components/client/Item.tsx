@@ -97,7 +97,7 @@ function Item({
                 h-max flex justify-between items-center p-3 py-4
                 
             ">
-                <Image
+                <img
                     src={baseURL+img}
                     alt={"title"}
                     height={400}

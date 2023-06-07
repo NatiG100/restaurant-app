@@ -33,7 +33,7 @@ export default function SingleImageUpload({setFile=()=>{},setImg,img}:TypeSingle
         });
     return(
         <div {...getRootProps()} className="w-full h-64 relative">
-            <Image
+            <img
                 src={img?img:""}
                 alt="avatar"
                 width={400}

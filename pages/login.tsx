@@ -52,7 +52,7 @@ export default function Login(){
                 w-full max-w-md rounded-lg p-5 px-1 border 
                 border-indigo-100 h-max bg-white sm:p-12 sm:px-6 mt-16 sm:pt-5
             ">
-                {/* <Image 
+                {/* <img 
                     src={logo} 
                     alt="Logo" 
                     height={70}

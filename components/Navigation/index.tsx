@@ -18,7 +18,7 @@ export default function Navigation() {
     <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-0 md:px-5 ">
 
       <div className="h-20 gap-2 w-full flex items-center justify-start sticky top-0 left-0 bg-white shadow-md shadow-white">
-        <Image 
+        <img 
             src={logo} 
             alt="Logo" 
             height={60}

@@ -53,7 +53,7 @@ export default function UserProfile (){
                     callBack={handleConfirm}
                 />
             </Backdrop>}
-            <Image
+            <img
                 ref={imageRef}
                 alt="avater" 
                 src={user?.img?baseURL+user.img:""}
