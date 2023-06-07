@@ -35,6 +35,12 @@ const nextConfig = {
   },
   images: {
     domains: ['restaurant-app-api-kkdj.onrender.com'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "restaurant-app-api-kkdj.onrender.com",
+      },
+    ],
   },
 }
 
