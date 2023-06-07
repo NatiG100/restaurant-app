@@ -34,14 +34,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'restaurant-app-api-kkdj.onrender.com',
-        port: '10000',
-        pathname: '/img/**',
-      },
-    ],
+    domains: ['restaurant-app-api-kkdj.onrender.com'],
   },
 }
 
