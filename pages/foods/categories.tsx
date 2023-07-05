@@ -16,6 +16,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/typ
 import { changeFoodCategoryStatus, fetchAllFoodCategories, TypeChangeFoodCategoryStatus } from "../../services/FoodCategoryService";
 import {toast} from 'react-toastify';
 import Auth from "../../components/hoc/Auth";
+import TableWrapper from "../../components/TableWrapper";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -124,7 +125,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
         refetch();
     }
     return (
-            <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+        <TableWrapper>
+            <div className={" ag-theme-alpine  h-full shadow-[2px_2px_4px_#0004]  rounded-lg overflow-hidden border border-[#14234d4f]"} ref={tableRef}>
                 {
                     selectedFoodCategory&&
                     <Backdrop onClick={handleModalClose}>
@@ -156,17 +158,18 @@ export default function DrinkCategories({setAppBarComponent}:any){
                     ref={gridRef}
                     rowData={response?.data}
                     columnDefs={columnDefs}
-                    rowStyle={{width:"100%"}}
+                    rowStyle={{width:"100%",borderBottom:'0px'}}
                     overlayLoadingTemplate={
                         '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
                     }
                     rowDragManaged={true}
                     containerStyle={{
-                        border:"0px solid #fff0"
+                        border:"0px",
                     }}
                     defaultColDef={defaultColDef}
                 >
                 </AgGridReact>
             </div>
+        </TableWrapper>
     );
 }

@@ -19,6 +19,7 @@ import { TableQRPrint } from "../components/TableQRPrint";
 import Auth from "../components/hoc/Auth";
 import usePageRedirect from "../components/hoc/usePageRedirect";
 import Loading from "../components/UIElements/Loading";
+import TableWrapper from "../components/TableWrapper";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -97,7 +98,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const finished = usePageRedirect("View Tables");
     if(!finished) return <Loading type="full"/>
     return (
-            <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+        <TableWrapper>
+            <div className="ag-theme-alpine h-full w-full shadow-md shadow-gray-[#fffb]" ref={tableRef}>
                 {
                     openCreateModal&&
                     <Backdrop onClick={handleCloseCreateModal}>
@@ -135,5 +137,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 >
                 </AgGridReact>
             </div>
+        </TableWrapper>
     );
 }

@@ -1,4 +1,4 @@
-import { CellClassParams, ColDef, ICellRendererParams } from "ag-grid-community";
+import { CellClassParams, ColDef, ICellRendererParams, IHeaderParams } from "ag-grid-community";
 import Image from "next/image";
 import React from "react";
 import baseURL from "../../constants/BASE_URL";
@@ -24,7 +24,7 @@ const FoodCategoriesActionCell = (params:ICellRendererParams<TypeFoodCategory>)=
     const loading = params.context.isStatusUpdateLoading;
     const changeStatus = params.context.requestStatusUpdate;
     return(
-        <div className="flex gap-4 font-semibold w-max">
+        <div className="flex gap-4 font-semibold w-max items-center py-2">
             <Button 
                 type="outline" 
                 className="w-24" 
@@ -57,43 +57,53 @@ const FoodCategoriesAvatarCell = (params:ICellRendererParams<TypeFoodCategory>)=
     return(
         <div className="flex justify-center items-center py-2 my-auto">
             <img
-                height={200}
-                width={200}
+                height={100}
+                width={100}
                 src={baseURL+params.data?.img||""}
                 alt={params.data?.name||""}
-                className="rounded-full object-cover h-20 w-20 ring ring-indigo-700/20"
+                className="rounded-full object-cover h-14 w-14"
             />
         </div>
     );
 }
-const FoodCategoriesDescriptionCell = (params:ICellRendererParams<TypeFoodCategory>)=>{
-    return(
-        <div className="w-full max-h-24 overflow-y-auto">
-            <p className="text-sm p-2 text-gray-600  leading-4">{params.data?.description}</p>
-        </div>
-    );
-}
+
 
 const statusColumnClass = (params:CellClassParams<TypeFoodCategory>)=>(
-    params.data?.status==="Active"?"text-green-600 text-base":
-    params.data?.status==="Suspended"?"text-red-600  text-base":
-    "text-gray-600  text-base" 
+    params.data?.status==="Active"?"h-14 flex items-center my-2 py-2 text-green-600 text-base":
+    params.data?.status==="Suspended"?"flex items-center my-2 py-2 text-red-600  text-base":
+    "flex items-center my-2 py-2 text-gray-600  text-base" 
 )
 
-const headerClass:string = "text-gray-700 text-base";
+const headerClass:string = "text-gray-600 text-base font-normal font-[500]";
 const cellClass:string = "text-gray-600 text-base self-center cursor-pointer";
 
 export const defaultColDef:ColDef={
     resizable:true,
     autoHeight:true,
-    headerClass
+    headerClass,
+    cellStyle: {
+        justify:"center"
+    }
 }
-
+export const CellRenderer = (bold?:boolean)=>(params:ICellRendererParams<TypeFoodCategory>)=>{
+    return(
+        <div className=" w-full h-14 flex items-center my-2">
+            <p className={`align-center w-full  ${bold&&"font-medium"}`}>{params.value}</p>
+        </div>
+    );
+}
 export const columnDefs:ColDef<TypeFoodCategory>[] = [
+    {
+        checkboxSelection:true,
+        headerCheckboxSelection:true,
+        width:80,
+        autoHeight:false,
+        cellClass:"justify-center"
+    },
     {
         field:'img',
         headerName:"Avatar",
-        width:122,
+        width:100,
         resizable:false,
         cellRenderer:FoodCategoriesAvatarCell
     },
@@ -102,20 +112,15 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         headerName:"ID",
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
+        cellRenderer:CellRenderer(false)
     },
     { 
         field: 'name',
         headerName:"Name",
         cellClass:cellClass,
         width:150,
-        sortable:true,  
-    },
-    { 
-        field: 'description',
-        headerName:"Description",
-        cellRenderer:FoodCategoriesDescriptionCell,
-        width:200,
-        wrapText:true,
+        sortable:true,
+        cellRenderer:CellRenderer(true)  
     },
     { 
         field: 'foodCount',
@@ -124,6 +129,7 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         width:120,
         filter: 'agTextColumnFilter',
         sortable:true,
+        cellRenderer:CellRenderer(false)
     },
     { 
         field: 'created',
@@ -132,6 +138,7 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
+        cellRenderer:CellRenderer(false)
     },
     { 
         field: 'updated',
@@ -140,6 +147,7 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
+        cellRenderer:CellRenderer(false)
     },
     { 
         field: 'status',
@@ -154,6 +162,5 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:FoodCategoriesActionCell,
-        width:300 
-    },
+    }
 ];

@@ -13,6 +13,7 @@ import { changeOrderStatus, fetchAllOrders, TypeChangeOrderStatus } from "../ser
 import { toast } from "react-toastify";
 import usePageRedirect from "../components/hoc/usePageRedirect";
 import Loading from "../components/UIElements/Loading";
+import TableWrapper from "../components/TableWrapper";
 
 
 export default function Orders({setAppBarComponent}:any){
@@ -116,35 +117,37 @@ export default function Orders({setAppBarComponent}:any){
     const finished = usePageRedirect("View Orders");
     if(!finished) return <Loading type="full"/>
     return (
-        <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-            {selectedOrder?<Backdrop onClick={handleOrderModalClose}>
-                <OrderModal
-                    order={selectedOrder}
-                    onClose={handleOrderModalClose}
-                    changeStatus={requestStatusUpdate}
-                    isStatusChangeLoading={isStatusUpdateLoading}
-                />
-            </Backdrop>:null}
-            <AgGridReact
-                context={{
-                    setSelectedOrder,
-                    requestStatusUpdate,
-                    isStatusUpdateLoading,
-                }}
-                ref={gridRef}
-                rowData={response?.data}
-                columnDefs={columnDefs}
-                rowHeight={55}
-                rowStyle={{width:"100%"}}
-                overlayLoadingTemplate={
-                    '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
-                }
-                rowDragManaged={true}
-                containerStyle={{
-                    border:"0px solid #fff0"
-                }}
-            >
-            </AgGridReact>
-        </div>
+        <TableWrapper>
+            <div className="ag-theme-alpine h-full w-full shadow-md shadow-gray-[#fffb]" ref={tableRef}>
+                {selectedOrder?<Backdrop onClick={handleOrderModalClose}>
+                    <OrderModal
+                        order={selectedOrder}
+                        onClose={handleOrderModalClose}
+                        changeStatus={requestStatusUpdate}
+                        isStatusChangeLoading={isStatusUpdateLoading}
+                    />
+                </Backdrop>:null}
+                <AgGridReact
+                    context={{
+                        setSelectedOrder,
+                        requestStatusUpdate,
+                        isStatusUpdateLoading,
+                    }}
+                    ref={gridRef}
+                    rowData={response?.data}
+                    columnDefs={columnDefs}
+                    rowHeight={55}
+                    rowStyle={{width:"100%"}}
+                    overlayLoadingTemplate={
+                        '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
+                    }
+                    rowDragManaged={true}
+                    containerStyle={{
+                        border:"0px solid #fff0"
+                    }}
+                >
+                </AgGridReact>
+            </div>
+        </TableWrapper>
     );
 }

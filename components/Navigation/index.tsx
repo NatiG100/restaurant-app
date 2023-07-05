@@ -17,21 +17,21 @@ export default function Navigation() {
   return (
     <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-0 ">
 
-      <div className="h-32 gap-2 w-full flex items-end justify-start sticky top-0 left-0 bg-[#111727] shadow-lg shadow-[#111727] z-40">
+      <div className="h-40 gap-2 w-full flex items-center justify-start sticky top-0 left-0 bg-[#111727] shadow-[0px_6px_10px_#111727] z-40 ">
         <Image 
             src={logo} 
             alt="Logo" 
             height={60}
             width={60}
-            className="fill-transparent ml-2"
+            className="fill-transparent ml-2 "
         />
-        <div className="flex flex-col justify-center gap-0">
-          <p className="text-lg text-white font-semibold">Muni</p>
-          <p className="text-gray-300">Cafe & Restaurant</p>
+        <div className="flex flex-col justify-center gap-0 ">
+          <p className="text-2xl text-white font-semibold">Muni</p>
+          <p className="text-gray-300 bg-[#fff2] px-2 rounded-full">Cafe & Restaurant</p>
         </div>
       </div>
 
-      <div className="h-full w-full flex flex-col gap-6 pt-5 pb-4">
+      <div className="h-full w-full flex flex-col gap-6 pt-3 pb-4">
         <div className="w-full flex flex-col">
           <Auth requiredPrevilage="View Info">
             <NavigationMenu route="/" only>
@@ -55,7 +55,7 @@ export default function Navigation() {
           </NavigationMenu>
         </div>
 
-        <hr className="border-[#fff2]"/>
+        <hr className="border-[#fff3] mx-4 shadow-sm shadow-black/75"/>
 
         <div className="w-full  flex flex-col">
           <Auth requiredPrevilage="View Users">
@@ -72,7 +72,7 @@ export default function Navigation() {
           </Auth>
         </div>
 
-        <hr className="border-[#fff2]"/>
+        <hr className="border-[#fff3] mx-4 shadow-sm shadow-black/75"/>
 
         <div className="w-full flex flex-col">
           <Auth requiredPrevilage="View Info">

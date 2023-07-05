@@ -67,7 +67,7 @@ export default function SalesChart(){
             <ResponsiveVictoryChart
                 padding={{ top: 10, bottom: 20, right: 50, left: 70 }}
                 domainPadding={30}
-                >
+            >
                 <VictoryAxis 
                     style={{
                         tickLabels:{fill:"rgb(55 65 81)",fontSize:"12px"},
@@ -112,7 +112,7 @@ export default function SalesChart(){
                         },
                     }}
                     
-                    data={data?.data}
+                    data={data?.data||[]}
                     x="_id"
                     y="total"
                     labels={({ datum }) => datum.total}

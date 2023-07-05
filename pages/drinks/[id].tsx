@@ -17,6 +17,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../../types/typ
 import { changeDrinkStatus, fetchAllDrinks, TypeChangeDrinkStatus } from "../../services/DrinkService";
 import { toast } from "react-toastify";
 import Auth from "../../components/hoc/Auth";
+import TableWrapper from "../../components/TableWrapper";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -123,7 +124,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
         refetch();
     }
     return (
-            <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
+        <TableWrapper>
+            <div className="ag-theme-alpine h-full w-full shadow-md shadow-gray-[#fffb]" ref={tableRef}>
                 {
                     selectedDrink&&
                     <Backdrop onClick={handleFoodViewModalClose}>
@@ -167,5 +169,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
                 >
                 </AgGridReact>
             </div>
+        </TableWrapper>
     );
 }

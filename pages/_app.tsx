@@ -1,4 +1,6 @@
 import '../styles/globals.css'
+import '../styles/aggrid-custom.css'
+
 import { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app'
 import Appbar from '../components/Appbar';

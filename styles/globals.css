@@ -9,6 +9,9 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: #f1f4fc;
 }
+*{
+  font-family:  'Alegreya Sans'
+}
 
 a {
   color: inherit;
@@ -37,3 +40,4 @@ p,a,h1,h1,h2,h3,h4,h5,h6,li{
     color-scheme: dark;
   }
 } */
+
