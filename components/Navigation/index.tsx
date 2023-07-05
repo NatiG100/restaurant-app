@@ -15,10 +15,10 @@ import Auth from "../hoc/Auth";
 
 export default function Navigation() {
   return (
-    <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-0 md:px-5 ">
+    <div className="h-screen w-full overflow-y-auto grid grid-rows-header px-0 ">
 
-      <div className="h-20 gap-2 w-full flex items-center justify-start sticky top-0 left-0 bg-white shadow-md shadow-white">
-        <img 
+      <div className="h-32 gap-2 w-full flex items-end justify-start sticky top-0 left-0 bg-[#111727] shadow-lg shadow-[#111727] z-40">
+        <Image 
             src={logo} 
             alt="Logo" 
             height={60}
@@ -26,63 +26,63 @@ export default function Navigation() {
             className="fill-transparent ml-2"
         />
         <div className="flex flex-col justify-center gap-0">
-          <p className="text-lg text-indigo-600 font-semibold">Muni</p>
-          <p className="text-gray-600">Cafe & Restaurant</p>
+          <p className="text-lg text-white font-semibold">Muni</p>
+          <p className="text-gray-300">Cafe & Restaurant</p>
         </div>
       </div>
 
-      <div className="h-full w-full flex flex-col gap-6 pt-10 pb-4">
-        <div className="w-full px-2 flex flex-col gap-4">
+      <div className="h-full w-full flex flex-col gap-6 pt-5 pb-4">
+        <div className="w-full flex flex-col">
           <Auth requiredPrevilage="View Info">
             <NavigationMenu route="/" only>
-              <DashboardIcon size={"22"}/>
+              <DashboardIcon size={"21"}/>
               <p className="hidden md:block">Dashboard</p>
             </NavigationMenu>
           </Auth>
           <Auth requiredPrevilage="View Orders">
             <NavigationMenu route="/orders">
-              <OrderIcon size={"22"}/>
+              <OrderIcon size={"21"}/>
               <p className="hidden md:block">Orders</p>
             </NavigationMenu>
           </Auth>
           <NavigationMenu route="/foods" defaultRoute="/categories">
-            <FoodIcon size={"22"}/>
+            <FoodIcon size={"21"}/>
             <p className="hidden md:block">Foods</p>
           </NavigationMenu>
           <NavigationMenu route="/drinks" defaultRoute="/categories">
-            <DrinkIcon size="22"/>
+            <DrinkIcon size="21"/>
             <p className="hidden md:block">Drinks</p>
           </NavigationMenu>
         </div>
 
-        <hr className="border-indigo-100"/>
+        <hr className="border-[#fff2]"/>
 
-        <div className="w-full px-2 flex flex-col gap-4">
+        <div className="w-full  flex flex-col">
           <Auth requiredPrevilage="View Users">
             <NavigationMenu route="/users">
-              <UsersIcon size={"22"}/>
+              <UsersIcon size={"21"}/>
               <p className="hidden md:block">Users</p>
             </NavigationMenu>
           </Auth>
           <Auth requiredPrevilage="View Tables">
             <NavigationMenu route="/tables">
-              <TableIcon size={"22"}/>
+              <TableIcon size={"21"}/>
               <p className="hidden md:block">Tables</p>
             </NavigationMenu>
           </Auth>
         </div>
 
-        <hr className="border-indigo-100"/>
+        <hr className="border-[#fff2]"/>
 
-        <div className="w-full px-2 flex flex-col gap-4">
+        <div className="w-full flex flex-col">
           <Auth requiredPrevilage="View Info">
             <NavigationMenu route="/stats">
-              <StatIcon size="22"/>
+              <StatIcon size="21"/>
               <p className="hidden md:block">Stats</p>
             </NavigationMenu>
           </Auth>
           <NavigationMenu route="/setting">
-            <SettingIcon size="22"/>
+            <SettingIcon size="21"/>
             <p className="hidden md:block">Setting</p>
           </NavigationMenu>
         </div>

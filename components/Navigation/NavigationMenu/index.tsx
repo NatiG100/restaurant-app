@@ -18,9 +18,10 @@ export default function NavigationMenu ({children,route,only=false,defaultRoute=
         <Link 
             href={route+defaultRoute}
             className={`
-                w-full ${selected?"bg-indigo-300 text-indigo-800":"bg-indigo-100 text-indigo-500"} 
-                hover:bg-indigo-200 px-3 py-2 rounded-md transition-all font-medium
-                flex gap-3 items-center justify-start ring-0 focus:ring-2 focus:outline-0 ring-indigo-500
+                w-full ${selected?"bg-[#343b48]":""} 
+                hover:bg-[#0005] px-5 py-[10px]  transition-all font-[500]
+                flex gap-3 items-center justify-start ring-0  focus:outline-0 ring-[#0005]
+                text-white drop-shadow-xl text-[17px] duration-200
             `}
         >
             {children}

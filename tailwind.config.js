@@ -5,6 +5,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      display: ["Alegreya Sans", "Sans"],
+    },
     extend: {
       gridTemplateColumns:{
         '1fr1fr':'1fr 1fr',

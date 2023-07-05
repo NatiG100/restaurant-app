@@ -87,8 +87,8 @@ function AppContent({ Component, pageProps }: AppProps){
   )
   return (
     <Redirect>
-      <div className="grid grid-cols-[75px,1fr] md:grid-cols-main h-screen">
-        <div className=" bg-white border-slate-300 border-r">
+      <div className="grid grid-cols-[68px,1fr] md:grid-cols-[265px,1fr] h-screen">
+        <div className=" bg-[#111727] shadow-sm shadow-[#111727aa] font-display">
           <Navigation/>
         </div>
         <div className="grid grid-rows-header h-screen">
