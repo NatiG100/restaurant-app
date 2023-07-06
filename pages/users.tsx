@@ -16,6 +16,7 @@ import { TypeCustomeErrorResponse, TypeMultiDataResponse } from "../types/types"
 import usePageRedirect from "../components/hoc/usePageRedirect";
 import Loading from "../components/UIElements/Loading";
 import Auth from "../components/hoc/Auth";
+import TableWrapper from "../components/TableWrapper";
 
 
 export default function DrinkCategories({setAppBarComponent}:any){
@@ -123,47 +124,49 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const finished = usePageRedirect("View Users");
     if(!finished) return <Loading type="full"/>
     return (
-        <div className="ag-theme-alpine h-full w-full" ref={tableRef}>
-            {
-                selectedUser&&
-                <Backdrop onClick={handleModalClose}>
-                    <ViewUserModal 
-                        user={selectedUser} 
-                        onClose={handleModalClose}
-                        isStatusChangeLoading={isStatusUpdateLoading}
-                        changeUserStatus={requestStatusUpdate}
-                    />
-                </Backdrop>
-            }
-            <Auth requiredPrevilage="Manage Users">
+        <TableWrapper>
+            <div className="ag-theme-alpine  h-full shadow-[2px_2px_4px_#0004]  rounded-lg overflow-hidden border border-[#14234d4f]" ref={tableRef}>
                 {
-                    openAddModal&&
-                    <Backdrop onClick={handleAddModalClose}>
-                        <AddUserModal onClose={handleAddModalClose}/>
+                    selectedUser&&
+                    <Backdrop onClick={handleModalClose}>
+                        <ViewUserModal 
+                            user={selectedUser} 
+                            onClose={handleModalClose}
+                            isStatusChangeLoading={isStatusUpdateLoading}
+                            changeUserStatus={requestStatusUpdate}
+                        />
                     </Backdrop>
                 }
-            </Auth>
-            <AgGridReact
-                context={{
-                    setSelecteduser,
-                    isStatusUpdateLoading,
-                    requestStatusUpdate,
-                }}
-                ref={gridRef}
-                rowData={response?.data}
-                columnDefs={columnDefs}
-                rowStyle={{width:"100%"}}
-                overlayLoadingTemplate={
-                    '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
-                }
-                rowDragManaged={true}
-                
-                containerStyle={{
-                    border:"0px solid #fff0"
-                }}
-                defaultColDef={defaultColDef}
-            >
-            </AgGridReact>
-        </div>
+                <Auth requiredPrevilage="Manage Users">
+                    {
+                        openAddModal&&
+                        <Backdrop onClick={handleAddModalClose}>
+                            <AddUserModal onClose={handleAddModalClose}/>
+                        </Backdrop>
+                    }
+                </Auth>
+                <AgGridReact
+                    context={{
+                        setSelecteduser,
+                        isStatusUpdateLoading,
+                        requestStatusUpdate,
+                    }}
+                    ref={gridRef}
+                    rowData={response?.data}
+                    columnDefs={columnDefs}
+                    rowStyle={{width:"100%"}}
+                    overlayLoadingTemplate={
+                        '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
+                    }
+                    rowDragManaged={true}
+                    
+                    containerStyle={{
+                        border:"0px solid #fff0"
+                    }}
+                    defaultColDef={defaultColDef}
+                >
+                </AgGridReact>
+            </div>
+        </TableWrapper>
     );
 }
