@@ -3,6 +3,7 @@ import Image from "next/image";
 import baseURL from "../../constants/BASE_URL";
 import Auth from "../hoc/Auth";
 import Button from "../UIElements/Button";
+import { CellRenderer } from "./foodCategories";
 
 export interface TypeDrink{
     id:string,
@@ -22,7 +23,7 @@ export interface TypeDrink{
 const DrinksActionCell = (params:ICellRendererParams<TypeDrink>)=>{
     const {isStatusUpdateLoading:loading, requestStatusUpdate:changeStatus} = params.context;
     return(
-        <div className="flex gap-4 font-semibold w-max">
+        <div className="flex gap-4 font-semibold w-max items-center py-2">
             <Button 
                 type="outline" 
                 className="w-24"
@@ -60,7 +61,7 @@ const DrinksAvatarCell = (params:ICellRendererParams<TypeDrink>)=>{
                 width={200}
                 src={baseURL+params.data?.img||""}
                 alt={params.data?.name||""}
-                className="rounded-full object-cover h-20 w-20 ring ring-indigo-700/20"
+                className="rounded-full object-cover h-14 w-14"
             />
         </div>
     );
@@ -74,9 +75,9 @@ const DrinksDescriptionCell = (params:ICellRendererParams<TypeDrink>)=>{
 }
 
 const statusColumnClass = (params:CellClassParams<TypeDrink>)=>(
-    params.data?.status==="Active"?"text-green-600 text-base":
-    params.data?.status==="Suspended"?"text-red-600  text-base":
-    "text-gray-600  text-base" 
+    params.data?.status==="Active"?"h-14 flex items-center my-2 py-2 text-green-600 text-base":
+    params.data?.status==="Suspended"?"h-14 flex items-center my-2 py-2 text-red-600  text-base":
+    "h-14 flex items-center my-2 py-2 text-gray-600  text-base" 
 )
 
 const headerClass:string = "text-gray-700 text-base";
@@ -90,6 +91,15 @@ export const defaultColDef:ColDef={
 
 export const columnDefs:ColDef<TypeDrink>[] = [
     {
+        checkboxSelection:true,
+        headerCheckboxSelection:true,
+        width:60,
+        resizable:false,
+        autoHeight:false,
+        cellClass:"w-full justify-center flex items-center my-2 py-2",
+        lockPosition:'left',
+    },
+    {
         field:'img',
         headerName:"Avatar",
         width:122,
@@ -101,6 +111,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         headerName:"ID",
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
+        cellRenderer:CellRenderer()
     },
     {
         field: 'categoryId',
@@ -108,6 +119,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
         width:100,
+        cellRenderer:CellRenderer(),
 
     },
     { 
@@ -115,14 +127,8 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         headerName:"Name",
         cellClass:cellClass,
         width:150,
-        sortable:true,  
-    },
-    { 
-        field: 'description',
-        headerName:"Description",
-        cellRenderer:DrinksDescriptionCell,
-        width:200,
-        wrapText:true,
+        sortable:true, 
+        cellRenderer:CellRenderer(true) 
     },
     { 
         field: 'totalSale',
@@ -131,6 +137,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         width:120,
         filter: 'agTextColumnFilter',
         sortable:true,
+        cellRenderer:CellRenderer()
     },
     {
         field:'createdBy',
@@ -138,6 +145,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         filter: 'agTextColumnFilter',
         cellClass:cellClass,
         width: 150,
+        cellRenderer:CellRenderer(false,true)
     },
     { 
         field: 'created',
@@ -146,6 +154,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
+        cellRenderer:CellRenderer(false,true)
     },
     { 
         field: 'updated',
@@ -154,6 +163,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
+        cellRenderer:CellRenderer()
     },
     {
         field: 'cost',
@@ -161,6 +171,7 @@ export const columnDefs:ColDef<TypeDrink>[] = [
         filter: 'agTextColumnFilter',
         sortable: true,
         width: 100,
+        cellRenderer:CellRenderer()
     },
     { 
         field: 'status',

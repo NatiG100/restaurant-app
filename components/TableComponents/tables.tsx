@@ -9,6 +9,7 @@ import { changeTableStatus, deleteTable } from "../../services/TableService";
 import { useCallback, useEffect,useState } from "react";
 import { toast } from "react-toastify";
 import Auth from "../hoc/Auth";
+import { CellRenderer } from "./foodCategories";
 
 export interface TypeTable{
     id:string,
@@ -60,7 +61,7 @@ const TableActionCell = (params:ICellRendererParams<TypeTable>)=>{
 
 
     return(
-        <div className="flex gap-4 font-semibold w-max">
+        <div className="flex gap-4 font-semibold w-max items-center py-2">
             <Auth requiredPrevilage="Manage Tables">
                 {
                     params.data?.status==="Active"?
@@ -102,7 +103,7 @@ const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
         }
     },[]);
     return(
-        <div className="bg-white h-20 w-20 my-2">
+        <div className="bg-white h-14 w-14 my-2">
             <QRCode 
                 value={frontendWebDomain+"/client/foods?tableNumber="+params.data?.id||""}
                 className="w-full h-auto"
@@ -112,9 +113,9 @@ const TableQRCell = (params:ICellRendererParams<TypeTable>)=>{
 }
 
 const statusColumnClass = (params:CellClassParams<TypeTable>)=>(
-    params.data?.status==="Active"?"text-green-600 text-base":
-    params.data?.status==="Suspended"?"text-red-600  text-base":
-    "text-gray-600  text-base" 
+    params.data?.status==="Active"?"h-14 flex items-center my-2 py-2  text-green-600 text-base":
+    params.data?.status==="Suspended"?"h-14 flex items-center my-2 py-2  text-red-600  text-base":
+    "h-14 flex items-center my-2 py-2  text-gray-600  text-base" 
 );
 
 const headerClass:string = "text-gray-700 text-base";
@@ -127,15 +128,24 @@ export const defaultColDef:ColDef={
 }
 export const columnDefs:ColDef<TypeTable>[] = [
     {
+        checkboxSelection:true,
+        headerCheckboxSelection:true,
+        width:60,
+        resizable:false,
+        autoHeight:false,
+        cellClass:"w-full justify-center flex items-center my-2 py-2"
+    },
+    {
         headerName: "QR",
         cellRenderer:TableQRCell,
-        width:200,
+        width:120,
     },
     { 
         field: 'id',
         headerName:"ID",
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
+        cellRenderer:CellRenderer()
     },
     {
         field: 'tableNumber',
@@ -143,6 +153,7 @@ export const columnDefs:ColDef<TypeTable>[] = [
         width:120,
         cellClass: cellClass,
         filter: 'agTextColumnFilter',
+        cellRenderer:CellRenderer()
     },
     { 
         field: 'status',

@@ -83,7 +83,7 @@ export default function SalesChart(){
                             return MOtY[parseInt(x)-1];
                         }
                     }}
-                    />
+                />
                 <VictoryAxis 
                     
                     dependentAxis

@@ -125,7 +125,7 @@ export default function DrinkCategories({setAppBarComponent}:any){
     }
     return (
         <TableWrapper>
-            <div className="ag-theme-alpine h-full w-full shadow-md shadow-gray-[#fffb]" ref={tableRef}>
+            <div className=" ag-theme-alpine  h-full shadow-[2px_2px_4px_#0004]  rounded-lg overflow-hidden border border-[#14234d4f]" ref={tableRef}>
                 {
                     selectedDrink&&
                     <Backdrop onClick={handleFoodViewModalClose}>

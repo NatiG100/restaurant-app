@@ -4,6 +4,7 @@ import React from "react";
 import baseURL from "../../constants/BASE_URL";
 import Auth from "../hoc/Auth";
 import Button from "../UIElements/Button";
+import moment from "moment";
 
 export interface TypeFoodCategory{
     id: string,
@@ -85,10 +86,10 @@ export const defaultColDef:ColDef={
         justify:"center"
     }
 }
-export const CellRenderer = (bold?:boolean)=>(params:ICellRendererParams<TypeFoodCategory>)=>{
+export const CellRenderer = (bold?:boolean,isDate?:boolean)=>(params:ICellRendererParams<TypeFoodCategory>)=>{
     return(
         <div className=" w-full h-14 flex items-center my-2">
-            <p className={`align-center w-full  ${bold&&"font-medium"}`}>{params.value}</p>
+            <p className={`align-center w-full  ${bold&&"font-bold text-gray-700"}`}>{isDate?(moment(params.value).calendar()||'   -  '):(params.value||'   -   ')}</p>
         </div>
     );
 }
@@ -96,9 +97,10 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
     {
         checkboxSelection:true,
         headerCheckboxSelection:true,
-        width:80,
+        width:60,
+        resizable:false,
         autoHeight:false,
-        cellClass:"justify-center"
+        cellClass:"w-full justify-center flex items-center my-2 py-2"
     },
     {
         field:'img',
@@ -138,7 +140,7 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
-        cellRenderer:CellRenderer(false)
+        cellRenderer:CellRenderer(false,true)
     },
     { 
         field: 'updated',
@@ -147,7 +149,7 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
-        cellRenderer:CellRenderer(false)
+        cellRenderer:CellRenderer(false,true)
     },
     { 
         field: 'status',

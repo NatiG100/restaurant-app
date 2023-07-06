@@ -3,6 +3,7 @@ import Image from "next/image";
 import baseURL from "../../constants/BASE_URL";
 import Auth from "../hoc/Auth";
 import Button from "../UIElements/Button";
+import { CellRenderer } from "./foodCategories";
 
 export interface TypeDrinkCategory{
     id:string,
@@ -19,7 +20,7 @@ const DrinkCategoriesActionCell = (params:ICellRendererParams<TypeDrinkCategory>
     const loading = params.context.isStatusUpdateLoading;
     const changeStatus = params.context.requestStatusUpdate;
     return(
-        <div className="flex gap-4 font-semibold w-max">
+        <div className="flex gap-4 font-semibold w-max items-center py-2">
             <Button 
                 type="outline" 
                 className="w-24"
@@ -57,7 +58,7 @@ const DrinkCategoriesAvatarCell = (params:ICellRendererParams<TypeDrinkCategory>
                 width={200}
                 src={baseURL+params.data?.img||""}
                 alt={params.data?.name||""}
-                className="rounded-full object-cover h-20 w-20 ring ring-indigo-700/20"
+                className="rounded-full object-cover h-14 w-14"
             />
         </div>
     );
@@ -71,9 +72,9 @@ const DrinkCategoriesDescriptionCell = (params:ICellRendererParams<TypeDrinkCate
 }
 
 const statusColumnClass = (params:CellClassParams<TypeDrinkCategory>)=>(
-    params.data?.status==="Active"?"text-green-600 text-base":
-    params.data?.status==="Suspended"?"text-red-600  text-base":
-    "text-gray-600  text-base" 
+    params.data?.status==="Active"?"h-14 flex items-center my-2 py-2  text-green-600 text-base":
+    params.data?.status==="Suspended"?"h-14 flex items-center my-2 py-2 text-red-600  text-base":
+    "h-14 flex items-center my-2 py-2 text-gray-600  text-base" 
 )
 
 const headerClass:string = "text-gray-700 text-base";
@@ -87,6 +88,15 @@ export const defaultColDef:ColDef={
 
 export const columnDefs:ColDef<TypeDrinkCategory>[] = [
     {
+        checkboxSelection:true,
+        headerCheckboxSelection:true,
+        width:60,
+        resizable:false,
+        autoHeight:false,
+        cellClass:"w-full justify-center flex items-center my-2 py-2",
+        lockPosition:'left',
+    },
+    {
         field:'img',
         headerName:"Avatar",
         width:122,
@@ -98,20 +108,15 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         headerName:"ID",
         cellClass:cellClass,
         filter: 'agTextColumnFilter',
+        cellRenderer:CellRenderer()
     },
     { 
         field: 'name',
         headerName:"Name",
         cellClass:cellClass,
         width:150,
-        sortable:true,  
-    },
-    { 
-        field: 'description',
-        headerName:"Description",
-        cellRenderer:DrinkCategoriesDescriptionCell,
-        width:200,
-        wrapText:true,
+        sortable:true,
+        cellRenderer:CellRenderer(true)  
     },
     { 
         field: 'drinkCount',
@@ -120,6 +125,7 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         width:120,
         filter: 'agTextColumnFilter',
         sortable:true,
+        cellRenderer:CellRenderer()
     },
     { 
         field: 'created',
@@ -128,6 +134,7 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
+        cellRenderer:CellRenderer(false,true)
     },
     { 
         field: 'updated',
@@ -136,6 +143,7 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         cellClass:cellClass,
         width:150,
         sortable:true,
+        cellRenderer:CellRenderer(false,true)
     },
     { 
         field: 'status',
