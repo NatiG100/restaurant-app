@@ -17,7 +17,7 @@ export default function WhoAmI({children}:{children:React.ReactNode}){
     const {data:setting,error:settingError,isLoading} = useQuery<
       TypeFetchSettingResponse,
       TypeCustomeErrorResponse
-    >('fetchApplicationSetting',fetchSetting,{retry:4});
+    >('fetchApplicationSetting',fetchSetting,{retry:0});
 
     useEffect(()=>{
       if(settingError){

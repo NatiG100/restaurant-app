@@ -15,6 +15,6 @@ export const logout = async ()=>{
 };
 export const who_am_i = async()=>{
     return instance.get(
-        'auth/who-am-i',
+        'auth/who-am-i'
     );
 };
