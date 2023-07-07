@@ -165,7 +165,6 @@ export const columnDefs:ColDef<TypeUser>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:UserActionCell,
-        width:300,
         suppressSizeToFit:false,
         resizable:false,
     },

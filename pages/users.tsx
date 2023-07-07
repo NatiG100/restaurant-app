@@ -36,7 +36,6 @@ export default function DrinkCategories({setAppBarComponent}:any){
     useEffect(()=>{
         if(gridRef.current){
             gridRef.current?.api?.showLoadingOverlay();
-            fitSize()
         }
     },[gridRef]);
 

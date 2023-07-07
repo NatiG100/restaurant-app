@@ -80,7 +80,8 @@ const cellClass:string = "text-gray-600 text-base self-center";
 export const defaultColDef:ColDef={
     resizable:true,
     autoHeight:true,
-    headerClass
+    headerClass,
+    suppressSizeToFit:true,
 }
 
 export const columnDefs:ColDef<TypeFood>[] = [
@@ -179,6 +180,7 @@ export const columnDefs:ColDef<TypeFood>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:FoodsActionCell,
-        width:300 
+        suppressSizeToFit:false,
+        resizable:false,
     },
 ];

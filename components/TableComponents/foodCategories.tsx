@@ -84,7 +84,8 @@ export const defaultColDef:ColDef={
     headerClass,
     cellStyle: {
         justify:"center"
-    }
+    },
+    suppressSizeToFit:true,
 }
 export const CellRenderer = (bold?:boolean,isDate?:boolean)=>(params:ICellRendererParams<TypeFoodCategory>)=>{
     return(
@@ -164,5 +165,7 @@ export const columnDefs:ColDef<TypeFoodCategory>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:FoodCategoriesActionCell,
+        suppressSizeToFit:false,
+        resizable:false,
     }
 ];

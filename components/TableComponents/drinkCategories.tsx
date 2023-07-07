@@ -83,7 +83,8 @@ const cellClass:string = "text-gray-600 text-base self-center cursor-pointer";
 export const defaultColDef:ColDef={
     resizable:true,
     autoHeight:true,
-    headerClass
+    headerClass,
+    suppressSizeToFit:true,
 }
 
 export const columnDefs:ColDef<TypeDrinkCategory>[] = [
@@ -158,6 +159,7 @@ export const columnDefs:ColDef<TypeDrinkCategory>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:DrinkCategoriesActionCell,
-        width:300 
+       suppressSizeToFit:false,
+       resizable:false,
     },
 ];

@@ -24,6 +24,15 @@ export default function DrinkCategories({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
+    const fitSize = useCallback(()=>{
+        if(gridRef.current){
+            gridRef.current.api.sizeColumnsToFit({defaultMinWidth:280});
+        }
+    },[gridRef]);
+    useEffect(()=>{
+        addEventListener('resize',fitSize);
+        return ()=>{removeEventListener('resize',fitSize)}
+    },[])
     const router:NextRouter = useRouter();
     const {id} = router.query;
     //Add custom header components
@@ -164,6 +173,8 @@ export default function DrinkCategories({setAppBarComponent}:any){
                         border:"0px solid #fff0"
                     }}
                     defaultColDef={defaultColDef}
+                    onColumnResized={fitSize}
+                    onDisplayedColumnsChanged={fitSize}
                 >
                 </AgGridReact>
             </div>

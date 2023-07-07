@@ -2,7 +2,7 @@ import {useRef, useEffect,useState, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { columnDefs, TypeOrder } from "../components/TableComponents/order";
+import { columnDefs, defaultColDef, TypeOrder } from "../components/TableComponents/order";
 import {AiOutlinePrinter,AiOutlineExport} from 'react-icons/ai';
 import IconButton from "../components/UIElements/IconButton";
 import Backdrop from "../components/Backdrop";
@@ -20,6 +20,17 @@ export default function Orders({setAppBarComponent}:any){
     const tableRef = useRef<HTMLDivElement>(null);
     // get ag-grid api ref
     const gridRef = useRef<AgGridReact>(null);
+    //fit width logic
+    const fitSize = useCallback(()=>{
+        if(gridRef.current){
+            gridRef.current.api.sizeColumnsToFit({defaultMinWidth:280});
+        }
+    },[gridRef]);
+    useEffect(()=>{
+        addEventListener('resize',fitSize);
+        return ()=>{removeEventListener('resize',fitSize)}
+    },[])
+
     const handleExportClicked = ()=>{
         gridRef.current!.api.exportDataAsCsv();
     }
@@ -135,8 +146,8 @@ export default function Orders({setAppBarComponent}:any){
                     }}
                     ref={gridRef}
                     rowData={response?.data}
+                    defaultColDef={defaultColDef}
                     columnDefs={columnDefs}
-                    rowHeight={55}
                     rowStyle={{width:"100%"}}
                     overlayLoadingTemplate={
                         '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>'
@@ -145,6 +156,8 @@ export default function Orders({setAppBarComponent}:any){
                     containerStyle={{
                         border:"0px solid #fff0"
                     }}
+                    onColumnResized={fitSize}
+                    onDisplayedColumnsChanged={fitSize}
                 >
                 </AgGridReact>
             </div>

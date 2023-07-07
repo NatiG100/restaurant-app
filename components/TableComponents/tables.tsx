@@ -124,7 +124,8 @@ const cellClass:string = "text-gray-600 text-base";
 export const defaultColDef:ColDef={
     resizable:true,
     autoHeight:true,
-    headerClass
+    headerClass,
+    suppressSizeToFit:true
 }
 export const columnDefs:ColDef<TypeTable>[] = [
     {
@@ -168,6 +169,7 @@ export const columnDefs:ColDef<TypeTable>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:TableActionCell,
-        width:300 
+        suppressSizeToFit:false,
+        resizable:false,
     },
 ];
