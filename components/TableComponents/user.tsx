@@ -102,7 +102,8 @@ const cellClass:string = "text-gray-600 text-base";
 export const defaultColDef:ColDef={
     resizable:true,
     autoHeight:true,
-    headerClass
+    headerClass,
+    suppressSizeToFit:true,
 }
 export const columnDefs:ColDef<TypeUser>[] = [
     {
@@ -164,6 +165,8 @@ export const columnDefs:ColDef<TypeUser>[] = [
         field: 'status',
         headerName:"Actions",
         cellRenderer:UserActionCell,
-        width:300 
+        width:300,
+        suppressSizeToFit:false,
+        resizable:false,
     },
 ];
